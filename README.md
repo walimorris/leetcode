@@ -1,4 +1,4 @@
 # Leetcode
 Leetcode: Java
 
-Goal: 10/day
+Goal: 5/day
