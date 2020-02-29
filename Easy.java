@@ -192,3 +192,45 @@ public class ToLowerCase {
     }
 }
 
+/* Given an array of integers A sorted in non-decreasing order, return an array
+ * of the squares of each number, also in sorted non-decresing order. 
+ *
+ * Author : Wali Morris
+ * File   : SortedSquares.java
+ * Date   : 02/29/2020 
+ */
+
+import java.util.*;
+
+public class SortedSquares {
+    public static void main(String[] args) {
+        // test1
+        int[] input1 = {-4, -1, 0, 3, 10};
+        int[] output1 = sortedSquares(input1);
+        System.out.println(Arrays.toString(output1));
+
+        // test2
+        int[] input2 = {-7, -3, 2, 3, 11};
+        int[] output2 = sortedSquares(input2);
+        System.out.println(Arrays.toString(output2));
+
+    }
+    
+    public static int[] sortedSquares(int[] a) {
+        int[] arr = new int[a.length];
+        for(int i = 0; i < a.length; i++) {
+            arr[i] = a[i] * a[i]; // get the squares 
+        }
+        // compare each value for the length of array
+        for(int j = 0; j < arr.length; j++) {
+            for(int k = 0; k < arr.length; k++) {
+                if(arr[k] > arr[j]) { // is value greater?
+                    int temp = arr[j]; // yes? 
+                    arr[j] = arr[k]; // move greater value to right
+                    arr[k] = temp; // lesser value to left
+                }
+            }
+        }
+        return arr;
+    }
+}
