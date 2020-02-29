@@ -172,3 +172,23 @@ class ProductAndSum {
     }
 }
 
+/* Implement function ToLowerCase() that has a string parameter str, and 
+ * returns the same string in lowercase. 
+ *
+ * Author: Wali Morris
+ * File  : ToLowerCase.java
+ * Date  : 02/29/2020 
+ */
+
+public class ToLowerCase {
+    public static void main(String[] args) {
+        String input = "LOVELY";
+        String output = toLowerCase(input);
+        System.out.println("Output: " + output);
+    }
+
+    public static String toLowerCase(String str) {
+        return str.toLowerCase();
+    }
+}
+
