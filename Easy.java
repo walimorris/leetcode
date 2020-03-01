@@ -234,3 +234,45 @@ public class SortedSquares {
         return arr;
     }
 }
+
+/* Given an array A of non-negative integers, return an array consisting of all 
+ * the even elements of A, followed by all the odd elements of A.
+ *
+ * Explain: This solution impliments a bubble sort algorithm. A given array can be 
+ * unsorted, so we'll have to view every value in it. If the value being examined 
+ * is not even sink it to the bottom of the list and move it right.   
+ *
+ * Author : Wali Morris 
+ * File   : SortedParity.java
+ * Date   : 02/29/2020 
+ */
+
+import java.util.*;
+
+public class SortedParity {
+    public static void main(String[] args) {
+        // test 1
+        int[] input1 = {3, 1, 2, 4};
+        int[] output1 = sortArrayByParity(input1);
+        System.out.println("Result: " + Arrays.toString(output1));
+
+        // test 2
+        int[] input2 = {11, 12, 10, 8, 22, 33, 44, 2, 1, 5, 6};
+        int[] output2 = sortArrayByParity(input2);
+        System.out.println("Result: " + Arrays.toString(output2));
+
+    }
+
+    public static int[] sortArrayByParity(int[] a) {
+        for(int i = 0; i < a.length; i++) {
+            for(int j = 0; j < a.length-1-i; j++) {
+                if(a[j] % 2 != 0) {
+                    int temp = a[j];
+                    a[j] = a[j+1];
+                    a[j+1] = temp;
+                }
+            }
+        }
+        return a;
+    }
+}
