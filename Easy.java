@@ -276,3 +276,35 @@ public class SortedParity {
         return a;
     }
 }
+
+/* Given the array nums, for each nums[i] find out how many numbers in the 
+ * array are smaller than it. 
+ *
+ * Author : Wali Morris 
+ * File   : SmallerThanCurrent.java
+ * Date   : 03/01/2020
+ */
+
+import java.util.*;
+
+public class SmallerThanCurrent {
+    public static void main(String[] args) {
+        int[] input1 = {8, 1, 2, 2, 3};
+        int[] output1 = smallerThanCurrent(input1);
+        System.out.println("Result: " + Arrays.toString(output1));
+    }
+
+    public static int[] smallerThanCurrent(int[] a) {
+        int[] newArr = new int[a.length];
+        for(int i = 0; i < a.length; i++) {
+            int count = 0;
+            for(int j = 0; j < a.length; j++) {
+                if(a[i] > a[j]) {
+                    count++;
+                }
+            }
+            newArr[i] = count;
+        }
+        return newArr;
+    }
+}
