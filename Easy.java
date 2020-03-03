@@ -308,3 +308,39 @@ public class SmallerThanCurrent {
         return newArr;
     }
 }
+
+/* Write a function that reverses a string. The input string is given as an 
+ * array of characters char[]
+ *
+ * Do not allocate extra space for another array, you must do this by modifying 
+ * the input array in-place with O(1) extra memory. 
+ *
+ * Author : Wali Morris 
+ * File   : ReverseString.java
+ * Date   : 03/02/2020
+ */
+
+import java.util.*;
+
+class ReverseString {
+    public static void main(String[] args) {
+        char[] input1 = {'h', 'e', 'l', 'l', 'o'};
+        reverseString(input1);
+        char[] input2 = {'z', 'e', 'b', 'r', 'a'};
+        reverseString(input2);
+        char[] input3 = {'w', 'a', 't', 'e', 'r', 'b', 'o', 't', 't', 'l', 'e'};
+        reverseString(input3);
+    }
+    /* eventually ints i and j will meet in the middle of string[int], at this point
+     * all letters will have been replaced. Except for the middle letter. */
+    public static void reverseString(char[] s) {
+        int j = 0;
+        for(int i = s.length - 1; i >= j; i--) {
+            char temp = s[j];
+            s[j] = s[i];
+            s[i] = temp;
+            j++;
+        }
+        System.out.println(Arrays.toString(s));
+    }
+}
