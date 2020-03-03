@@ -344,3 +344,43 @@ class ReverseString {
         System.out.println(Arrays.toString(s));
     }
 }
+
+* Given an array arr, replace every element in that array with the 
+ * greatest element among the elements to its right, and replace the 
+ * last element with -1
+ *
+ * Author : Wali Morris 
+ * File   : ToTheRight.java
+ * Date   : 03/03/2020
+ */
+
+import java.util.*;
+
+public class ToTheRight {
+    public static void main(String[] args) {
+        // test 1 
+        int[] input1 = {17, 18, 5, 4, 6, 1};
+        int[] output1 = replaceElements(input1);
+        System.out.println(Arrays.toString(output1));
+
+        // test 2
+        int[] input2 = {3, 4, 5, 1, 3, 1};
+        int[] output2 = replaceElements(input2);
+        System.out.println(Arrays.toString(output2));
+    }
+    
+    public static int[] replaceElements(int[] a) {
+        for(int i = 0; i < a.length-1; i++) {
+            int key = a[i];
+            for(int j = i+1; j < a.length; j++) {
+                if(a[j] > key) {
+                    key = a[j];
+                }
+            }
+            a[i] = key;
+            a[i+1] = 0;
+        }
+        a[a.length-1] = -1;
+        return a;
+    }
+}
