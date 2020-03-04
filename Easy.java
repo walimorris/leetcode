@@ -431,3 +431,64 @@ public class BinarySearch {
         return -1;
     }
 }
+
+/* We are given two strings A and B. A shift on A consists of taking
+ * string A and moving the leftmost character to the rightmost position.
+ * Return true if and only if A can become B after some number of shifts
+ * on A. 
+ *
+ * Author : Wali Morris 
+ * File   : RotateString.java
+ * Date   : 03/04/2020
+ */
+
+import java.util.*;
+
+public class RotateString {
+    public static void main(String[] args) {
+        String a = "abcde";
+        String b = "cdeab";
+        boolean output = rotateString(a, b);
+        System.out.println("Output: " + output);
+
+        String c = "abcde";
+        String d = "abced";
+        boolean output2 = rotateString(c, d);
+        System.out.println("Output: " + output2);
+
+        String e = "";
+        String f = "";
+        boolean output3 = rotateString(e, f);
+        System.out.println("Output: " + output3);
+    }
+    
+    public static boolean rotateString(String a, String b) {
+        if(a.length() != b.length()) { // if string are equal continue, else they'll never match 
+            return false;
+        } else if(a.equals(b)) { // your lucky, strings already match, return true 
+            return true;
+        } else {
+            // since strings are equal create char arrays for both strings
+            char[] strA = new char[a.length()];
+            char[] strB = new char[b.length()];
+            for(int i = 0; i < a.length(); i++) {
+                strA[i] = a.charAt(i);
+                strB[i] = b.charAt(i);
+            }
+            char temp;
+            int count = 0;
+            while(count < strA.length) { // roatate all chars in the array
+                temp = strA[0]; // hold first character in array
+                for(int i = 0; i < strA.length - 1; i++) {
+                    strA[i] = strA[i+1];  // rotate characters left
+                }
+                strA[strA.length-1] = temp; // append held character to end
+                if(Arrays.equals(strA, strB)) { // do the arrays match?
+                    return true;
+                }
+                count++;
+            }
+        }
+        return false;
+    }
+}
