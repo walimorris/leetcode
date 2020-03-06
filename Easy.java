@@ -492,3 +492,72 @@ public class RotateString {
         return false;
     }
 }
+
+/* Balanced strings are those who have equal quantity of 'L' and 'R' characters.
+ * Given a balanced string s split it in the maximum amount of balanced strings.
+ * Return the maximum amount of splitted balanced strings. 
+ *
+ * Author : Wali Morris 
+ * File   : BalancedStrings.java
+ * Date   : 02/5/2020 
+ */
+
+import java.util.*;
+
+public class BalancedStrings {
+    public static void main(String[] args) {
+        // test 1
+        String a = "RLRRLLRLRL";
+        int resultSequence1 = balancedStringSplit(a);
+        System.out.println("How many balanced RL sequences are there: " + resultSequence1);
+
+        // test 2
+        String b = "RLLLLRRRLR";
+        int resultSequence2 = balancedStringSplit(b);
+        System.out.println("How many balanced RL sequences are there: " + resultSequence2);
+
+        // test 3
+        String c = "LLLLRRRR";
+        int resultSequence3 = balancedStringSplit(c);
+        System.out.println("How many balanced RL sequences are there: " + resultSequence3);
+
+        // test 4
+        String d = "RLRRRLLRLL";
+        int resultSequence4 = balancedStringSplit(d);
+        System.out.println("How many balanced RL sequences are there: " + resultSequence4);
+    }
+    
+    public static int balancedStringSplit(String s) {
+        StringBuffer str = new StringBuffer(s); // create new string buffer for insertion of comma
+        int count = str.length(); // length will change, for equal sequences
+        int rCount = 0;
+        int lCount = 0;
+        for(int i = 0; i < count-1; i++) {
+            if(str.charAt(i) == 'L') {
+                lCount++;
+            } else if(str.charAt(i) == 'R') {
+                 rCount++;
+            }
+            if(rCount == lCount) {
+                str.insert(i+1, ","); // insert comma after RL sequence 
+                i++; // increment i to account for "," insertion 
+                count++; // increment count or length of str to account for "," insertion
+                
+                // restart 'R' and 'L' char counts      
+                rCount = 0;
+                lCount = 0;
+            }
+        }
+        // use toString() method of String buffer object
+        int numCommas = 0, j = 0;
+        String newStr = str.toString() + ','; // comma signifies end of sequence
+        System.out.print("Split: " + newStr + " ");
+        while(j < newStr.length()) {
+            if(newStr.charAt(j) == ',') { // every comma means there's a equal sequence 
+                numCommas++;
+            }
+            j++;
+        }
+        return numCommas; // number of commas equals number of even RL sequences        
+    }
+}
