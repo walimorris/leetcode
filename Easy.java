@@ -45,6 +45,57 @@ public class BinarySearch {
     }
 }
 
+* We are given a list nums of integers representing a list compressed with 
+ * run-length encoding. Consider each adjacent pair of elements. For each such
+ * pair, there are freq elements with value concatenated in sublist. Concatenate
+ * all the sublists from left to right to generate the decompressed list. 
+ * Return the decompressed list. 
+ *
+ * Author : Wali Morris 
+ * File   : Decompress.java
+ * Date   : 03/07/2020
+ */
+
+import java.util.*;
+
+import java.util.*;
+
+// A client program to test Decompress method
+public class Decompress {
+    public static void main(String[] args) {
+        // test 1
+        int[] input1 = {1, 2, 3, 4};
+        int[] output1 = decompressList(input1);
+        System.out.println(Arrays.toString(output1));
+        // test2 
+        int[] input2 = {1, 1, 2, 3};
+        int[] output2 = decompressList(input2);
+        System.out.println(Arrays.toString(output2));
+    }
+    
+    public static int[] decompressList(int[] compressedList) {
+        if ( compressedList.length % 2 != 0 ) {
+            throw new IllegalArgumentException("List is unbalanced");
+        }
+        ArrayList<Integer> valueList = new ArrayList<>();
+        for ( int i = 0; i < compressedList.length-1; i+=2) {
+            int freq = compressedList[i];
+            int value = compressedList[i+1];
+            for (int j = 0; j < freq; j++) {
+                valueList.add(value);
+            }
+        }
+        int[] decompressedList = new int[valueList.size()];
+        int k = 0;
+        for ( int val: valueList ) {
+            decompressedList[k] = val;
+            k++;
+        }
+        return decompressedList;
+    }
+}
+
+
 /* Given a non-negative integer num, return the number of steps 
  * to reduce it to zero. If the current number is even, you have 
  * to divide it by 2, otherwise, you have to subtract 1 from it.
