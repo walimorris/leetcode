@@ -45,7 +45,7 @@ public class BinarySearch {
     }
 }
 
-* We are given a list nums of integers representing a list compressed with 
+/* We are given a list nums of integers representing a list compressed with 
  * run-length encoding. Consider each adjacent pair of elements. For each such
  * pair, there are freq elements with value concatenated in sublist. Concatenate
  * all the sublists from left to right to generate the decompressed list. 
@@ -94,7 +94,6 @@ public class Decompress {
         return decompressedList;
     }
 }
-
 
 /* Given a non-negative integer num, return the number of steps 
  * to reduce it to zero. If the current number is even, you have 
