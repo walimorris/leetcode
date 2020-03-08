@@ -95,7 +95,7 @@ public class Decompress {
     }
 }
 
-/* Given a binary matrix A, we want to fli[p the image horizontally, then 
+/* Given a binary matrix A, we want to flip the image horizontally, then 
  * invert it, and return the resulting image. 
  * A very awkward solution.
  *
