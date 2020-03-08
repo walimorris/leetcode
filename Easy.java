@@ -95,6 +95,85 @@ public class Decompress {
     }
 }
 
+/* Given a binary matrix A, we want to fli[p the image horizontally, then 
+ * invert it, and return the resulting image. 
+ * A very awkward solution.
+ *
+ * Author : Wali Morris 
+ * File   : FlipBinaryMatrix.java
+ * Date   : 03/09/2020
+ */
+
+import java.util.*;
+
+public class FlipBinaryMatrix {
+    // test case: pass  
+    public static void main(String[] args) {
+        int[][] input = new int[3][3];
+        input[0][0] = 1;
+        input[0][1] = 1;
+        input[0][2] = 0;
+        input[1][0] = 1;
+        input[1][1] = 0;
+        input[1][2] = 1;
+        input[2][0] = 0;
+        input[2][1] = 0;
+        input[2][2] = 0;
+        System.out.println("Original Matrix: " + Arrays.deepToString(input));
+        int[][] myMatrix = flipAndInvert(input);
+        System.out.println("Final Matrix: " + Arrays.deepToString(myMatrix));
+    }
+
+    public static int[][] flipAndInvert(int[][] a) {
+        int[][] flippedMatrix = invert(a); // invert  
+        int[][] finalMatrix = flip(flippedMatrix); // flip
+        return finalMatrix;
+    }
+    
+    public static int[][] flip(int[][] a) {
+        // push reversed values onto stack 
+        Stack<Integer> matrixKeys = new Stack<>();
+        for ( int i = 0; i < a.length; i++) {
+            for ( int j = a[i].length-1; j >= 0; j--) {
+                matrixKeys.push(a[i][j]);
+            }
+        }
+        // create new array and pop matrix keys to this array 
+        int k = 0;
+        int[][] flippedMatrix = new int[a.length][a[k].length];
+        for ( k = 0; k < a.length; k++) {
+            for( int n = 0; n < a[k].length; n++) {
+                flippedMatrix[k][n] = matrixKeys.pop();
+            }
+        }
+        return flippedMatrix;
+    }
+    
+    public static int[][] invert(int[][] a) {
+        // push inverted values onto stack 
+        Stack<Integer> matrixKeys = new Stack<>();
+        for ( int i = 0; i < a.length; i++) {
+            for ( int j = 0; j < a[i].length; j++) {
+                if ( a[i][j] == 0) {
+                    a[i][j] = 1;
+                } else {
+                    a[i][j] = 0;
+                }
+                matrixKeys.push(a[i][j]);
+            }
+        }
+        // pop inverted values into new array 
+        int i = 0;
+        int[][] invertedMatrix = new int[a.length][a[i].length];
+        for ( i = 0; i < a.length; i++) {
+            for ( int j = 0; j < a[i].length; j++) {
+                invertedMatrix[i][j] = matrixKeys.pop();
+            }
+        }
+        return invertedMatrix;
+    }
+}
+
 /* Given a non-negative integer num, return the number of steps 
  * to reduce it to zero. If the current number is even, you have 
  * to divide it by 2, otherwise, you have to subtract 1 from it.
