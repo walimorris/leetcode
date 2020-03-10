@@ -1,3 +1,59 @@
+/* Given head which is a reference node to a singly-linked list.
+ * The value of each node in the linked list is either 0 or 1. 
+ * The linked list holds the binary representation of a number. 
+ * Return the decimal value of the number in the linked list. 
+ *
+ *
+ * Definition for singly-linked list.
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ *
+ *
+ * Author : Wali Morris 
+ * File   : ConvertBinary.java
+ * Date   : 03/10/2020
+ */
+
+import java.util.*;
+
+public class ConvertBinary {
+    public static void main(String[] args) {
+        ListNode head = new ListNode(1, new ListNode(0, new ListNode(1)));
+        int output = getDecimalValue(head);
+        System.out.println("result: " + output);
+    }
+
+    public static int getDecimalValue(ListNode head) {
+        ListNode current = head; // current refers to ListNode head 
+        Stack<Integer> keys = new Stack<>(); // create stack to use LIFO convention
+        while ( current != null ) {
+            keys.add(current.val); // populate stack
+            current = current.next;
+        }
+
+        /* Binary sequences are read from left to right start at 2^0 to 2^lengthi-1 of sequence.
+         * Reading the sequence in reverse due to stack we can subtract 1 from count, accounting
+         * for 0 indexing. Ignore all zeros in binary sequence and only account for the 1's. 
+         * Adding this gives the decimal value of the sequence. 
+         */
+        int count = keys.size();
+        int decimal = 0;        
+        for ( Integer key: keys ) {
+            if ( key == 0) { 
+                count--;  
+                continue;  
+            } else { 
+                decimal += Math.pow(2, count-1); 
+            } 
+            count--; 
+        }
+        return decimal; 
+    } 
+} 
+
 /* Given a sorted(in ascending order) integer array nums of n elements 
  * and a target value, write a function to search target in nums. If 
  * target exists, then return its index, otherwise return -1
