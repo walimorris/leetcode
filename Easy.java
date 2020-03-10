@@ -39,14 +39,14 @@ public class ConvertBinary {
          * for 0 indexing. Ignore all zeros in binary sequence and only account for the 1's. 
          * Adding this gives the decimal value of the sequence. 
          */
-        int count = keys.size();
+        int count = keys.size() - 1;
         int decimal = 0;        
         for ( Integer key: keys ) {
-            if ( key == 0) { 
+            if ( key == 0 ) { 
                 count--;  
                 continue;  
             } else { 
-                decimal += Math.pow(2, count-1); 
+                decimal += Math.pow(2, count); 
             } 
             count--; 
         }
