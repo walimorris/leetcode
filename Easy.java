@@ -160,6 +160,53 @@ public class Decompress {
  * Date   : 03/09/2020
  */
 
+/* Given a m * n matrix grid which is sorted in non-decresing order both row-
+ * wise and column-wise. return the number of negative numbers in grid. 
+ *
+ * Author : Wali Morris 
+ * File   : NegativeMatrixNums.java
+ * Date   : 03/11/2020
+ */
+
+import java.util.*;
+
+public class NegativeMatrixNums {
+    public static void main(String[] args) {
+        int[][] input = new int[4][4];
+        input[0][0] = 4;
+        input[0][1] = 3;
+        input[0][2] = 2;
+        input[0][3] = -1;
+        input[1][0] = 3;
+        input[1][1] = 2;
+        input[1][2] = 1;
+        input[1][3] = -1;
+        input[2][0] = 1;
+        input[2][1] = 1;
+        input[2][2] = -1;
+        input[2][3] = -2;
+        input[3][0] = -1;
+        input[3][1] = -1;
+        input[3][2] = -2;
+        input[3][3] = -3;
+        System.out.println("The array: " + Arrays.deepToString(input));
+        int output = countNegatives(input);
+        System.out.println("Negative Count: " + output );
+    }
+    
+    public static int countNegatives(int[][] grid) {
+        int count = 0;
+        for ( int i = 0; i < grid.length; i++ ) {
+            for ( int j = 0; j < grid[i].length; j++ ) {
+                if (grid[i][j] < 0 ) {
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+}
+
 import java.util.*;
 
 public class FlipBinaryMatrix {
