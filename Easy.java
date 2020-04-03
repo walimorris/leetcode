@@ -1,3 +1,46 @@
+/* In a array A of size 2N, there are N+1 unique elements, and exactly one of 
+ * these elements is repeated N times. Return the element repeated N times. 
+ *
+ * Author : Wali Morris 
+ * File   : RepeatedN.java
+ * Date   : 4/02/2020
+ *
+ * NOTES  : This algorithm initializes a HashMap data structure to hold key value pairs. 
+ *          To implement this data structure and find the repeated number we must iterate
+ *          through the given array. In this case the key in the map is the integer value 
+ *          from the array and the key-value is the number of times the key is seen within
+ *          the array, this is initialized as count. If the key already exists within the 
+ *          map, this means this is the repeated key, so return this key. If there are no 
+ *          repeated keys, this repeatedN() will return 0. The time complexity of this 
+ *          algorithm is O(N) because we are iterating through each value N of the array 
+ *          only once. The worse case is O(N) because we may have to iterate through every 
+ *          value before we find a repeated value N.
+ */
+
+import java.util.*;
+
+public class RepeatedN {
+    public static void main(String[] args) {
+        int[] input = {1, 2, 3, 3};
+        int output = repeatedN(input);
+        System.out.println("The repeated element is: " + output);
+    }
+    
+    public static int repeatedN(int[] array) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for ( int num : array ) { // iterate values in array    
+            int key = num; // every number in array, call it key
+            int count = 1;  // give this key a count equal to 1
+            if ( map.containsKey(key) ) { // check the map, does it already contain this key?
+                return key; // yes? This key is repeated, return this key
+            } else {
+                map.put(key, count); // no, put this key in map, with value of count
+            }
+        }
+        return 0; // there are no repeated numbers 
+    }
+}
+
 /* Given head which is a reference node to a singly-linked list.
  * The value of each node in the linked list is either 0 or 1. 
  * The linked list holds the binary representation of a number. 
