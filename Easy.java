@@ -1,3 +1,13 @@
+/** 
+ * Please NOTE: Some of the solutions I've completed on Leetcode have implemented various algorithms. For instance, rather 
+ * than just calling foo.sort(), I'll implement some sorting algorithm to work throughout the whole solution. I understand
+ * that it would be easier, quicker, and arguably more productive to just call an operation but my goal with leetcode boils 
+ * down to improving my problem solving abilities, algorithm and data structure implementation, as well as understanding 
+ * when to use the right algorithms and data structures. Most importantly, my goal is to see improvement as I complete 
+ * solutions. So, solutions completed 3 months from today should be better than solutions completed today. 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
 /* In a array A of size 2N, there are N+1 unique elements, and exactly one of 
  * these elements is repeated N times. Return the element repeated N times. 
  *
