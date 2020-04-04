@@ -836,3 +836,82 @@ public class BalancedStrings {
         return numCommas; // number of commas equals number of even RL sequences        
     }
 }
+
+/**
+ * Given two arrays arr1 and arr2, the elements of arr2 are distinct, and all 
+ * elements in arr2 are also in arr1
+ *
+ * Sort the elements of arr1 such that the 
+ * relative ordering of itmes in arr1 are the same as in arr2
+ *
+ * Elements that 
+ * don't appear in arr2 should be placed at the end of arr1 in ascending order.
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class RelativeSortArray {
+    public static void main(String[] args) {
+        int[] input1 = {2, 3, 1, 3, 2, 4, 6, 7, 9, 2, 19};
+        int[] input2 = {2, 1, 4, 3, 9, 6};
+        int[] input3 = {2,21,43,38,0,42,33,7,24,13,12,27,12,24,5,23,29,48,30,31};
+        int[] input4 = {2, 42, 38, 0, 43, 21};
+        int[] output = relativeSortArray(input1, input2);
+        int[] output2 = relativeSortArray(input3, input4);
+        System.out.println("Final Array: " + Arrays.toString(output));
+        System.out.println("Final Array: " + Arrays.toString(output2));
+    }
+    public static int[] relativeSortArray(int[] arr1, int[] arr2) {
+        Map<Integer, Integer> numbers = new HashMap<>(); // map to count occurances of each number in arrays
+        ArrayList<Integer> list = new ArrayList<>(); // list to hold the numbers in arr1 that are in arr2
+        ArrayList<Integer> list2 = new ArrayList<>(); // list to hold numbers in arr1 that are not in arr2
+        for ( int num : arr1 ) { // count keys in arr1 and give a value for every occurance
+            if ( numbers.containsKey(num) ) {
+                int count = numbers.get(num);
+                numbers.put(num, count + 1);
+            } else {
+                numbers.put(num, 1);
+            }
+        }
+        /* Tree map sorts the keys so now we are in sorted order. At this 
+         * point we will compare arr2, and our values in the TreeMap. If the 
+         * value appears in arr2 we will store that value in a set for the 
+         * number of times indicated by that keys value. The remaining keys 
+         * are in sorted order and we will apend them to the end of the array.
+         */
+
+        for ( int n : arr2 ) {
+            if ( numbers.containsKey(n) ) {
+                for (int i = 0; i < numbers.get(n); i++ ) {
+                    list.add(n);
+                }
+            }
+        }
+        // send numbers not in arr2 to list 2
+        for ( int j : arr1 ) {
+            if ( !list.contains(j) && !list2.contains(j) ) {
+                for (int k = 0; k < numbers.get(j); k++ ) {
+                    list2.add(j);
+                }
+            }
+        }
+        // sort list 2 before appending to list 1
+        Collections.sort(list2);
+        for ( int n : list2 ) {
+            list.add(n);
+        }
+        // add the numbers in the set to final array
+        Iterator<Integer> iter = list.iterator();
+        int arrSize = list.size();
+        int[] outputArr = new int[arrSize];
+        int i = 0;
+        while ( iter.hasNext() ) {
+            int value = iter.next();
+            outputArr[i] = value;
+            i++;
+        }
+        return outputArr;
+    }
+}
