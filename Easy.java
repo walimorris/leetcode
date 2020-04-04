@@ -915,3 +915,70 @@ public class RelativeSortArray {
         return outputArr;
     }
 }
+
+/**
+ * Given an array of intergers arr, a lucky integer is an integer which has a 
+ * frequency in the array equal to its value 
+ *
+ * Return a lucky integer in the array
+ *
+ * If there are multiple lucky integers return the largest of them
+ * If there is no lucky integer return -1
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class LuckyInteger {
+    public static void main(String[] args) {
+        int[] input1 = {2, 2, 3, 4};
+        int[] input2 = {1, 2, 2, 3, 3, 3};
+        int[] input3 = {2, 2, 2, 3, 3};
+        int[] input4 = {5};
+        int[] input5 = {7, 7, 7, 7, 7, 7, 7};
+        int output1 = findLucky(input1);
+        int output2 = findLucky(input2);
+        int output3 = findLucky(input3);
+        int output4 = findLucky(input4);
+        int output5 = findLucky(input5);
+        System.out.println(Arrays.toString(input1) + ": " + output1);
+        System.out.println(Arrays.toString(input2) + ": " + output2);
+        System.out.println(Arrays.toString(input3) + ": " + output3);
+        System.out.println(Arrays.toString(input4) + ": " + output4);
+        System.out.println(Arrays.toString(input5) + ": " + output5);
+    }
+    public static int findLucky(int[] array) {
+        ArrayList<Integer> luckyList = new ArrayList<>(); // holds lucky numbers
+        Map<Integer, Integer> luckyMap = new HashMap<>(); // count of numbers
+        for ( int n : array ) { // iterate array to store key: value pairs in hashmap
+            if ( luckyMap.containsKey(n) ) { // map contains n?
+                int count = luckyMap.get(n); // yes. increase key's value count by 1
+                luckyMap.put(n, count+1); // store key:value back into map
+            } else {
+                luckyMap.put(n, 1); // no. store new key(n) and value 1
+            }
+        }
+        // find lucky numbers to store in lucky list
+        for ( int key : luckyMap.keySet() ) { // iterate luckyMap's keys
+            int value = luckyMap.get(key); // get each keys value
+            if ( value == key ) { // are value and key equal?
+                luckyList.add(key); // yes, add key to luckyList
+            }
+        }
+        if ( luckyList.size() == 1 ) {
+            return luckyList.get(0); // return only value in lucky list 
+        } else {
+            if (luckyList.size() > 1 ) {  // get the greatest value in lucky list 
+                int greatestNum = luckyList.get(0);
+                for ( int num : luckyList ) {
+                    if ( num > greatestNum ) {
+                        greatestNum = num;
+                    }
+                }
+                return greatestNum;
+            }
+        }
+        return -1; // no value, return -1 
+    }
+}
