@@ -107,3 +107,44 @@ public class Duplicates {
         return list; 
     } 
 } 
+
+/**
+ * Given a non negative integer number 'num', for every number i in the range 0 to num 
+ * calculate the number of 1's in their binary representation and return them as an 
+ * array
+ *
+ * Note : Currently working on better solution. 
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class CountBits {
+    public static void main(String[] args) {
+        int[] output1 = countBits(2);
+        int[] output2 = countBits(5);
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+    }
+    
+    public static int[] countBits(int num) {
+        /* let's convert decimal to binary string representation. Because we have to examine every 
+         * integer i from 0 < i < n we know, starting at 0 index, size of the array will be n+1
+         */
+        int[] output = new int[num+1];
+        for (int i = num; i >= 0; i-- ) { // start at the given integer num
+            int n = i;
+            int count = 0; // record every 1 in binary representation of n  
+            while ( n > 0) {
+                int r = n % 2; // remainder is either 0 or 1
+                if ( r == 1 ) {
+                    count++; // remainer is 1, increment count
+                }
+                n = (int)Math.floor(n / 2); // get the quotient to continue
+            }
+            output[i] = count; // put count in array 
+        }
+        return output;
+    }
+}
