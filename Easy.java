@@ -997,3 +997,54 @@ public class LuckyInteger {
         return -1; // no value, return -1 
     }
 }
+
+/**
+ * Given a string, you need to reverse the order of characters in each word
+ * within a sentence while still preserving whitespace and initial word order. 
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class ReverseWord3 {
+    public static void main(String[] args) {
+        String input = "Let's take Leetcode contest";
+        String output = reverseWords(input);
+        System.out.println(output);
+    }
+
+    public static String reverseWords(String s) {
+        String[] split = s.split("\\s");
+        List<String> words = new ArrayList<>();
+        for (int i = 0; i < split.length; i++ ) {
+            words.add(split[i]); // add each split word into an ArrayLIst
+        }
+        String reverse = "";
+        for ( int i = 0; i < words.size(); i++ ) { // get each split word from list and concatenate it's reverse
+            String str = words.get(i);
+            String reversedStr = reverseSingleWord(str);
+            if ( i < words.size() - 1 ) {
+                 reverse += reversedStr + " ";
+            } else { // don't add space at the end of reverse String
+                 reverse += reversedStr;
+            }
+        }
+        return reverse;
+    }
+    
+    /* helper function to reverse individual words from String */
+    public static String reverseSingleWord(String word) {
+        String finishedWord = "";
+        Stack<Character> str = new Stack<>();
+        for(int i = 0; i < word.length(); i++ ) {
+            char n = word.charAt(i);
+            str.push(n); // push onto stack 
+        }
+        while (!str.isEmpty()) { // reverse order of String
+            char p = str.pop();
+            finishedWord += p;
+        }
+        return finishedWord;
+    }
+}
