@@ -13,6 +13,53 @@
  * @author Wali Morris<walimmorris@gmail.com>
  */
 
+/**
+ * Given an array of Integers arr, write a function that returns true if
+ * and only if the num of occurrences of each value in array is unique
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class UniqueNumOfOccurrences {
+    public static void main(String[] args) {
+        int[] input1 = {1, 2, 2, 1, 1, 3};
+        int[] input2 = {1, 2};
+        int[] input3 = {-3, 0, 1, -3, 1, 1, 1, -3, 10, 0};
+        int[] input4 = {26,2,16,16,5,5,26,2,5,20,20,5,2,20,2,2,20,2,16,
+                        20, 16,17,16,2,16,20,26,16};
+        boolean output1 = uniqueOccurrences(input1);
+        boolean output2 = uniqueOccurrences(input2);
+        boolean output3 = uniqueOccurrences(input3);
+        boolean output4 = uniqueOccurrences(input4);
+        System.out.println(Arrays.toString(input1) + ": " + output1);
+        System.out.println(Arrays.toString(input2) + ": " + output2);
+        System.out.println(Arrays.toString(input3) + ": " + output3);
+        System.out.println(Arrays.toString(input4) + ": " + output4);
+    }
+    
+    public static boolean uniqueOccurrences(int[] arr) {
+        Map<Integer, Integer> numberMap = new HashMap<>();
+        /* count number of occurrences for a each num in a and store in Map */
+        for ( int i = 0; i < arr.length; i++) {
+            if ( numberMap.containsKey(arr[i]) ) {
+                int val = numberMap.get(arr[i]);
+                numberMap.put(arr[i], val+1);
+            } else {
+                numberMap.put(arr[i], 1);
+            }
+        }
+        /* get collection of values, dump into set and compare size */
+        Collection<Integer> valuesList = numberMap.values();
+        Set<Integer> valuesSet = new HashSet<>(valuesList);
+        if (valuesSet.size() == valuesList.size() ) {
+            return true;
+        }
+        return false;
+    }
+}
+
 /* In a array A of size 2N, there are N+1 unique elements, and exactly one of 
  * these elements is repeated N times. Return the element repeated N times. 
  *
