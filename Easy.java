@@ -1095,3 +1095,80 @@ public class ReverseWord3 {
         return finishedWord;
     }
 }
+
+/**
+ * Given a m * n matrix of distinct numbers, return all lucky numbers in the 
+ * matrix in any order
+ *
+ * A lucky number is an element of the matrix such that it is the minimum 
+ * element in its row and maximum in its column 
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class LuckyMatrixNumber {
+    public static void main(String[] args) {
+        int[][] input = new int[3][4];
+        input[0][0] = 1;
+        input[0][1] = 10;
+        input[0][2] = 4;
+        input[0][3] = 2;
+        input[1][0] = 9;
+        input[1][1] = 3;
+        input[1][2] = 8;
+        input[1][3] = 7;
+        input[2][0] = 15;
+        input[2][1] = 16;
+        input[2][2] = 17;
+        input[2][3] = 12;
+        List<Integer> output = luckyNumbers(input);
+        System.out.println(output);
+    }
+    
+    public static List<Integer> luckyNumbers(int[][] matrix) {
+        /* rowLow : stores lowest numbers in each row
+         * columnHigh : stores highest numbers each column 
+         */
+        List<Integer> rowLow = new ArrayList<>();
+        List<Integer> columnHigh = new ArrayList<>();
+        // find the lowest number in each row
+        for (int i = 0; i < matrix.length; i++) {
+            int least = matrix[i][0]; // least begins as first nnumber in each row
+            for (int j = 0; j < matrix[i].length; j++) {  // iterate each number in row
+                int rowNum = matrix[i][j];
+                if (rowNum < least) {
+                    least = rowNum;// lowest number in row becomes least
+                }
+            }
+            rowLow.add(least); // add lowest number of each row to rowLow list          
+        }
+        // find the highest numbers in each column
+        int k = 0;
+        /* case: this while loop assumes all rows in any matrix is the same length */
+        while (k < matrix[0].length) { // while k is less than length of each row in matrix
+            int highCol = matrix[0][k];// highest number in column begins as the first number in each column    
+            for (int i = 0; i < matrix.length; i++) { // iterate for the length of column 
+                int colNum = matrix[i][k];
+                if (colNum > highCol) {
+                    highCol = colNum; // highest number in column becomes highCol
+                }
+            }
+            columnHigh.add(highCol); // add highest number of each column 
+            k++;
+        }
+        /* take rowLow list and dump into a new set, create a new array to store lucky numbers,
+         * compare numbers in columnHigh array list to the numbers in row Set. If the columnHigh
+         * number is found in row Set, store as a lucky number
+         */
+        Set<Integer> row = new HashSet<>(rowLow);
+        List<Integer> luckies = new ArrayList<>();
+        for (Integer num : columnHigh) {
+            if (row.contains(num) ) {
+                luckies.add(num);
+            }
+        }
+        return luckies;
+    }
+}
