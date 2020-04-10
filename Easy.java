@@ -14,6 +14,59 @@
  */
 
 /**
+ * Given a non-empty, singly linked list with head node "head", 
+ * return a middle node of linked list
+ *
+ * If there are two middle nodes, return the second middle node.
+ *
+ *
+ * Definition for singly-linked list
+ *
+ * public class ListNode {
+ *     int val;
+ *     ListNode next;
+ *     ListNode(int x) { val = x; }
+ * }
+ *
+ * NOTE: This solution works okay in Java because of garbage collection. 
+ * When middleNode() function points to next node, deleting the preceding 
+ * node, Java recognizes these deleted nodes are no longer in use and 
+ * this memory will be freed up. This works fine in Java but may need 
+ * better implementation in languages like C or C++
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+class MiddleLinkedList {
+    public ListNode middleNode(ListNode head) {
+        int listSize = getSize(head); // get the size of LinkedList 
+        if ( listSize == 1 ) {
+            return head; // lists of size 1 should be returned as is, no middle node
+        }
+        ListNode current = head;
+        int i = 1;
+        while ( i < listSize / 2 + 1 ) { // delete front of node until reach middle of list 
+            current = current.next; // points to next node, deleting the preceding node 
+            i++;
+        }
+        return current;
+    }
+
+    /* iterates through LinkedList and counts number of nodes */
+    public static int getSize(ListNode list) {
+        int count = 0;
+        ListNode current = list;
+        while(current != null) {
+            current = current.next;
+            count++;
+        }
+        return count;
+    }
+}
+
+/**
  * Given an array of Integers arr, write a function that returns true if
  * and only if the num of occurrences of each value in array is unique
  *
