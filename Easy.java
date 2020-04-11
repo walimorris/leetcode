@@ -1225,3 +1225,55 @@ public class LuckyMatrixNumber {
         return luckies;
     }
 }
+
+/** 
+ * Given a string S of lowercase letters, a duplicate removal consists
+ * of choosing two adjacent and equal letters, and removing them
+ *
+ * We repeatedly make duplicate removals on S until we no longer can 
+ *
+ * @return the final string after all such duplication removals have 
+ * been made
+ *
+ * It's guaranteed the answer is unique 
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class AdjacentDuplicates {
+    public static void main(String[] args) {
+        String input1 = "abbaca";
+        String input2 = "cxxaacy";
+        String output1 = removeDuplicates(input1);
+        String output2 = removeDuplicates(input2);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+
+    public static String removeDuplicates(String s) {
+        if ( s.length() == 0 )
+            return " "; // empty string, return empty string 
+        boolean containsDuplicates = true;
+        int count = 0;
+        while ( containsDuplicates == true ) {
+            /* iterate the string, find duplicates and remove as sub 
+             * string, iterate count if this occurs */
+            for ( int i = 0; i < s.length() - 1; i++ ) { 
+                if ( s.charAt(i) == s.charAt(i+1) ) { 
+                    String sub = String.valueOf(s.charAt(i)); 
+                    sub += sub;
+                    s = s.replaceFirst(sub, "");
+                    count++;
+                }
+            }
+            if ( count == 0 ) { // initiates flag and if true exits loop
+                containsDuplicates = false;
+            } else { // continues loop until no duplicates exist
+                count = 0;
+            }
+        }
+        return s;
+    }
+}
