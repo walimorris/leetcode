@@ -8,7 +8,7 @@
  * call an operation but my goal with leetcode boils down to improving my problem solving skills, algorithm and data 
  * structure implementation, as well as understanding when and where to use the right algorithms and data structures. Most 
  * importantly, my goal is to see improvement as I complete solutions. So, solutions completed 3 months from today should be 
- * better than solutions completed today. 
+ * better than solutions completed today and I should gradually work my way through different levels of coding problems. 
  * 
  * @author Wali Morris<walimmorris@gmail.com>
  */
