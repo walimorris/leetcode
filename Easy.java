@@ -1277,3 +1277,41 @@ public class AdjacentDuplicates {
         return s;
     }
 }
+
+/**
+ * Given two arrays of integers nums and index, create a target array 
+ * 
+ * Initially target array is empty
+ * From left to right read nums[i] and index[i], insert at index index[i]
+ * the value nums[i] in target array 
+ *
+ * @return The target array
+ * 
+ * @author Wali Morris 
+ */
+
+import java.util.*;
+
+public class TargetArray {
+    public static void main(String[] args) {
+        int[] nums = {0, 1, 2, 3, 4};
+        int[] index = {0, 1, 2, 2, 1};
+        int[] output = createTargetArray(nums, index);
+        System.out.println(Arrays.toString(output));
+    }
+
+    public static int[] createTargetArray(int[] nums, int[] index) {
+        List<Integer> target = new ArrayList<>();
+        /* even in duplicate index[i], the List will be shifted right to 
+         * compensate for new insertion */
+        for(int i = 0; i < nums.length; i++) {
+            target.add(index[i], nums[i]);
+        }
+        // populate the final target array with items int items in list
+        int[] target2 = new int[nums.length];
+        for(int j = 0; j < nums.length; j++ ) {
+            target2[j] = target.get(j);
+        }
+        return target2;
+    }
+}
