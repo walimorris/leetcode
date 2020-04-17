@@ -1315,3 +1315,66 @@ public class TargetArray {
         return target2;
     }
 }
+
+/**
+ * International Morse Code defines a standard encoding where each letter is 
+ * mapped to a series of dots and dashes
+ *
+ * Given a list of words, each word can be written as a concatenation of the 
+ * Morse code of each letter, this will be called a transformation of a word
+ *
+ * Return the number of different transformations among all words we have 
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+import java.util.*;
+
+public class MorseCode {
+    public static void main(String[] args) {
+        String[] input = {"gin", "zen", "gig", "msg"};
+        int output = uniqueMorseRepresentations(input);
+        System.out.println(output);
+    }
+
+    public static int uniqueMorseRepresentations(String[] words) {
+        /* Stores decoded map, this would preferrably come from an outside 
+         * class rather than building in this method */
+        Map<Character, String> codes = new HashMap<>(); 
+        List<String> decodedList = new ArrayList<>();   
+        String[] values = {".-", "-...", "-.-.", "-..", ".", "..-.", "--.", "....", 
+                          "..", ".---", "-.-", ".-..", "--", "-.", "---", ".--.", 
+                          "--.-", ".-.", "...", "-", "..-", "...-", ".--", "-..-",
+                          "-.--", "--.."};      
+        
+        Character[] keys = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 
+                              'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 
+                              'w', 'x', 'y', 'z'}; 
+
+        int count = 0; 
+        // Create code map 
+        while( count < 0x1A ) { 
+            codes.put(keys[count], values[count]); 
+            count++; 
+        }
+        /* Views every String at words[index], iterates every character in that word, 
+         * fetches the value mapped to this character and stores this decoded value
+         * into a string */
+        int wordsCounted = 0; 
+        while( wordsCounted < words.length ) { 
+            String decodedString = ""; 
+            for ( int i = 0; i < words[wordsCounted].length(); i++ ) {  
+                String decodedValue = codes.get(words[wordsCounted].charAt(i)); 
+                decodedString += decodedValue;
+            }
+            decodedList.add(decodedString);  
+            wordsCounted++; 
+        } 
+        /* Every decoded string is pushed to a set and if there are duplicates the 
+         * string will be removed, revealing only unique decoded strings */
+        Set<String> uniqueList = new HashSet<>(decodedList);
+        System.out.println("Your decoded List: " + decodedList);
+        System.out.println("Unique decoded List: " + uniqueList);
+        return uniqueList.size();
+    }
+}
