@@ -1378,3 +1378,81 @@ public class MorseCode {
         return uniqueList.size();
     }
 }
+
+/** 
+ * Given a string s you should reorder the string
+ * 
+ * @author Wali Morris 
+ */
+
+import java.util.*;
+
+public class IncreasingDecreasingString {
+    public static void main(String[] args) {
+        String input1 = "aaaabbbbcccc";
+        String input2 = "rat";
+        String input3 = "leetcode";
+        String output1 = sortString(input1);
+        String output2 = sortString(input2);
+        String output3 = sortString(input3);
+        System.out.println("Result 1: " + output1);
+        System.out.println("Result 2: " + output2);
+        System.out.println("Result 3: " + output3);
+    }
+
+    public static String sortString(String s) {
+        /* splits String s into an array of its individual letters. Counts 
+         * the occurrance of each letter and appends letter and its count to 
+         * letters Map in order of key */
+        String[] str = s.split("");
+        Map<String, Integer> letters = new TreeMap<>();
+        for (String letter : str) {
+            if ( letters.containsKey(letter) ) {
+                int count = letters.get(letter);
+                letters.put(letter, count+1);
+            } else {
+                letters.put(letter, 1);
+            }
+        }
+        /* Rotates through key set and appends each letter to String str until 
+         * every letter has a value of zero returning this version of a sorted
+         * string */
+        String sortedStr = ""; // here to append letters 
+        Set<String> letterSet = letters.keySet();
+        List<String> letterList = new ArrayList<>(letterSet);
+        int appends = 0; // counts if there were any letters appended to str 
+        boolean loop = true; // flag to release while loop 
+        while ( loop ) {
+            for ( int i = 0; i < letterList.size(); i++ ) {
+                // grabs integer value of letter from letters Map
+                String key = letterList.get(i);
+                int value = letters.get(key);
+                if ( value == 0 ) { // letter should not be appended to str
+                    continue; // go to next 
+                } else {
+                    sortedStr += key;
+                    letters.put(key, value-1); // decrease the value of letter
+                    appends++;
+                }
+            }
+            // this does everything from first for-loop, but in reverse 
+            for (int j = letterList.size()-1; j >= 0; j--) {
+                String keyReverse = letterList.get(j);
+                int valueReverse = letters.get(keyReverse);
+                if ( valueReverse == 0 ) {
+                    continue;
+                } else {
+                    sortedStr += keyReverse;
+                    letters.put(keyReverse, valueReverse-1);
+                    appends++;
+                }
+            }
+            if ( appends == 0 ) {
+                loop = false; // there were no appends, release loop 
+            } else {
+                appends = 0; // there were still letters to append, loop again
+            }
+        }
+        return sortedStr;
+    }
+}
