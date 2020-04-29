@@ -1456,3 +1456,61 @@ public class IncreasingDecreasingString {
         return sortedStr;
     }
 }
+
+/**
+ *  Given a positive integer num consisting only of digits 6 and 9
+ *
+ *  Return the maximum number you can get by changing at most one digit 
+ *  ( 6 becomes 9, and 9 becomes 6)
+ *
+ *  Note: Changing any digit to 6 will not create any number greater than it 
+ *  was before flipping a 9 to a 6, therefore we will only flip 6's to 9's 
+ *  and test for the greatest value after these flips
+ *
+ *  @author Wali Morris 
+ *  @since 04/29/2020
+ */
+
+
+import java.util.*;
+
+public class MaxNumber69 {
+    public static void main(String[] args) {
+        int input = 6996;
+        int output = maximum69Number(input);
+        System.out.println(output);
+    }
+    public static int maximum69Number(int num) {
+        List<Character> numList = new ArrayList<>();
+        if ( num == 9999 ) {
+            return num;
+        }
+        int max = num; // the max number seen  
+        String numStr = Integer.toString(num);
+        /* Create an ArrayList containing the string digits of num */
+        for ( int i = 0; i < numStr.length(); i++ ) {
+            numList.add(numStr.charAt(i));
+        }
+        String potentialMaxStr = ""; // string to test greatest number 
+        for ( int j = numList.size() - 1; j >= 0; j-- ) {
+            /* iterate list, if a element is 6 then change it to 9 and build the
+             * potentialMaxStr */
+            if ( numList.get(j) == '6' ) {
+                numList.set(j, '9');
+                for ( Character n : numList ) {
+                    potentialMaxStr += n;
+                }
+                /* if a 6 is flipped to 9 and is greater than the original 
+                 * number, it becomes the max number. From here the 9 is 
+                 * flipped back to 6 and comtinues iterating the list for 
+                 * any other elements of 6*/
+                if ( Integer.valueOf(potentialMaxStr) > max ) {
+                    max = Integer.valueOf(potentialMaxStr);
+                }
+                numList.set(j, '6');
+            }
+            potentialMaxStr = ""; // restart test String
+        }
+        return max;
+    }
+}
