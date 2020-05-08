@@ -1514,3 +1514,55 @@ public class MaxNumber69 {
         return max;
     }
 }
+
+/**
+ * Kids With the Greatest Number of Candies 
+ *
+ * Given the array candies and the integer extraCandies, where candies[i] represents
+ * the number of candies that the ith kid has 
+ *
+ * For each kid check if there is a way to distribute extraCandies among the kids 
+ * such that he or she can have the greatest number of candies among them
+ *
+ * Notice: multiple kids can have the greatest number of candies 
+ *
+ * @author Wali Morris 
+ * @since 05/07/2020
+ */
+
+import java.util.*;
+
+public class Candies {
+    public static void main(String[] args) {
+        int[] candies1 = {2, 3, 5, 1, 3};
+        List<Boolean> output1 = kidsWithCandies(candies1, 3);
+        System.out.println(output1);
+        int[] candies2 = {4, 2, 1, 1, 2};
+        List<Boolean> output2 = kidsWithCandies(candies2, 1);
+        System.out.println(output2);
+        int[] candies3 = {12, 1, 12};
+        List<Boolean> output3 = kidsWithCandies(candies3, 10);
+        System.out.println(output3);
+    }
+
+    public static List<Boolean> kidsWithCandies(int[] candies, int extraCandies) {
+        // holds true or false depending if ith kid will have most candies by adding extracandies to their count
+        List<Boolean> truths = new LinkedList<>(); 
+        int max = candies[0];
+        for ( int candyCollection : candies ) { // find max pieces of candy 
+            if ( candyCollection > max ) {
+                max = candyCollection;
+            }
+        }
+        /* add extra candy to each kids owed collection of candues, if adding extra sums to greater than the max 
+         * owed candies the add true to truths list else add false */ 
+        for ( int owedCandies : candies) {
+            if ( owedCandies + extraCandies >= max ) {
+                truths.add(true);
+            } else {
+                truths.add(false);
+            }
+        }
+        return truths;
+    }
+}
