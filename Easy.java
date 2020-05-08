@@ -1566,3 +1566,55 @@ public class Candies {
         return truths;
     }
 }
+
+/** 
+ * Self Dividing Numbers
+ *
+ * A self-dividing number is a number that is divisible by every digit it contains
+ * 
+ * A self-dividing number is not allowed to contain any zeros 
+ *
+ * Given a lower bound and upper number bound, output a list of every possible self 
+ * dividing number, including the bounds if possible
+ *
+ * @author Wali Morris 
+ * @since 05/07/2020
+ */
+
+import java.util.*;
+
+public class SelfDividingNumbers {
+    public static void main(String[] args) {
+        List<Integer> output = selfDividingNumbers(1, 22);
+        System.out.println(output);
+    }
+    /* This method iterates from left bound to right bound taking each number, converting it 
+     * to its string version than isolating each digit and dividing it by the original number.
+     * If at any point the number has a 0 digit or any digit is not self dividing, the loop 
+     * breaks and goes to the next number. If all digits are self-dividing then the number is 
+     * added to the self-dividing list. */
+    public static List<Integer> selfDividingNumbers(int left, int right) { 
+        List<Integer> selfDividingList = new ArrayList<>();
+        for (int i = left; i <= right; i++ ) {
+            String num = Integer.toString(i);   
+            int counter = 0;
+            boolean selfDividing = true;  
+            while( counter < num.length() ) { 
+                int digit = Integer.parseInt(Character.toString(num.charAt(counter))); 
+                if ( digit == 0 ) {
+                    selfDividing = false; 
+                    break; 
+                } else if ( !(i % digit == 0))  {
+                    selfDividing = false;
+                    break;
+                } else {
+                    counter++;
+                }
+            }
+            if (selfDividing == true) {
+                selfDividingList.add(i);
+            }
+        }
+        return selfDividingList;
+    }
+}
