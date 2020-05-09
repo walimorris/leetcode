@@ -1618,3 +1618,79 @@ public class SelfDividingNumbers {
         return selfDividingList;
     }
 }
+
+/**
+ * Unique Email Addresses
+ *
+ * Every email consists of a local name and a domain name, seperated by the "@" sign 
+ * For example, in alice@leetcode.com, alice is the local name and leetcode.com is 
+ * the domain name
+ *
+ * Beside lowercase letters, these emails may contain '.' s or '+' s
+ *
+ * If ou add periods ('.') between some characters in the local name part of the email 
+ * address, mail sent there will be forwarded to the same address without dots in the 
+ * local name: for example, "alicez@leetcide.com" forward to the same address. (This 
+ * rule doesn't actually apply for domain names)
+ *
+ * If you add a plus ('+') in the local name, everything after the first plus sign will
+ * be ignored. This allows certain emails to be filtered, for example: m.y+name@email.com
+ * will be forwarded to my@email.com (Again, this does not actaully apply to domain names)
+ *
+ * It is possible to use both of these rules at the same time
+ *
+ * Given a list of emails, we need one email to each address in the list; figure out how many
+ * different addresses actually receive mails
+ *
+ * @author Wali Morris
+ * @since 05/07/2020
+ */
+
+
+import java.util.*; 
+
+public class UniqueEmail { 
+    public static void main(String[] args) { 
+        String[] input = {"test.email+alex@leetcode.com", 
+                          "test.e.mail+bob.cathy@leetcode.com", 
+                          "testemail+david@lee.tcode.com"}; 
+        int output = numUniqueEmails(input); 
+        System.out.println(output); 
+    } 
+    
+    /* In this method we initialize an empty String for every string in the array passed to this method. There 
+     * are some rules to follow (read in the description and added as code to this method). If there are duplicate 
+     * email address the Set will take care of this and eliminate any duplicates. We then return the number of emails 
+     * left in the Set */
+    public static int numUniqueEmails(String[] emails) { 
+        // A set is used so we do not add duplicates email addresses to our final list 
+        Set<String> emailList = new HashSet<>(); 
+        for ( int i = 0; i < emails.length; i++ ) { // iterate each email address in the array 
+            String emptyEmail = "";
+            /* If the '@' sign is passed this will become true and we will no longer delete periods('.')
+             * because we only delete periods in the local name. */
+            boolean passedAt = false;    
+            /* If we pass a '+' sign this will become true and will not add the characters between the + 
+             * sign and the '@' sign */
+            boolean plusSign = false; 
+            for ( int j = 0; j < emails[i].length(); j++ ) { // iterate the characters in each email 
+                if (emails[i].charAt(j) == '+' ) {
+                    plusSign = true;
+                    emptyEmail += "";
+                } else if ( emails[i].charAt(j) == '@' ) {
+                    passedAt = true;
+                    emptyEmail += "@";
+                } else if (emails[i].charAt(j) == '.' && passedAt == false ) {
+                    emptyEmail += "";
+                } else if ( passedAt == false && plusSign == true ) { // do not add characters between the + and @ sign 
+                    emptyEmail += "";
+                } else {
+                    emptyEmail += emails[i].charAt(j);
+                }
+            }
+            emailList.add(emptyEmail);
+        }
+        System.out.println(emailList);
+        return emailList.size();
+    }
+} 
