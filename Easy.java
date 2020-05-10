@@ -1,5 +1,5 @@
 /** 
- * Please NOTE: Some of the solutions I've completed on Leetcode have implemented various algorithms. For instance, rather 
+ * NOTE: Some of the solutions I've completed on Leetcode have implemented various algorithms. For instance, rather 
  * than just calling foo.sort(), I'll implement some sorting algorithm to work throughout the whole solution. This might be 
  * based on, say, a certain sorting algorithm that I know at that time and I view that as practice. I understand I'll take 
  * hits in areas on Leetcode that are evaluated, like time complexity, but I'm okay with that for now as long as I'm improving
