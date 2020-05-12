@@ -1694,3 +1694,60 @@ public class UniqueEmail {
         return emailList.size();
     }
 } 
+
+/** 
+ * Robot Return to Origin
+ *
+ * There is a robot starting at (0, 0), the origin, on a 2D plane
+ * 
+ * Given a sequence of its moves, judge if this robot ends up at 
+ * (0,0) after it completes its moves
+ *
+ * @author Wali Morris
+ * @Since 05/11/2020
+ */
+
+import java.util.*;
+
+public class RobotReturn {
+    public static void main(String[] args) {
+        String input1 = "UD";
+        boolean output1 = judgeCircle(input1);
+        System.out.println("Robot with UD returns to origin: " + output1);
+        String input2 = "LL";
+        boolean output2 = judgeCircle(input2);
+        System.out.println("Robot with LL returns to origin: " + output2);
+        String input3 = "RRDDLUUL";
+        boolean output3 = judgeCircle(input3);
+        System.out.println("Robot with RRDDLUUL returns to origin: " + output3);
+        String input4 = "RRDD";
+        boolean output4 = judgeCircle(input4);
+        System.out.println("Robot with RRDD returns to origin: " + output4);
+    }
+    
+    /* This method takes x and y, initialized to 0 acting as x, y horizontal and vertical
+     * axis on 2D plane. For every positive or negative move (Left, right, up, down) the 
+     * corresponsing x or y axis is affected. At the end of all moves, if x and y are both 
+     * 0, then the moves end at (0, 0) origin. */
+    public static boolean judgeCircle(String moves) {
+        int x = 0;
+        int y = 0;
+        for ( int i = 0; i < moves.length(); i++ ) {
+            if (moves.charAt(i) == 'D' ) {
+                y--;
+            } else if (moves.charAt(i) == 'U' ) {
+                y++;
+            } else if (moves.charAt(i) == 'L' ) {
+                x--;
+            } else if (moves.charAt(i) == 'R' ) {
+                x++;
+            } else {
+                throw new IllegalArgumentException("Illegal character move.");
+            }
+        }
+        if ( x == 0 && y == 0 ) {
+            return true;
+        }
+        return false;
+    }
+}
