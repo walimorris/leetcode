@@ -1751,3 +1751,50 @@ public class RobotReturn {
         return false;
     }
 }
+
+/** 
+ * Single Number
+ *
+ * Given a non-empty array of integers, every element appears twice except for one
+ *
+ * Find that one
+ *
+ * @author Wali Morris 
+ * @since 05/12/2020
+ */
+
+import java.util.*;
+
+public class SingleNumber {
+    public static void main(String[] args) {
+        int[] input1 = {2, 2, 1};
+        int output1 = singleNumber(input1);
+        System.out.println(input1 + " single number: " + output1);
+        int[] input2 = {4, 1, 2, 1, 2};
+        int output2 = singleNumber(input2);
+        System.out.println(input2 + " single number: " + output2);
+    }
+
+    /* This method stores each integer from the passed array into a map and counts the number 
+     * of times that same integer has been seen within the array, this number is that integers
+     * value. Next, the keySet is iterated and returns the integer from the array that is only 
+     * seen once. If no such number exists, this method returns -1 */
+    public static int singleNumber(int[] nums) { 
+        Map<Integer, Integer> numMap = new HashMap<>(); 
+        for ( int i = 0; i < nums.length; i++ ) { 
+            if ( numMap.containsKey(nums[i]) ) { 
+                int count = numMap.get(nums[i]);
+                numMap.put(nums[i], count+1); 
+            } else { 
+                numMap.put(nums[i], 1); 
+            } 
+        }
+        for (Integer key : numMap.keySet() ) {
+            int value = numMap.get(key);
+            if (value == 1) {
+                return key;
+            }
+        }
+        return -1;
+    }
+}
