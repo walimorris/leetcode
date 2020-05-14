@@ -1798,3 +1798,69 @@ public class SingleNumber {
         return -1;
     }
 }
+
+/**
+ * Minimum Absolute Difference 
+ *
+ * Given an array of distinct integers arr, find all pairs of elements with the 
+ * minimum absolute difference of any two elements 
+ *
+ * Return a list of pairs in ascending order(with respect to pairs)
+ *
+ * @author Wali Morris 
+ * @since 05/13/2020
+ */
+
+import java.util.*;
+
+public class AbsoluteDifference {
+    public static void main(String[] args) {
+        int[] input1 = {4, 2, 1, 3};
+        List<List<Integer>> output1 = minimumAbsDifference(input1);
+        System.out.println(output1);
+        int[] input2 = {1, 3, 6, 10, 15};
+        List<List<Integer>> output2 = minimumAbsDifference(input2);
+        System.out.println(output2);
+        int[] input3 = {3, 8, -10, 23, 19, -4, -14, 27};
+        List<List<Integer>> output3 = minimumAbsDifference(input3);
+        System.out.println(output3);
+        int[] input4 = {-17, 46, 63, 81, -101, -91, 121, -2, 112, -15,
+                        -65, -96, 6, -139};
+        List<List<Integer>> output4 = minimumAbsDifference(input4);
+        System.out.println(output4);
+    }
+    
+    public static List<List<Integer>> minimumAbsDifference(int[] arr) {
+        Arrays.sort(arr);
+        /* holds all lists that meets requirements */
+        List<List<Integer>> masterList = new ArrayList<>(); 
+        /* Creates a list of the first two elements in the sorted array, these
+         * elements correspond to the most likely minimum absolute values when 
+         * subtracted, this list is then added to the master list */
+        List<Integer> list = new ArrayList<>(
+                        List.of(arr[0], arr[1]));
+        masterList.add(list);
+        int i = 1,  min = Math.abs(arr[0] - arr[1]);
+        while ( i <= arr.length - 2) {
+            List<Integer> softList = new ArrayList<>();
+            int next = Math.abs(arr[i] - arr[i+1]);
+            if ( next < min ) {
+                masterList.clear(); // clears to store new minimum
+                min = next;
+                softList.add(arr[i]);
+                softList.add(arr[i+1]);
+                masterList.add(softList);
+            } else {
+                /* next equals minimum so we keep current softLists within masterList 
+                 * and add the new softList to the masterList */
+                if ( next == min ) {
+                    softList.add(arr[i]);
+                    softList.add(arr[i+1]);
+                    masterList.add(softList);
+                }
+            }
+            i++;
+        }
+        return masterList;
+    }
+}
