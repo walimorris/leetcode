@@ -1864,3 +1864,61 @@ public class AbsoluteDifference {
         return masterList;
     }
 }
+
+ * of the integers are even 
+ *
+ * Sort the Array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is 
+ * even 
+ *
+ * You may return any answer array that satisfies this condition 
+ *
+ * @author Wali Morris 
+ * @since 05/14/2020
+ */
+
+import java.util.*;
+
+public class SortArrayParity2 {
+    public static void main(String[] args) {
+        int[] input1 = {4, 2, 5, 7};
+        int[] output1 = sortArrayByParityII(input1);
+        System.out.println(Arrays.toString(output1));
+    }
+    
+    public static int[] sortArrayByParityII(int[] A) {
+        /* two arrayLists: 1 holds positives and one holds negatives from Array A */
+        List<Integer> oddList = new ArrayList<>();
+        List<Integer> evenList = new ArrayList<>();
+        /* can hold same amount as array A */
+        int[] B = new int[A.length];
+        /* sends odds from A to oddList and evens to evenlist */
+        for ( int num : A ) {
+            if ( num % 2 == 0 ) { // num is even, send to even list
+                evenList.add(num);
+            } else {
+                oddList.add(num); // num is odd, send to odd list
+            }
+        }
+        /* Add first even number to B[0], remove even number from evenlist and begin adding
+         * even and odd numbers to the corresponding even or odd index in array B until B is 
+         * the same length as A */
+        B[0] = evenList.get(0);
+        evenList.remove(0);
+        int count = 1;
+        while ( count < A.length ) {
+            /* if index at B is odd, add odd integer to index then remove the first
+             * even number from oddList */
+            if ( count % 2 == 0 ) {
+                B[count] = evenList.get(0);
+                evenList.remove(0);
+            /* if index at B is even, add even integer to index then remove the first 
+             * even number from evenList */
+            } else {
+                B[count] = oddList.get(0);
+                oddList.remove(0);
+            }
+            count++; // go to next index  
+        }
+        return B; // return new array B
+    }
+}   
