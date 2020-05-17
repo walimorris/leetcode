@@ -148,3 +148,60 @@ public class CountBits {
         return output;
     }
 }
+
+/**
+ * Rearrange Words in a Sentence 
+ *
+ * Given a sentence text (A sentence is a string of space-separated words) in the following format:
+ *
+ *
+ *   First letter is in upper case
+ *   Each word in text are separated by a single space
+ *
+ * Your task is to rearrange the words in text such that all words are rearranged in an increasing  
+ * order of their lengths, If two words have the same length, arrange them in their original order
+ * 
+ * Return the new text following the format shown above
+ *
+ * Currently, my method is having trouble arranging some Strings of the same length in orginal order
+ *
+ * @author Wali Morris
+ * @since 05/16/2020
+ */
+
+import java.util.*; 
+
+public class RearrangeWords { 
+    public static void main(String[] args) { 
+        String input1 = "Keep calm and code on"; 
+        String input2 = "Leetcode is cool"; 
+        String input3 = "To be or not to be"; 
+        String output1 = arrangeWords(input1); 
+        String output2 = arrangeWords(input2);
+        String output3 = arrangeWords(input3);
+        System.out.println(output1); 
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+    
+    public static String arrangeWords(String text) {
+        String text2 = text.toLowerCase();  
+        String[] words = text2.split(" "); 
+        for (int i = 0; i < words.length - 1; i++ ) { 
+            String smallest = words[i]; 
+            for ( int j = i + 1; j <  words.length; j++ ) {                 
+                if ( words[j].length() < words[i].length() ) {
+                    smallest = words[j];        
+                    String temp = words[i]; 
+                    words[i] = words[j]; 
+                    words[j] = temp;    
+                } 
+            } 
+        } 
+        String sentence = ""; 
+        for ( String word: words) { 
+            sentence += word + " "; 
+        }       
+        return sentence.substring(0, 1).toUpperCase() + sentence.substring(1); 
+    }
+}
