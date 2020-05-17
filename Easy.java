@@ -1959,3 +1959,37 @@ public class QueryTime {
         return busy; 
     } 
 }
+
+/**
+ * Rotate Array 
+ *
+ * Given an array, rotate the array to the right by k steps, where 
+ * k is non-negative
+ *
+ * @author Wali Morris
+ * @since 05/16/2020
+ */
+
+
+import java.util.*; 
+
+public class RotateArray { 
+    public static void main(String[] args) { 
+        int[] input1 = {1, 2, 3, 4, 5, 6, 7}; 
+        int k = 3; 
+        rotate(input1, k); 
+    }
+
+    public static void rotate(int[] nums, int k) { 
+        int rotations = 0;
+        while ( !(rotations == k) ) {   
+            int last = nums[nums.length - 1]; // record last num in array  
+            for ( int i = nums.length - 1; i > 0; i-- ) { 
+                nums[i] = nums[i-1]; // move each element to right 
+            } 
+            nums[0] = last; // first num in array equals last
+            rotations++; // increment rotations(k)
+        }
+        System.out.println(Arrays.toString(nums)); 
+    } 
+}
