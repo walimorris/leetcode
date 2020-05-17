@@ -1922,3 +1922,40 @@ public class SortArrayParity2 {
         return B; // return new array B
     }
 }   
+
+/**
+ * Number of Students Doing Homework at a Given Time
+ * 
+ * Given two integer arrays startTime and endTime and given an integer queryTime
+ *
+ * The ith student started doing their homework at the time startTime[i] and finished it at time endTime[i]
+ *
+ * Return the number of students doing their homework at time queryTime
+ * More formally, return the number of students where queryTime lays in 
+ * the interval [startTime[i], endTime[i]] inclusive
+ *
+ * @author Wali Morris
+ * @since 05/16/2020
+ */
+
+import java.util.*; 
+
+public class QueryTime { 
+    public static void main(String[] args) { 
+        int[] start = {9, 8, 7, 6, 5, 4, 3, 2, 1}; 
+        int[] end = {10, 10, 10, 10, 10, 10, 10, 10, 10};
+        int query = 5;
+        int output = busyStudent(start, end, query); 
+        System.out.println(output); 
+    } 
+
+    public static int busyStudent(int[] startTime, int[] endTime, int query) { 
+        int busy = 0; 
+        for (int i = 0; i < startTime.length; i++ ) { 
+            if ( startTime[i] <= query && endTime[i] >= query ) { 
+                busy++; 
+            }
+        } 
+        return busy; 
+    } 
+}
