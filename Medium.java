@@ -10,7 +10,7 @@
  * importantly, my goal is to see improvement as I complete solutions. So, solutions completed 3 months from today should be 
  * better than solutions completed today. 
  * 
- * @author Wali Morris<walimmorris@gmail.com>
+ * @author Wali Morris
  */
 
 /**
