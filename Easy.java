@@ -1993,3 +1993,41 @@ public class RotateArray {
         System.out.println(Arrays.toString(nums)); 
     } 
 }
+
+/**
+ * Length of Last Word 
+ *
+ * Given a String s consists of upper/lower-case alphabets and empty space characters ' ' 
+ * return the length of the last word ( last word means the last appearing word if we loop
+ * from left to right ) in the String
+ *
+ * If the last word does not exist return 0
+ *
+ * @author Wali Morris 
+ * @since 05/20/2020
+ */
+
+import java.util.*;
+
+public class LastWord {
+    public static void main(String[] args) {
+        String input1 = "Hello World";
+        String input2 = " ";
+        int output1 = lengthOfLastWord(input1);
+        int output2 = lengthOfLastWord(input2);
+        System.out.println("Length of " + input1 + " : " + output1);
+        System.out.println("Length of " + input2 + " : " + output2);
+    }
+
+    public static int lengthOfLastWord(String s) {
+        /* splitting string into array will split words into their own index based on were spaces 
+         * are present in the string. If the string contains a space then the array will have a 
+         * length of 0 */
+        String[] wordArray = s.split(" ");
+        if ( wordArray.length == 0 ) {
+            return 0;
+        } else { // return length of last string element in the array
+            return wordArray[wordArray.length - 1].length();
+        }
+    }
+}
