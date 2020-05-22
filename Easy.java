@@ -2110,3 +2110,98 @@ public class DestinationCity {
         return finalCity; // return destination city(final city) 
     }
 }
+
+/**
+ * Decrypt String from Alphabet to Integer Mapping 
+ *
+ * Given a String s formed by digits ('0' - '9') and '#', we want to map s to English 
+ * lowercase characters as follows: 
+ *
+ * Characters ('a' to 'i') are represented by ('1' to '9') respectively 
+ * characters ('j' to 'z') are represented by ('10#' to '26#') respectively 
+ *
+ * return the String formed after mapping and its guaranteed a unique mapping will 
+ * always exist
+ *
+ * @author Wali Morris 
+ * @since 05/22/2020
+ */
+
+
+import java.util.*; 
+
+public class DecryptString { 
+    public static void main(String[] args) { 
+        String input1 = "10#11#12"; 
+        String output1 = freqAlphabets(input1);
+        String input2 = "1326#"; 
+        String output2 = freqAlphabets(input2);
+        String input3 = "25#"; 
+        String output3 = freqAlphabets(input3);
+        String input4 = "12345678910#11#12#13#14#15#16#17#18#19#20#21#22#23#24#25#26#"; 
+        String output4 = freqAlphabets(input4);         
+        System.out.println(input1 + " -> " + output1);
+        System.out.println(input2 + " -> " + output2);
+        System.out.println(input3 + " -> " + output3);
+        System.out.println(input4 + " -> " + output4);  
+    } 
+    
+    public static String freqAlphabets(String s) {
+        // Code Map holding key decryptions 
+        Map<String, String> codeMap = new HashMap<>();
+        codeMap.put("1", "a");
+        codeMap.put("2", "b");
+        codeMap.put("3", "c");
+        codeMap.put("4", "d");
+        codeMap.put("5", "e");
+        codeMap.put("6", "f");
+        codeMap.put("7", "g");
+        codeMap.put("8", "h");
+        codeMap.put("9", "i");
+        codeMap.put("10#", "j");
+        codeMap.put("11#", "k");
+        codeMap.put("12#", "l");
+        codeMap.put("13#", "m");
+        codeMap.put("14#", "n");
+        codeMap.put("15#", "o");
+        codeMap.put("16#", "p");
+        codeMap.put("17#", "q");
+        codeMap.put("18#", "r");
+        codeMap.put("19#", "s");
+        codeMap.put("20#", "t");
+        codeMap.put("21#", "u");
+        codeMap.put("22#", "v");
+        codeMap.put("23#", "w");
+        codeMap.put("24#", "x");
+        codeMap.put("25#", "y");
+        codeMap.put("26#", "z");
+        
+        List<String> codes = new ArrayList<>(); // list holding single codes 
+        for ( int i = s.length() - 1; i >= 0; i-- ) {
+            /* collect the single digit and add to codes list */
+            if ( !(s.charAt(i) == '#') ) {
+                String code = "";
+                code += s.charAt(i);
+                codes.add(code);
+            } else {
+                /* A # symbol has been found and the next two digits after the # should 
+                 * be collected together */
+                if ( s.charAt(i) == '#' ) {
+                    String code = "";
+                    code += s.charAt(i-2);
+                    code += s.charAt(i-1);
+                    code += s.charAt(i);
+                    codes.add(code);
+                    i -= 2;
+                }
+            }
+        }
+        /* convert codes to String using code Map starting from last element in codes List */
+        String decrytedStr = "";
+        for ( int j = codes.size() - 1; j >= 0; j-- ) {
+            String value = codeMap.get(codes.get(j));
+            decrytedStr += value;
+        }
+        return decrytedStr;
+    }
+}       
