@@ -150,6 +150,65 @@ public class CountBits {
 }
 
 /**
+ * Majority Element 2
+ *
+ * Given an integer array of size n, find all elements that appear more than n / 3 times
+ *
+ * The algorithm should run in linear time and in 0(1) space
+ *
+ * @author Wali Morris 
+ * @since 05/22/2020
+ */
+
+import java.util.*; 
+
+public class MajorityElement2 { 
+    public static void main(String[] args) { 
+        int[] input1 = {3, 2, 3}; 
+        int[] input2 = {1, 1, 1, 3, 3, 2, 2, 2};
+        int[] input3 = {1, 2}; 
+        int[] input4 = {2, 2};  
+        List<Integer> output1 = majorityElement(input1); 
+        List<Integer> output2 = majorityElement(input2);
+        List<Integer> output3 = majorityElement(input3);
+        List<Integer> output4 = majorityElement(input4);
+        System.out.println(Arrays.toString(input1) + " Majority Element: " + output1); 
+        System.out.println(Arrays.toString(input2) + " Majority Element: " + output2);
+        System.out.println(Arrays.toString(input3) + " Majority Element: " + output3);
+        System.out.println(Arrays.toString(input4) + " Majority Element: " + output4);
+    } 
+    
+    public static List<Integer> majorityElement(int[] nums) {
+        List<Integer> majorityElementsList = new ArrayList<>();  
+        // in the case nums contains only 1 element 
+        if ( nums.length == 1 ) { 
+            majorityElementsList.add(nums[0]); 
+            return majorityElementsList; 
+        }
+        /* create a map to map the count of each element from nums then add each element
+         * from nums > nums.length / 3 */
+        Map<Integer, Integer> numsCount = new HashMap<>();
+        for ( Integer n : nums ) {
+            if ( numsCount.containsKey(n) ) { // does map contain element? 
+                int count = numsCount.get(n) + 1; // yes, increment element's count
+                /* elements count > nums.length / 3 and element is not in majority list? */
+                if ( count > nums.length / 3 && majorityElementsList.contains(n) == false ) {
+                    majorityElementsList.add(n); // yes, add element to majority list
+                } else {
+                    numsCount.put(n, count); // no, put element and new count back into map
+                }
+            } else {
+                numsCount.put(n, 1); // element is not in map, add it and a count of 1
+                if ( 1 > nums.length / 3 ) { // is this element's count > nums.length / 3?
+                    majorityElementsList.add(n); // yes? add it to majority list
+                }
+            }
+        }
+        return majorityElementsList;
+    }
+}
+
+/**
  * Rearrange Words in a Sentence 
  *
  * Given a sentence text (A sentence is a string of space-separated words) in the following format:
