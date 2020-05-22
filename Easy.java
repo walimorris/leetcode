@@ -2254,3 +2254,49 @@ public class MajorityElement {
         return -1; // nums array does not meet criteria, return -1 
     }
 }
+
+/** 
+ * Move Zeros 
+ *
+ * Given an array nums, write a function to move all 0's to the end of it 
+ * while maintaining the relative order of the non-zero elements 
+ *
+ * @author Wali Morris 
+ * @since 05/22/2020
+ */
+
+import java.util.*;
+
+public class MoveZeroes {
+    public static void main(String[] args) {
+        int[] input1 = {4, 2, 4, 0, 0, 3, 0, 5, 1, 0};
+        System.out.print(Arrays.toString(input1) + " -> ");
+        moveZeroes(input1);
+        System.out.println(Arrays.toString(input1));
+    }
+    
+    public static void moveZeroes(int[] nums) {
+        // creates an ArrayList of nums to check if it contains a 0
+        List<Integer> numsList = new ArrayList<>();
+        for ( int n : nums ) {
+            numsList.add(n);
+        }
+        // if nums contains a 0
+        if ( numsList.contains(0)) {
+            /* impliments a modified selection sort algorithm to move all 0's to the end of 
+             * nums array. If the pointed to element is a 0 and the next element is either 
+             * less than or greater than 0, swap until 0 element is at the end */
+            for ( int i = 0; i < nums.length - 1; i++ ) {
+                int current = i;
+                for ( int j = i + 1; j < nums.length; j++ ) {
+                    if (nums[current] == 0 && nums[j] > nums[current] ||
+                        nums[current] == 0 && nums[j] < nums[current]) {
+                        int temp = nums[j];
+                        nums[j] = nums[current];
+                        nums[current] = temp;
+                    }
+                }
+            }
+        }
+    }
+}
