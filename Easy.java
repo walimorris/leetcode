@@ -2031,3 +2031,82 @@ public class LastWord {
         }
     }
 }
+
+/**
+ * Destination City 
+ *
+ * You are given the array paths, where paths[i] = [cityAi, cityBi] means there exists a
+ * direct path going from cityAi to cityBi
+ *
+ * Return the destination city, that is, the city without any path outgoing to another 
+ * city
+ *
+ * It is guaranteed that the graph of paths forms a line without any loop, therefore, 
+ * there will be exactly one destination city
+ *
+ * @author Wali Morris 
+ * @since 05/21/2020
+ */
+
+
+import java.util.*;
+
+public class DestinationCity {
+    public static void main(String[] args) {
+        List<String> inputList1 = new ArrayList<>(
+                List.of("London", "New York"));
+        List<String> inputList2 = new ArrayList<>(
+                List.of("New York", "Lima"));
+        List<String> inputList3 = new ArrayList<>(
+                List.of("Lima", "Sao Paulo"));
+        List<List<String>> input = new ArrayList<>(
+                List.of(inputList1, inputList2, inputList3));
+        String destination = destCity(input);
+        System.out.println(input + " Destination: " + destination);
+        List<String> input2List1 = new ArrayList<>(
+                List.of("B", "C"));
+        List<String> input2List2 = new ArrayList<>(
+                List.of("D", "B"));
+        List<String> input2List3 = new ArrayList<>(
+                List.of("C", "A"));
+        List<List<String>> input2 = new ArrayList<>(
+                List.of(input2List1, input2List2, input2List3));
+        String destination2 = destCity(input2);
+        System.out.println(input2 + " Destination: " + destination2);
+        List<String> input3List1 = new ArrayList<>(
+                List.of("A", "Z"));
+        List<List<String>> input3 = new ArrayList<>();
+        input3.add(input3List1);
+        String destination3 = destCity(input3);
+        System.out.println(input3 + " Destination: " + destination3);
+    }
+    
+    public static String destCity(List<List<String>> paths) {
+        // returns the second city in single list of two cities 
+        if ( paths.size() == 1 ) {
+            return paths.get(0).get(1);
+        }
+        /* Creates a list to record the first city to begin. Also creates a map pair 
+         * of the two cities in the original paths list. This way we can track travel 
+         * from city A to city B */
+        Map<String, String> cityPair = new HashMap<>();
+        List<String> firstCity = new ArrayList<>();
+        for ( List<String> cities : paths ) {
+            cityPair.put(cities.get(0), cities.get(1));
+            firstCity.add(cities.get(0));
+        }
+        boolean last = false;
+        String finalCity = "";
+        int start = 0;
+        String current = firstCity.get(start); // start at first city 
+        while (last == false) { // while we still have cities to travel to 
+            if ( cityPair.containsKey(current) ) { // if destination city is also a departure city
+                current = cityPair.get(current); // get the departure cities destination 
+            } else {
+                finalCity = current; // if destination city is not also a departure city
+                last = true; // it's true, we've reached the final city
+            }
+        }
+        return finalCity; // return destination city(final city) 
+    }
+}
