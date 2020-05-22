@@ -2248,7 +2248,7 @@ public class MajorityElement {
                     numsCount.put(n, count); // count is not greater, put element back into map with new count
                 }
             } else { // element does not exist
-                numsCount.put(n, 1); // put element into count with starting count of 1
+                numsCount.put(n, 1); // put element into map with starting count of 1
             }
         }
         return -1; // nums array does not meet criteria, return -1 
