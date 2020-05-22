@@ -2205,3 +2205,52 @@ public class DecryptString {
         return decrytedStr;
     }
 }       
+
+/**
+ * Majority Element 
+ *
+ * Given an array of size n, find the majority element, the majority element is 
+ * the element that appears more than n/2 times
+ *
+ * You may assume that the array is non-empty and the majority element always 
+ * exists in the array. 
+ *
+ * @author Wali Morris 
+ * @since 05/22/2020
+ */
+
+import java.util.*;
+
+public class MajorityElement {
+    public static void main(String[] args) {
+        int[] input1 = {3,2,3};
+        int[] input2 = {2,2,1,1,1,2,2};
+        int output1 = majorityElement(input1);
+        int output2 = majorityElement(input2);
+        System.out.println(Arrays.toString(input1) + " Majority Element: " + output1);
+        System.out.println(Arrays.toString(input2) + " Majority Element: " + output2);
+    }
+    
+    public static int majorityElement(int[] nums) {
+        // in the case there is only 1 element in nums
+        if ( nums.length == 1 ) {
+            return nums[0];
+        }
+        /* Create a Map to count the amount of each element, if a count breaks 
+         * nums/2, return that element as majority element */
+        Map<Integer, Integer> numsCount = new HashMap<>();
+        for ( Integer n : nums ) {
+            if ( numsCount.containsKey(n) ) { // map already contains element? 
+                int count = numsCount.get(n) + 1; // increase element count by 1
+                if ( count > nums.length / 2 ) { // is the count greater than nums/2?
+                    return n; // return element
+                } else {
+                    numsCount.put(n, count); // count is not greater, put element back into map with new count
+                }
+            } else { // element does not exist
+                numsCount.put(n, 1); // put element into count with starting count of 1
+            }
+        }
+        return -1; // nums array does not meet criteria, return -1 
+    }
+}
