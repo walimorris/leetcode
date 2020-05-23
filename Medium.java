@@ -264,3 +264,42 @@ public class RearrangeWords {
         return sentence.substring(0, 1).toUpperCase() + sentence.substring(1); 
     }
 }
+
+/**
+ * Find the Duplicate Number 
+ *
+ * Given an array nums containing n + 1 integers where each integer is 
+ * between 1 and n (inclusive), prove that at least one duplicate number
+ * must exist
+ *
+ * Assume there is only one duplicate number, find the duplicate one
+ *
+ * @author Wali Morris
+ * @since 05/24/2020
+ */
+
+import java.util.*;
+
+public class DuplicateNumber {
+    public static void main(String[] args) {
+        int[] input1 = {1, 3, 4, 2, 2};
+        int[] input2 = {3, 1, 3, 4, 2};
+        int output1 = findDuplicate(input1);
+        int output2 = findDuplicate(input2);
+        System.out.println(Arrays.toString(input1) + ": " + output1);
+        System.out.println(Arrays.toString(input2) + ": " + output2);
+    }
+    
+    public static int findDuplicate(int[] nums) {
+        /* A map to hold each element in num and it's count */
+        Map<Integer, Integer> numsCountList = new HashMap<>(); 
+        for ( int n : nums ) { // iterate the elements in num
+            if ( numsCountList.containsKey(n) ) { // element is in list, it has already been seen
+                return n; // this is a duplicate, return element
+            } else { // element has not yet been seen 
+                numsCountList.put(n, 1); // add it to list, with count of 1
+            } 
+        } 
+        return - 1; // returns -1 if there are no duplicates
+    } 
+}
