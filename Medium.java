@@ -303,3 +303,50 @@ public class DuplicateNumber {
         return - 1; // returns -1 if there are no duplicates
     } 
 }
+
+/**
+ * Daily Temperatures
+ *
+ * Given a list of daily temperatures T, return a list such that, for each day 
+ * in the input, tells you how many days you would have to wait until a warmer 
+ * temperature
+ *
+ * If there are no future day for which this is possible, put 0 instead
+ *
+ * @author Wali Morris 
+ * @since 05/24/2020
+ */
+
+import java.util.*;
+
+public class DailyTemperatures {
+    public static void main(String[] args) {
+        int[] input1 = {73, 74, 75, 71, 69, 72, 76, 73};
+        int[] output1 = dailyTemperatures(input1);
+        System.out.println(Arrays.toString(input1) + " -> " +
+                           Arrays.toString(output1));
+    }
+    
+    public static int[] dailyTemperatures(int[] T) {
+        /* holds T[i]'s number of days until warmer weather */
+        int[] warmerT = new int[T.length];
+        int size = 0; // holds index in place to input count of days to next weather at warmerT[size]
+        for ( int i = 0; i < T.length - 1; i++ ) {
+            // counts number of days from T[i](original temp) - T[j](warmer temp)
+            int count = 0; // days 0
+            int temp = T[i]; // current temperature  
+            for (int j = i + 1; j < T.length; j++ ) {
+                count++; // counts days until a temperature higher than current temp 
+                int nextTemp = T[j]; // next days temp  
+                if ( nextTemp > temp ) { // next days temp higher than current temp?
+                    warmerT[size] = count; // put count into warmerT[size] 
+                    break; // no need to continue searching, break inner loop
+                } else {
+                    warmerT[size] = 0; // higher temp was not found, put 0 in warmerT[size] 
+                }
+            }
+            size++; // increment size to go to next index 
+        }
+        return warmerT;
+    }
+}
