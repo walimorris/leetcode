@@ -1865,9 +1865,7 @@ public class AbsoluteDifference {
     }
 }
 
- * of the integers are even 
- *
- * Sort the Array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is 
+/* Sort the Array so that whenever A[i] is odd, i is odd; and whenever A[i] is even, i is 
  * even 
  *
  * You may return any answer array that satisfies this condition 
@@ -1987,7 +1985,7 @@ public class RotateArray {
             for ( int i = nums.length - 1; i > 0; i-- ) { 
                 nums[i] = nums[i-1]; // move each element to right 
             } 
-            nums[0] = last; // first num in array equals last
+             nums[0] = last; // first num in array equals last
             rotations++; // increment rotations(k)
         }
         System.out.println(Arrays.toString(nums)); 
