@@ -2300,3 +2300,65 @@ public class MoveZeroes {
         }
     }
 }
+
+/**
+ * Check if a word occurs as a Prefix of any word in a sentence 
+ *
+ * Given a sentence that consists of some words seperated by a single space, and a search word 
+ *
+ * You have to check if searchWord is a prefix of any word in the sentence
+ *
+ * Return the index of the word in sentence where searchWord is a Prefix of this word (1-indexed)
+ *
+ * If a searchWord is a prefix of more than one word, return the index of the first word and if 
+ * there is no such word return -1
+ *
+ * @author Wali Morris 
+ * @since 05/25/2020
+ */
+
+import java.util.*;
+
+public class SentencePrefix {
+    public static void main(String[] args) {
+        String sentence1 = "i love eating burger";
+        String sentence2 = "this problem is an easy problem";
+        String sentence3 = "i am tired";
+        String sentence4 = "i use triple pillow";
+        String searchWord1 = "burg";
+        String searchWord2 = "pro";
+        String searchWord3 = "you";
+        String searchWord4 = "pill";
+        int output1 = isPreFixOfWord(sentence1, searchWord1);
+        int output2 = isPreFixOfWord(sentence2, searchWord2);
+        int output3 = isPreFixOfWord(sentence3, searchWord3);
+        int output4 = isPreFixOfWord(sentence4, searchWord4);
+        System.out.println(searchWord1 + " is prefix of word number : " + output1);
+        System.out.println(searchWord2 + " is prefix of word number : " + output2);
+        System.out.println(searchWord3 + " is prefix of word number : " + output3);
+        System.out.println(searchWord4 + " is prefix of word number : " + output4);
+    }
+    
+    public static int isPreFixOfWord(String sentence, String searchWord) {
+        if ( sentence.equals(" ") ) {
+            return -1; // empty sentence, return -1 
+        }
+        /* Array of elements consisting of each word in sentence */
+        String[] sentenceArr = sentence.split(" ");
+        /* get first letter of word being searched */
+        char searchWordFirstLetter = searchWord.charAt(0);
+        /* sequential search of any element in sentence array that contains the first letter of the 
+         * searched word (only continues match if substring has length greater than or equal to 
+         * searched word or else a runtime error will be thrown due to substring out of index) */
+        for ( int i = 0; i < sentenceArr.length; i++ ) {
+            if ( sentenceArr[i].charAt(0) == searchWordFirstLetter ) { // found a word with match 
+                if( sentenceArr[i].length() >= searchWord.length() &&
+                    sentenceArr[i].substring(0, searchWord.length()).equals(searchWord )) {
+                    /* substring of word in sentence matches searched word, return index + 1 */
+                    return i + 1;
+                }
+            }
+        }
+        return -1; // no prefix was found 
+    }
+}
