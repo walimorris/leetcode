@@ -2362,3 +2362,52 @@ public class SentencePrefix {
         return -1; // no prefix was found 
     }
 }
+
+/**
+ * Given a String S and a Character C, return an array of integers representing the 
+ * shortest distance from the Character C in the string
+ *
+ * @author Wali Morris 
+ * @since 05/25/2020
+ */
+
+import java.util.*;
+
+public class ShortestDistanceToChar {
+    public static void main(String[] args) {
+        String input1 = "loveleetcode";
+        int[] output1 = shortestToChar(input1, 'e');
+        System.out.println(Arrays.toString(output1));
+    }
+    
+    public static int[] shortestToChar(String S, char C) {
+        /* creates a list to hold the index of each element C in S */
+        List<Integer> characterIndex = new ArrayList<>();
+        for ( int i = 0; i < S.length(); i++ ) {
+            if ( S.charAt(i) == C ) {
+                characterIndex.add(i);
+            }
+        }
+        /* Creates an array to hold the distance to the closest character C. If the index is less than 
+         * s.length / 2 we get the distance from the furthest character C and current index. If the index
+         * is greater than s.length / 2 we get the distance from the shortest distance C and current index.
+         * This is done because we use Math.abs() */
+        int[] distances = new int[S.length()];
+        for ( int j = 0; j < S.length(); j++ ) {
+            if ( j < S.length() / 2 ) {
+                int smallestDistance = Math.abs(j - characterIndex.get(characterIndex.size() - 1));
+            }
+            int smallestDistance = Math.abs(j - characterIndex.get(0));
+            /* collect the index of each Char C and test for shortest distance. Then add this shortest 
+             * distance to distances[j] */
+            for ( int k = 0; k < characterIndex.size(); k++ ) {
+                int nextDistance = Math.abs(j - characterIndex.get(k));
+                if ( nextDistance < smallestDistance ) {
+                    smallestDistance = nextDistance;
+                }
+            }
+            distances[j] = smallestDistance;
+        }
+        return distances;
+    }
+}
