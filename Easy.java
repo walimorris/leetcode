@@ -2409,3 +2409,80 @@ public class ShortestDistanceToChar {
         return distances;
     }
 }
+
+/**
+ * Uncommon Words
+ *
+ * We are given two sentences A and B ( a sentence is a string of space seperated words, 
+ * each word consists only of lowercase letters)
+ *
+ * A word is uncommon if it appears exactly once in one of the sentences, and does not 
+ * appear in the other sentence 
+ *
+ * Return a list of all uncommon words
+ *
+ * Note: This method uses uses the idea of functional decomposition by breaking the program
+ * into smaller methods to process the information
+ *
+ * @author Wali Morris
+ * @since 05/26/2020
+ */
+
+import java.util.*;
+
+public class UncommonWords {
+    public static void main(String[] args) {
+        String input1 = "this apple is sweet", input2 = "this apple is sour";
+        String input3 = "apple apple", input4 = "bananna";
+        String[] output1 = uncommonFromSentences(input1, input2);
+        String[] output2 = uncommonFromSentences(input3, input4);
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+    }
+
+    /* This method takes two seperate sentences and split them into two seperate arrays, giving
+     * each element(word) its own index. The two sentences are then mapped by word and count. 
+     * Both maps are then compared and populated into a their own list. If a word from map1 is 
+     * not in map2 and that word is not repeated it's added to the list, and vice versa. These 
+     * list are then combined and returned as an array of uncommon words */
+    public static String[] uncommonFromSentences(String A, String B) {
+        String[] sentenceA = A.split(" "), sentenceB = B.split(" ");
+        Map<String, Integer> mapA = populateMapFromArray(sentenceA);
+        Map<String, Integer> mapB = populateMapFromArray(sentenceB);
+        List<String> uncommonWordsA = uncommonWordsFromStrings(mapA, mapB);
+        List<String> uncommonWordsB = uncommonWordsFromStrings(mapB, mapA);
+        uncommonWordsA.addAll(uncommonWordsB);
+        String[] uncommonArray = new String[uncommonWordsA.size()];
+        uncommonArray = uncommonWordsA.toArray(uncommonArray);
+        return uncommonArray;
+    }
+    
+    /* Takes an array of Strings as parameter and mapped by word and its count, returns the 
+     * map */
+    public static Map<String, Integer> populateMapFromArray(String[] arr) {
+        Map<String, Integer> map = new HashMap<>();
+        for ( String word : arr ) {
+            if ( map.containsKey(word) ) {
+                int count = map.get(word) + 1;
+                map.put(word, count);
+            } else {
+                map.put(word, 1);
+            }
+        }
+        return map;
+    }
+
+    /* Takes two maps as parameters and compares for uncommon words, *see uncommonFromSentences()**/
+    public static List<String> uncommonWordsFromStrings(Map<String, Integer> mapA,
+                    Map<String, Integer> mapB) {
+        List<String> s = new ArrayList<>();
+        for ( String word : mapA.keySet() ) {
+            if ( !(mapB.containsKey(word))) {
+                if ( mapA.get(word) == 1 ) {
+                    s.add(word);
+                }
+            }
+        }
+        return s;
+    }
+}
