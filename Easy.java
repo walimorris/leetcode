@@ -2516,8 +2516,7 @@ public class NextGreaterElement1 {
         System.out.println(Arrays.toString(output2));
     }
     
-    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
-        List<Integer> greaterElementsHoldingList = new ArrayList<>();
+    int[] nextGreaterElement1 = new int[nums1.length];
         for ( int i = 0; i < nums1.length; i++ ) {
             int current = nums1[i]; // number we are looking for in nums2 array  
             boolean currentFound = false; // checks if nums1[i] is found in nums2 
@@ -2529,23 +2528,18 @@ public class NextGreaterElement1 {
                 } else {
                     /* number from nums1 has been found in nums2 and there's a number greater than it 
                      * to the right of it in nums2 */
-                    if ( nums2[j] > current && currentFound == true ) { 
+                    if ( nums2[j] > current && currentFound == true ) {
                         nextGreatestFound = true;
                         nextGreatestNum = nums2[j]; // the greater number to the right  
                         break;
                     }
-                }           
-            } 
+                }
+            }
             if ( nextGreatestFound == true ) { // if greatest has been found 
-                greaterElementsHoldingList.add(nextGreatestNum); // add it to list
-            } else { 
-                greaterElementsHoldingList.add(-1); // add -1 if not found 
-            } 
-        } 
-        /* creates and populates an array with nextgreater elements from list */
-        int[] nextGreaterElement1 = new int[greaterElementsHoldingList.size()];
-        for ( int k = 0; k < nextGreaterElement1.length; k++ ) {
-            nextGreaterElement1[k] = greaterElementsHoldingList.get(k);
+                nextGreaterElement1[i] = nextGreatestNum; // add greatestNum to array 
+            } else {
+                nextGreaterElement1[i] = -1; // else add -1
+            }
         }
         return nextGreaterElement1;
     }
