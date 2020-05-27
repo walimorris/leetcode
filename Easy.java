@@ -2486,3 +2486,67 @@ public class UncommonWords {
         return s;
     }
 }
+
+/** 
+ * Next Greater Element I 
+ *
+ * You are given two arrays ( without duplicates) nums1 and nums2 where nums1's elements are 
+ * subset of nums2 
+ *
+ * Find all the next greater numbers for nums1's elements in the corresponding places of nums2
+ *
+ * The Next Greater Number of a number x in nums1 is the first greater number to its right in 
+ * nums2
+ *
+ * If it does not exist, output -1 for this number
+ *
+ * @author Wali Morris 
+ * @since 05/27/2020
+ */
+
+import java.util.*;
+
+public class NextGreaterElement1 {
+    public static void main(String[] args) {
+        int[] input1 = {4, 1, 2}, input2 = {1, 3, 4, 2};
+        int[] input3 = {2, 4}, input4 = {1, 2, 3, 4};
+        int[] output1 = nextGreaterElement(input1, input2);
+        int[] output2 = nextGreaterElement(input3, input4);
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+    }
+    
+    public static int[] nextGreaterElement(int[] nums1, int[] nums2) {
+        List<Integer> greaterElementsHoldingList = new ArrayList<>();
+        for ( int i = 0; i < nums1.length; i++ ) {
+            int current = nums1[i]; // number we are looking for in nums2 array  
+            boolean currentFound = false; // checks if nums1[i] is found in nums2 
+            boolean nextGreatestFound = false; // checks if a number greater than nums1[i] is found  
+            int nextGreatestNum = 0; // the next greatest num to the right of nums1[i] found in nums2  
+            for ( int j = 0; j < nums2.length; j++ ) {
+                if ( nums2[j] == current ) {
+                    currentFound = true; // number has been found 
+                } else {
+                    /* number from nums1 has been found in nums2 and there's a number greater than it 
+                     * to the right of it in nums2 */
+                    if ( nums2[j] > current && currentFound == true ) { 
+                        nextGreatestFound = true;
+                        nextGreatestNum = nums2[j]; // the greater number to the right  
+                        break;
+                    }
+                }           
+            } 
+            if ( nextGreatestFound == true ) { // if greatest has been found 
+                greaterElementsHoldingList.add(nextGreatestNum); // add it to list
+            } else { 
+                greaterElementsHoldingList.add(-1); // add -1 if not found 
+            } 
+        } 
+        /* creates and populates an array with nextgreater elements from list */
+        int[] nextGreaterElement1 = new int[greaterElementsHoldingList.size()];
+        for ( int k = 0; k < nextGreaterElement1.length; k++ ) {
+            nextGreaterElement1[k] = greaterElementsHoldingList.get(k);
+        }
+        return nextGreaterElement1;
+    }
+}
