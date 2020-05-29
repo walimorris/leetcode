@@ -34,7 +34,7 @@
  * this memory will be freed up. This works fine in Java but may need 
  * better implementation in languages like C or C++
  *
- * @author Wali Morris<walimmorris@gmail.com>
+ * @author Wali Morris
  */
 
 import java.util.*;
