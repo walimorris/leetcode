@@ -2544,3 +2544,57 @@ public class NextGreaterElement1 {
         return nextGreaterElement1;
     }
 }
+
+/**
+ * Maximum Product of Two Elements in an Array 
+ *
+ * Given the array of integers nums, you will choose two different indices i and j 
+ * of that array 
+ *
+ * Return the maximum value of (nums[i] - 1 * (nums[j] - 1)
+ *
+ * @author Wali Morris
+ * @since 06/02/2020
+ */
+
+import java.util.*;
+
+public class MaximumProduct {
+    public static void main(String[] args) {
+        int[] input1 = {3, 4, 5, 2};
+        int[] input2 = {1, 5, 4, 5};
+        int[] input3 = {3, 7};
+        int output1 = maxProduct(input1);
+        int output2 = maxProduct(input2);
+        int output3 = maxProduct(input3);
+        System.out.println("Max product of " + Arrays.toString(input1) + ": " + output1);
+        System.out.println("Max product of " + Arrays.toString(input2) + ": " + output2);
+        System.out.println("Max product of " + Arrays.toString(input3) + ": " + output3);
+    }
+
+    public static int maxProduct(int[] nums) {
+        /* Creates a map to record each integer element and its count */
+        Map<Integer, Integer> numsMap =  new HashMap<>();
+        for ( int num : nums ) {
+            if ( numsMap.containsKey(num) ) {
+                int count = numsMap.get(num) + 1;
+                numsMap.put(num, count);
+            } else {
+                numsMap.put(num, 1);
+            }
+        }
+
+        /* gets the first and second greatest number, if the greatest number has a duplicate then the 
+         * second greatest number has the same value */
+        int firstGreatestNum = Collections.max(numsMap.keySet());
+        int secondGreatestNum = 0;
+        if ( numsMap.get(firstGreatestNum) > 1 ) {
+            secondGreatestNum = firstGreatestNum;
+        } else {
+            numsMap.remove(firstGreatestNum);
+            secondGreatestNum = Collections.max(numsMap.keySet());
+        }
+        // return the product 
+        return ( (firstGreatestNum - 1) * (secondGreatestNum - 1));
+    }
+}
