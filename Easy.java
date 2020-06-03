@@ -2628,7 +2628,7 @@ public class ValidPalindrome {
     
     public static boolean isPalindrome(String s) {
         boolean palindrome = true; 
-        if ( s. length() == 0 ) { 
+        if ( s.length() == 0 ) { 
             return palindrome; 
         }  
         String s2 = s.toLowerCase();  
