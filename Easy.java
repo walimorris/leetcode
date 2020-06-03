@@ -2598,3 +2598,61 @@ public class MaximumProduct {
         return ( (firstGreatestNum - 1) * (secondGreatestNum - 1));
     }
 }
+
+/**
+ * Valid Palidrome
+ *
+ * Given a string, determine if it is a palindrome, considering only alphanumeric characters 
+ * and ignoring cases
+ *
+ * For the purpose of this problem, we determine empty string as valid palindrome
+ *
+ * @author Wali Morris
+ * @since 06/03/2020
+ */
+
+import java.util.*; 
+
+public class ValidPalindrome { 
+    public static void main(String[] args) { 
+        String input1 = "A man, a plan, a canal: Panama"; 
+        String input2 = "race a car";
+        String input3 = "0P";   
+        boolean output1 = isPalindrome(input1); 
+        boolean output2 = isPalindrome(input2);
+        boolean output3 = isPalindrome(input3);         
+        System.out.println(output1); 
+        System.out.println(output2); 
+        System.out.println(output3); 
+    } 
+    
+    public static boolean isPalindrome(String s) {
+        boolean palindrome = true; 
+        if ( s. length() == 0 ) { 
+            return palindrome; 
+        }  
+        String s2 = s.toLowerCase();  
+        Queue<Character> queue = new LinkedList<>(); 
+        Stack<Character> stack = new Stack<>();
+        
+        /* iterates String s and pushes and adds only characters a - z or integers 0 - 9
+         * to queue and stack */ 
+        for ( int i = 0; i < s.length(); i++ ) {
+            if ( s2.charAt(i) > 96 && s2.charAt(i) < 123 ||
+                 s2.charAt(i) > 47 && s2.charAt(i) < 58 ) {
+                queue.add(s2.charAt(i));
+                stack.push(s2.charAt(i));
+            }
+        }
+        /* Empties both stack and queue, comparing each element using FIFO/LIFO conventions. 
+         * If any two elements do not match, return false else return true */
+        while ( !queue.isEmpty() ) {
+            char queueElement = queue.remove();
+            char stackElement = stack.pop();
+            if ( !(queueElement == stackElement) ) {
+                return false;
+            }
+        }
+        return palindrome;
+    }
+}
