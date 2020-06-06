@@ -2656,3 +2656,46 @@ public class ValidPalindrome {
         return palindrome;
     }
 }
+
+/* Given a string, you need to reverse the order of characters in each word 
+ * within a sentence while still preserving whitespace and initial word 
+ * order. 
+ *
+ * Note: This problem is similar, if not the same question, to Reverse String II
+ * In this solution I use a nested loop to build the new sentence in reverse order
+ * which seems to be much better solution. This solution can still be written in 
+ * a much more proficient way
+ *
+ * Author : Wali Morris 
+ * File   : ReverseStringIII.java
+ * Date   : 06/05/2020
+ */
+
+import java.util.*;
+
+public class ReverseStringIII {
+    public static void main(String[] args) {
+        String input = "Let's take LeetCode contest";
+        String output = reverseWords(input);
+        System.out.println(output);
+    }
+    
+    public static String reverseWords(String s) {
+        StringBuilder finalStr = new StringBuilder("");                 
+        /* An array to split the sentence by each individual word */    
+        String[] sentenceArray = s.split(" "); 
+        /* This nested loop reads each element in sentence array and reverse that word then 
+         * appends it to finalStr */
+        for ( int i = 0; i < sentenceArray.length; i++ ) {
+            String word = sentenceArray[i];     
+            for ( int j = word.length() - 1; j >= 0; j-- ) { 
+                finalStr.append(word.charAt(j)); 
+            }           
+            /* if the last word is being read do not append a space */
+            if ( !(i == sentenceArray.length - 1) ) { 
+                finalStr.append(" "); 
+            }
+        }
+        return finalStr.toString();
+    }
+}
