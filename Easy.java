@@ -2699,3 +2699,71 @@ public class ReverseStringIII {
         return finalStr.toString();
     }
 }
+
+/**
+ * Last Stone Weight
+ *
+ * We have a collection of stones, each stone has a positive integer weight
+ *
+ * Each turn, we choose the two heaviest stones and smash them together; suppose
+ * the stones have weights x and y with x greater than or equal to y
+ *
+ * The result of this smash is: 
+ *
+ *  - if x == y, both stones are totally destroyed
+ *  - if x != y, the stone of weight x is totally destroyed and the stone of 
+ *    weight y has new weight y-x
+ *
+ * At the end, there is at most 1 stone left
+ *
+ * Return the weight of this stone ( or 0 if there are no stones left)
+ *
+ * @author Wali Morris 
+ * @since 06/05/2020
+ */
+
+import java.util.stream.Collectors;
+import java.util.*;
+
+public class LastStone {
+    public static void main(String[] args) {
+        int[] input1 = {};
+        int output = lastStoneWeight(input1);
+        System.out.println("Last stone weight: " + output);
+    }
+    
+    public static int lastStoneWeight(int[] stones) {
+        /* Creates an ArrayList of the array stones */
+        List<Integer> stonesList = Arrays.stream(stones)
+                                         .boxed()
+                                         .collect(Collectors.toList());
+        /* empty list, return 0 */
+        if ( stonesList.size() == 0 ) {
+            return 0;
+        }
+        /* Its guarenteed the there will be 1 element, unless there are none. In this case
+         * get the maximum number and in case of duplicates give x the value of the first 
+         * seen max num. Remove this from the list and do the same for the next maximum and 
+         * give y this value */
+        while ( !(stonesList.size() == 1) ) {
+            int x = Collections.max(stonesList);
+            stonesList.remove(stonesList.indexOf(x));
+            int y = Collections.max(stonesList);
+            stonesList.remove(stonesList.indexOf(y));
+            /* if x equals y, do nothing , the elements have already been deleted from the list. 
+             * If x does not equal y get the absolute value of y - x */
+            if ( !(x == y) ) {
+                /* new value becomes the new stone and add it to the front of the list */
+                int newStone = Math.abs(y - x);
+                stonesList.add(0, newStone);
+            } else {
+                /* at any step, if the list is empty, return 0 */
+                if ( stonesList.size() == 0 ) {
+                    return 0;
+                }
+            }
+        }
+        /* List is not empty, return the only element */
+        return stonesList.get(0);
+    }
+}
