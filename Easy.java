@@ -2767,3 +2767,66 @@ public class LastStone {
         return stonesList.get(0);
     }
 }
+
+/**
+ * Third Maximum Number 
+ *
+ * Given a non-empty array of integers, return the third maximum number in this array
+ * If it does not exist, return the maximum number
+ *
+ * @author Wali Morris
+ * @since 06/06/2020
+ */
+
+import java.util.*; 
+
+public class ThirdMax { 
+    public static void main(String[] args) { 
+        int[] input1 = {1, 2}; 
+        int[] input2 = {2, 2, 3, 1}; 
+        int[] input3 = {1, 1, 2}; 
+        int output1 = thirdMax(input1); 
+        int output2 = thirdMax(input2); 
+        int output3 = thirdMax(input3);
+        System.out.println(output1); 
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+    
+    public static int thirdMax(int[] nums) { 
+        switch ( nums.length ) { 
+            case 0: 
+                return 0; 
+            case 1: 
+                return nums[0];
+            case 2:  
+                /* nums array length is 2, create an arraylist and return the max */
+                List<Integer> numbers = new ArrayList<>();
+                for ( Integer n : nums ) {
+                    numbers.add(n);
+                }
+                return Collections.max(numbers);
+        }
+        List<Integer> numbersList = new ArrayList<>();
+        for ( Integer num : nums ) {
+            numbersList.add(num);
+        }
+        /* This is the original max value in nums array before any elements are removed. 
+         * If the size of nums array is 3 or greater, but after removing elements has a 
+         * size of 0 then the original max element will be returned */
+        final int orgMax = Collections.max(numbersList);
+        int max = 0, count = 0;
+        while ( count < 2) {
+            /* deletes the first two max elements from the list */
+            max = Collections.max(numbersList);
+            numbersList.removeAll(Collections.singleton(max));
+            count++;
+            if ( numbersList.size() == 0 ) {
+                return orgMax;
+            }
+        }
+        /* returns the third max element from the list */
+        return Collections.max(numbersList);
+
+    }
+}
