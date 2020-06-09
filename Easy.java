@@ -2830,3 +2830,65 @@ public class ThirdMax {
 
     }
 }
+
+/**
+ * Palindrome Linked List
+ *
+ * Given a singly linked list, determine if it is a palidrome
+ * @see ListNode.java: for definition of ListNode
+ *
+ * Note: I know there should be a reference to the back of the LinkedList
+ * At this point I'm not sure how to implement this feature, so I'm using
+ * another method I can think of which is much slower; I will continue 
+ * studying LinkedList and hopefully implement a much faster solution 
+ * utilizing the reference to the back of the linkedList
+ *
+ * @author Wali Morris 
+ * @since 06/09/2020
+ */
+
+import java.util.*;
+
+public class PalindromeLinkedList2 {
+    public static void main(String[] args) {
+        ListNode input0 = new ListNode(1);
+        ListNode input1 = new ListNode(-129, new ListNode(-128));
+        ListNode input2 = new ListNode(1, new ListNode(2,
+                          new ListNode(2, new ListNode(1))));
+        boolean output0 = isPalindrome(input0);
+        boolean output1 = isPalindrome(input1);
+        boolean output2 = isPalindrome(input2);
+        System.out.println(output0);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+
+    /* To test if LinkedList is a palidrome, use an ArrayList to store elements 
+     * of the LinkedList. Next, create two pointers, one at the front of the 
+     * arrayList and one at the back. Compare elements until the pointers meet in 
+     * the middle of the arrayList. */
+    public static boolean isPalindrome(ListNode head) {
+        // empty linkedlist and linkedlist with one element returns true
+        if ( head == null || head.next == null ) {
+            return true;
+        }
+        List<Integer> valList = new ArrayList<>();
+        ListNode current = head;
+        while ( !(current == null) ) {
+            valList.add(current.val);
+            current = current.next;
+        }
+        int count = 0;
+        // pointers to the first and last elements in arrayList 
+        int front = 0, back = valList.size() - 1;
+        while ( !(count == valList.size() / 2) ) {
+            if ( !(valList.get(front).equals(valList.get(back))) ) {
+                return false;
+            }
+            count++; // increment count
+            front++; // move front pointer to right 
+            back--; // move back pointer to left 
+        }
+        return true;
+    }
+}
