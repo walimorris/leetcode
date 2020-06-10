@@ -472,3 +472,33 @@ public class TopKFrequent {
         return topKArray;
     }
 }
+
+/**
+ * Kth Largest Element in an Array 
+ *
+ * Find the kth largest element in an unsorted array
+ *
+ * Note that is is the kth largest element in the 
+ * sorted order, not the kth distinct element
+ *
+ * @author Wali Morris
+ * @since 06/10/2020
+ */
+
+import java.util.*; 
+
+public class KthLargest { 
+    public static void main(String[] args) { 
+        int[] input1 = {3, 2, 1, 5, 6, 4}; 
+        int[] input2 = {3, 2, 3, 1, 2, 4, 5, 5, 6}; 
+        int output1 = findKthLargest(input1, 2); 
+        int output2 = findKthLargest(input2, 4);
+        System.out.println(output1);
+        System.out.println(output2);
+    } 
+
+    public static int findKthLargest(int[] nums, int k) { 
+        Arrays.sort(nums); 
+        return nums[nums.length - k]; 
+    } 
+}
