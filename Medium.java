@@ -350,3 +350,68 @@ public class DailyTemperatures {
         return warmerT;
     }
 }
+
+/**
+ * Next Greater Node in Linked List
+ *
+ * We are given a linked list with head as the first node
+ * Let's number the nodes in the list: node_1, node_2, node_3 etc
+ *
+ * Each node may have a next larger value for node_i, next_larger(node_i.val)
+ * such that j greater than i, node_j.val greater than node_i.val, and j is 
+ * the smallest possible choice (if such a k exists, the next larger value is 0)
+ *
+ * Return an array of integers (answer), where answer[i] = next_larger(node_{i+1})
+ *
+ * @author Wali Morris 
+ * @since 06/10/2020
+ */
+
+import java.util.*;
+
+public class NextGreaterNode {
+    public static void main(String[] args) {
+        ListNode list = new ListNode(2, new ListNode(1, new ListNode(5)));
+        ListNode list2 = new ListNode(2, new ListNode(7, new ListNode(4,
+                         new ListNode(3, new ListNode(5)))));
+        int[] output1 = nextLargerNodes(list);
+        int[] output2 = nextLargerNodes(list2);
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+    }
+    
+    public static int[] nextLargerNodes(ListNode head) {
+        int count = 0;
+        ListNode current = head;
+        List<Integer> list = new ArrayList<>();
+        // add node values to arraylist 
+        while ( current != null ) {
+            list.add(current.val);
+            current = current.next;
+        }
+        // create array to iterate until greater element
+        int[] arr = new int[list.size()];
+        for ( Integer num : list ) {
+            arr[count] = num;
+            count++;
+        }
+        // array to hold greater element value 
+        int[] greaterNodesList = new int[arr.length];
+        for ( int i = 0; i < arr.length; i++ ) {
+            int element = arr[i]; // current element
+            for ( int j = i; j < arr.length; j++ ) {
+                // iterate nested loop until greater element is found
+                if (arr[j] > element ) {
+                    // add greater element at index in greaterNodesList
+                    greaterNodesList[i] = arr[j];
+                    // end inner loop 
+                    break;
+                } else {
+                    // no greater element was found add 0 to index in greaterNodesList
+                    greaterNodesList[i] = 0;
+                }
+            }
+        }
+        return greaterNodesList;
+    }
+}
