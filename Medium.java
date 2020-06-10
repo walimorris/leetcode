@@ -415,3 +415,60 @@ public class NextGreaterNode {
         return greaterNodesList;
     }
 }
+
+/**
+ * Top K Frequent Elements 
+ *
+ * Given a non-empty array of integers, return the k most frequent elements
+ *
+ * @author Wali Morris 
+ * @since 06/10/2020
+ */
+
+import java.util.*;
+
+public class TopKFrequent {
+    public static void main(String[] args) {
+        int[] input1 = {1, 1, 1, 2, 2, 3};
+        int[] input2 = {1};
+        int[] output1 = topKFrequent(input1, 2);
+        int[] output2 = topKFrequent(input2, 1);
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+    }
+    
+    public static int[] topKFrequent(int[] nums, int k) {
+        /* A map to read the elements from nums will take O(n) time, using map methods
+         * get and put are O(1) time and filling the map with each element is O(n) time */
+        Map<Integer, Integer> elementsMap = new HashMap<>();
+        for ( int n : nums ) {
+            if ( elementsMap.containsKey(n) ) {
+                int count = elementsMap.get(n) + 1;
+                elementsMap.put(n, count);
+            } else {
+                elementsMap.put(n, 1);
+            }
+        }
+        /* creates an ArrayList of all values and an Array to store the top values */
+        Collection<Integer> tempValuesList = elementsMap.values();
+        List<Integer> valuesList = new ArrayList<>(tempValuesList);
+        Collections.sort(valuesList);
+        int[] topKArray = new int[k];
+        /* iterates the map and valuesList(backwards) until the top k elements are found */
+        int count = 0; // pointer to the current index of topKArray
+        for ( int i = valuesList.size() - 1; i > valuesList.size() - 1 - k; i-- ) {
+            int element = valuesList.get(i); // top K element
+            for ( Integer key : elementsMap.keySet() ) {
+                if ( elementsMap.get(key).equals(element) ) {
+                    /* puts the key of top k element in topKArray */
+                    topKArray[count] = key;
+                    elementsMap.remove(key); // removes key 
+                    break;
+                }
+            }
+            // goes to next index in topKArray
+            count++;
+        }
+        return topKArray;
+    }
+}
