@@ -2934,3 +2934,50 @@ public class ShuffleArray {
         return nums2;
     }
 }
+
+/**
+ * Make Two Arrays Equal by Reversing Sub-Arrays
+ *
+ * Given two integer arrays of equal length target and arr: 
+ * Return true if you can make arr equal to target, or false
+ *
+ * @author Wali Morris
+ * @since 06/12/2020
+ */
+
+import java.util.*;
+
+public class TwoArraysEqual {
+    public static void main(String[] args) {
+        int[] target1 = {1, 2, 3, 4};
+        int[] arr1 = {2, 4, 1, 3};
+        int[] target2 = {7};
+        int[] arr2 = {7};
+        int[] target3 = {1, 12};
+        int[] arr3 = {12, 1};
+        int[] target4 = {3, 7, 9};
+        int[] arr4 = {3, 7, 11};
+        int[] target5 = {1, 1, 1, 1, 1};
+        int[] arr5 = {1, 1, 1, 1, 1};
+        boolean output1 = canBeEqual(target1, arr1);
+        boolean output2 = canBeEqual(target2, arr2);
+        boolean output3 = canBeEqual(target3, arr3);
+        boolean output4 = canBeEqual(target4, arr4);
+        boolean output5 = canBeEqual(target5, arr5);
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+        System.out.println(output4);
+        System.out.println(output5);
+    }
+
+    /* Sorts both arrays and compares for equality */
+    public static boolean canBeEqual(int[] target, int[] arr) {
+        Arrays.sort(target);
+        Arrays.sort(arr);
+        if ( Arrays.equals(target, arr) ) {
+            return true;
+        }
+        return false;
+    }
+}
