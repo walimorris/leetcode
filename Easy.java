@@ -2896,7 +2896,7 @@ public class PalindromeLinkedList2 {
 /**
  * Shuffle the Array
  *
- * Given the array nums consisting of 2n elements in the form [x1, x2,..., y1, y2...]
+ * Given the array nums consisting of 2n elements in the form [x1, x2,..., y1, y2...]; 
  * Return the array in the form [x1, y1, x2,y2...., xn, yn]
  *
  * @author Wali Morris 
