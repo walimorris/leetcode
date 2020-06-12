@@ -2892,3 +2892,45 @@ public class PalindromeLinkedList2 {
         return true;
     }
 }
+
+/**
+ * Shuffle the Array
+ *
+ * Given the array nums consisting of 2n elements in the form [x1, x2,..., y1, y2...]
+ * Return the array in the form [x1, y1, x2,y2...., xn, yn]
+ *
+ * @author Wali Morris 
+ * @since 06/11/2020
+ */
+
+import java.util.*;
+
+public class ShuffleArray {
+    public static void main(String[] args) {
+        int[] input1 = {2, 5, 1, 3, 4, 7};
+        int[] input2 = {1, 2, 3, 4, 4, 3, 2, 1};
+        int[] input3 = {1, 1, 2, 2};
+        int[] output1 = shuffle(input1, 3);
+        int[] output2 = shuffle(input2, 4);
+        int[] output3 = shuffle(input3, 2);
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+        System.out.println(Arrays.toString(output3));
+    }
+
+    public static int[] shuffle(int[] nums, int n) {
+        /* A new array to store the elements of nums array */
+        int[] nums2 = new int[nums.length];
+        /* x points to first x element, y points to first y element */
+        int ptrX = 0, ptrY = n;
+        /* every iteration x and y pointer skips to next x and y elements in nums 
+         * and inserts those elements in place in nums2 */
+        for (int i = 0; i < nums.length-1; i+=2 ) {
+            nums2[i] = nums[ptrX];
+            nums2[i+1] = nums[ptrY];
+            ptrX++; // go to next x index
+            ptrY++; // go to next y index
+        }
+        return nums2;
+    }
+}
