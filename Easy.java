@@ -2994,15 +2994,11 @@ public class TwoArraysEqual {
 
 class RunningSum { 
     public int[] runningSum(int[] nums) { 
-        /* running sum array nums2 will be the same length as oringal and the 
-         * first element will always be the same */ 
-        int[] nums2 = new int[nums.length];
-        nums2[0] = nums[0]; 
-        /* iterating, beginning at num[index 1] and add the nums2[i-1](total of elements) counted
+        /* iterating, beginning at num[1] and add the nums[i-1](total of elements counted
          * thus far, to nums[i] will give the running count */ 
         for ( int i = 1; i < nums.length; i++ ) { 
-            nums2[i] = nums[i] + nums[i-1]; 
+            nums[i] += nums[i-1]; 
         } 
-        return nums2; 
+        return nums; 
     } 
 } 
