@@ -6,3 +6,11 @@
  */ 
  
  Select id, movie, description, rating from cinema where id % 2 != 0 AND description != "boring" Order by rating DESC;
+
+/* Big Countries 
+ * 
+ * A country is big if it has an area of bigger than 3 million square km or a population of more than 
+ * 25 million. Write a SQL solution to output big countries' name, population and area. 
+ */ 
+ 
+ Select name, area, population from World Where area > 3000000 || population > 25000000;
