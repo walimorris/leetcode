@@ -6,5 +6,3 @@
  */ 
  
  Select id, movie, description, rating from cinema where id % 2 != 0 AND description != "boring" Order by rating DESC;
- 
- 
