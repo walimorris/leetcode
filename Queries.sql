@@ -14,3 +14,15 @@
  */ 
  
  Select name, area, population from World Where area > 3000000 || population > 25000000;
+
+/* Swap Salary 
+ * 
+ * Given a table, salary that has m=male and f=female values. Swap all f and m values with a single update
+ * statement and no temp tables. Only write an update statement and no Select statement 
+ */ 
+ 
+ UPDATE salary
+ SET sex = CASE
+     when sex = 'f' then 'm'
+     when sex = 'm' then 'f'
+ END; 
