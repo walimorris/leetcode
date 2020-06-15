@@ -3002,3 +3002,69 @@ class RunningSum {
         return nums; 
     } 
 } 
+
+/**
+ * Reverse Integer 
+ *
+ * Given a 32-bit signed integer, reverse digits of an integer
+ *
+ * @author Wali Morris 
+ * @since 06/15/2020
+ */
+
+import java.util.*;
+import java.math.BigInteger;
+
+public class ReverseInteger {
+    public static void main(String[] args) {
+        int output1 = reverse(120);
+        int output2 = reverse(-123);
+        int output3 = reverse(123);
+        int output4 = reverse(7);
+        int output5 = reverse(-150);
+        int output6 = reverse(-6);
+        int output7 = reverse(-2147483648);
+        int output8 = reverse(1534236469);
+
+        System.out.println("120 -> " + output1);
+        System.out.println("-123 -> " + output2);
+        System.out.println("123 -> " + output3);
+        System.out.println("7 -> " + output4);
+        System.out.println("-150 -> " + output5);
+        System.out.println("-6 -> " + output6);
+        System.out.println("-2147483648 -> " + output7);
+        System.out.println("1534236469 -> " + output8);
+    }
+    
+    public static int reverse(int x) {
+        /* returns x if it's a 1 digit number(negative or positive) */
+        if ( x % 10 == x ) {
+            return x;
+        }
+        /* converts x to a string and reverses the string */
+        String intXToString = Integer.toString(x);
+        StringBuilder sb = new StringBuilder();
+        if ( x < 0 ) { // starts by appending - if x is a negative number
+            sb.append("-");
+        }
+        for ( int i = intXToString.length()-1; i >= 0; i-- ) {
+            if ( intXToString.charAt(i) == '-' ) {
+                continue; // ignores the negative at the beginning of negative numbers 
+            }
+            sb.append(intXToString.charAt(i));
+        }
+        /* Strings with 9 or less digits are parsed to their respective int values and returned */
+        if ( sb.toString().length() < 10 ) {
+            return Integer.valueOf( sb.toString());
+        }
+        /* Larger numbers(10+ digits) with 32 bit upper and lower bounds are converted to BigInteger 
+         * and compared to upper and lower bounds, if BigInt is outside of these bounds return 0 */
+        BigInteger maxBitsUpper = new BigInteger("2147483647"); // 32 bit upper bound
+        BigInteger maxBitsLower = new BigInteger("-2147483647"); // 32 bit lower bound 
+        BigInteger bigInt = new BigInteger(sb.toString());
+        if ( bigInt.compareTo(maxBitsUpper) > 0 || bigInt.compareTo(maxBitsLower) < 0 ) {
+            return 0;
+        }
+        return bigInt.intValue();
+    }
+}
