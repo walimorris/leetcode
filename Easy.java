@@ -3068,3 +3068,52 @@ public class ReverseInteger {
         return bigInt.intValue();
     }
 }
+
+/**
+ * Valid Palindrome II 
+ *
+ * Given a non-empty string s, you may delete at most one character 
+ * Judge whether you can make it a palindrone 
+ *
+ * NOTE: I thought this algorithm would be okay with time O(N), the maximum character 
+ * for a string can be 50,000 characters. With small characters this solution works fine
+ * but becomes slow after about 3,000 characters. Very inefficient for large strings. 
+ *
+ * @author Wali Morris
+ * @since 06/16/2020
+ */
+
+public class ValidPalindromeII {
+    public static void main(String[] args) {
+        boolean output1 = validPalindrome("aba");
+        boolean output2 = validPalindrome("abca");
+        boolean output3 = validPalindrome("sbda");
+        System.out.println("aba can become a palindrome: " + output1);
+        System.out.println("abca can become a palindrome: " + output2);
+        System.out.println("sbda can become a palindrome: " + output3);
+    }
+    
+    public static boolean validPalindrome(String s) {
+        /* First create a new string of s in reverse to compare to s */
+        StringBuilder sb = new StringBuilder(s);
+        sb.reverse();
+        /* checks if sb is palindrome of s before any removing of characters */
+        if ( sb.toString().equals(s) ) {
+            return true;
+        }
+        /* Begin by creating a new String and "ignoring" one value every iteration by removing it. 
+         * sb and sb2(the created in place String without ignored value) will be compared each 
+         * iteration for equality, returns true if at any point sb2 is a palidrome of sb */
+        for ( int i = 0; i < s.length(); i++ ) {
+            char removedChar = sb.charAt(i); // record the removed char
+            sb.deleteCharAt(i); // delete the character 
+            StringBuilder sb2 = new StringBuilder(sb); // create sb2 clone of sb and reverse sb2 
+            sb2.reverse();
+            if ( sb.toString().equals(sb2.toString()) ) {
+                return true; // sb2 reversed is palindrome of sb, return true 
+            }
+            sb.insert(i, removedChar); // insert the removed character back into sb for next iteration 
+        }
+        return false; // no palidrome found, return false
+    }
+}
