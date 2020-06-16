@@ -3077,7 +3077,15 @@ public class ReverseInteger {
  *
  * NOTE: I thought this algorithm would be okay with time O(N), the maximum character 
  * for a string can be 50,000 characters. With small characters this solution works fine
- * but becomes slow after about 3,000 characters. Very inefficient for large strings. 
+ * but becomes slow after about 3,000 characters. Very inefficient for large strings. makes
+ * perfect sense why it'd be so slow, only deleting one character a time, that extremely 
+ * slow for 50,000 iterations. How can I reduce the number of iterations, maybe reduce by half
+ * and still this algorithm would be slow. This is a work in progress... here's a potential
+ * solutions: 
+ * 
+ * 1. find the character where the strings different and jump to this index to delete this one
+ * character, if this character does not change the string to a palindrome then it should be 
+ * impossible any other way
  *
  * @author Wali Morris
  * @since 06/16/2020
