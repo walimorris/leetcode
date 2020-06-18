@@ -3311,3 +3311,53 @@ public class SmallestLetterGrade {
         return letters[0];
     }
 }
+
+/**
+ * Remove Duplicates from Sorted List 
+ *
+ * Given a sorted linked list, delete all duplicates such that each element 
+ * appear only once
+ * 
+ * @see ListNode.java for reference to ListNode implementation 
+ *
+ * @author Wali Morris 
+ * @since 06/17/2020
+ */
+
+import java.util.*;
+
+public class RemoveDuplicatesLinkedList {
+    public static void main(String[] args) {
+        ListNode list1 = new ListNode(1, new ListNode(1, new ListNode(2)));
+        ListNode list2 = new ListNode(1, new ListNode(1, new ListNode(2,
+                                         new ListNode(3, new ListNode(3)))));
+        ListNode outputList1 = deleteDuplicates(list1);
+        ListNode outputList2 = deleteDuplicates(list2);
+        ListNode current1 = outputList1;
+        ListNode current2 = outputList2;
+        while (current1 != null ) {
+            System.out.print(current1.val + " ");
+            current1 = current1.next;
+        }
+        System.out.println();
+        while (current2 != null ) {
+            System.out.print(current2.val + " ");
+            current2 = current2.next;
+        }
+        System.out.println();
+    }
+    
+    public static ListNode deleteDuplicates(ListNode head) {
+        ListNode current = head;
+        while ( current.next != null ) { // stop one node before null to check next
+            // if the following node is a duplicate, point reference to the node after duplicate node   
+            if ( current.next.val == current.val ) {
+                current.next = current.next.next;
+            } else {
+                // no duplicate, continue
+                current = current.next;
+            }
+        }
+        return head;
+    }
+}
