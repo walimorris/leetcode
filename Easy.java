@@ -3262,3 +3262,52 @@ public class LinkedIntList {
         return true;
     }
 }
+
+/**
+ * Find Smallest Letter Grade Than Target
+ *
+ * Given a list of sorted characters letters containing only lowercase letters, 
+ * and given a target letter 'target', find the smallest element in the list 
+ * that is larger than the given target 
+ *
+ * @author Wali Morris
+ * @since 06/17/2020
+ */
+
+import java.util.*;
+
+public class SmallestLetterGrade {
+    public static void main(String[] args) {
+        char[] input1 = {'c', 'f', 'j'};
+        char[] input2 = {'c', 'f', 'j'};
+        char[] input3 = {'c', 'f', 'j'};
+        char[] input4 = {'c', 'f', 'j'};
+        char[] input5 = {'c', 'f', 'j'};
+        char[] input6 = {'c', 'f', 'j'};
+        char output1 = nextGreatestLetter(input1, 'a');
+        char output2 = nextGreatestLetter(input2, 'c');
+        char output3 = nextGreatestLetter(input3, 'd');
+        char output4 = nextGreatestLetter(input4, 'g');
+        char output5 = nextGreatestLetter(input5, 'j');
+        char output6 = nextGreatestLetter(input6, 'k');
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+        System.out.println(output4);
+        System.out.println(output5);
+        System.out.println(output6);
+    }
+    
+    public static char nextGreatestLetter(char[] letters, char target) {
+        /* using the ASCII decimal of lowercase characters (97-122) we can compare character
+         * elements by iterating down the list and finding the first character element that 
+         * occurs after the target character element. If no such element exists, return the 
+         * first character in the list because the list wraps */
+        for ( int i = 0; i < letters.length; i++ ) {
+            if (letters[i] > target ) {
+                return letters[i];
+            }
+        } 
+        return letters[0];
+    }
+}
