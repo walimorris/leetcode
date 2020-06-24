@@ -3361,3 +3361,93 @@ public class RemoveDuplicatesLinkedList {
         return head;
     }
 }
+
+/**
+ * Given an array A of strings made only from lowercase letters, return a list of all
+ * characters that show up in all strings within the list (including duplicates)
+ *
+ * For example, if a character occurs three times in all strings but not 4 times, you 
+ * need to include that character three times in the final answer
+ *
+ * You may return the answer in any order
+ *
+ * @author Wali Morris 
+ * @since 06/23/2020
+ */
+
+import java.util.*;
+
+public class FindCommonCharacters {
+    public static void main(String[] args) {
+        String[] input1 = {"bella", "label", "roller"};
+        String[] input2 = {"cool", "lock", "cook"};
+        List<String> output1 = commonChars(input1);
+        List<String> output2 = commonChars(input2);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+
+    /* A helper function to assist with populating HashMaps */
+    public static void populateMap(String word, Map<String, Integer> map) {
+        for ( int i = 0; i < word.length(); i++ ) {
+            char current = word.charAt(i);
+            if ( map.containsKey(Character.toString(current)) ) {
+                int count = map.get(Character.toString(current)) + 1;
+                map.put(Character.toString(current), count);
+            } else {
+                map.put(Character.toString(current), 1);
+            }
+        }
+    }
+    
+    public static List<String> commonChars(String[] A) {
+        Map<String, Integer> mapToCompare = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        /* Iterate the array of words */
+        for ( int i = 0; i < A.length; i++ ) {
+            String word = A[i];
+
+            /* For the first word, populate the letters and their count to mapToCompare. Every other word will 
+             * be examined based on the first word and its characters. If characters in the first world do not
+             * exist in all other words, these character values in the map will be put to 0 so as not to be 
+             * counted in the final push to populate the list */
+            if ( i == 0 ) {
+                populateMap(word, mapToCompare);
+                continue;
+            }
+
+            /* In all other cases that are not the first word create a temp map and populate this temp map with the 
+             * current words characters and count */
+            Map<String, Integer> tempMap = new HashMap<>();
+            populateMap(word, tempMap);
+
+            /* Compare compareToMap and tempMap. If any letter(key) in tempMap is also in mapToCompare but has a lower 
+             * value the value of this letter(key) in mapToCompare will be changed so it reflects the lower value of 
+             * the two. If a key in mapToCompare is not also in tempMap, this key's value will be put as 0. */
+            for ( String key : mapToCompare.keySet() ) {
+                if ( tempMap.containsKey(key) && mapToCompare.get(key) > tempMap.get(key) ) {
+                    mapToCompare.put(key, tempMap.get(key));
+                } else {
+                    if ( !(tempMap.containsKey(key)) ) {
+                        mapToCompare.put(key, 0);
+                    }
+                }
+            }
+        }
+        
+        /* For every key in mapToCompare, if the key's value is 0 then the key will not be populated to the list. In the 
+         * opposite case, we will add this key to list for the number of times as it's value. Example: if a keys value is
+         * 2, then the key will be added to the list 2 times. */
+        for ( String key: mapToCompare.keySet() ) {
+            if ( mapToCompare.get(key) != 0 ) {
+                int value = 0;
+                int count = mapToCompare.get(key);
+                while ( value < count ) {
+                    list.add(key);
+                    value++;
+                }
+            }
+        }
+        return list;
+    }
+}
