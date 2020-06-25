@@ -3451,3 +3451,53 @@ public class FindCommonCharacters {
         return list;
     }
 }
+
+/**
+ * Day of the Week 
+ *
+ * Given a date, return the correspnding day of the week for that date
+ *
+ * The input given is three integers representing the day, month, and year 
+ * respectively
+ *
+ * @author Wali Morris
+ * @since 06/25/2020
+ */
+
+import java.util.*;
+import java.time.*;
+
+public class DayOfTheWeek {
+    public static void main(String[] args) {
+        int day1 = 31, month1 = 8, year1 = 2019;
+        int day2 = 18, month2 = 7, year2 = 1999;
+        int day3 = 15, month3 = 8, year3 = 1993;
+        String output1 = dayOfTheWeek(day1, month1, year1);
+        String output2 = dayOfTheWeek(day2, month2, year2);
+        String output3 = dayOfTheWeek(day3, month3, year3);
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+    
+    /* Using the java.time api to parse the day of the week based on the day, month and year. If a day is 1 - 9 and 
+     * '0' must precede the day and the same applies to months. There are 3 case. 
+     */
+    public static String dayOfTheWeek(int day, int month, int year) {
+        StringBuilder dayStr = new StringBuilder();
+        /* case 1: day is less than 9 and expects a 0 to precede the day, month is greater than 9 */
+        if ( day < 10 && month > 9 ) {
+            dayStr.append(year + "-" + month + "-" + "0" + day);
+        /* case 2: day is greater than 9, but month is less than 10 and expects a 0 to precede the month */
+        } else if ( day > 9 && month < 10 ) {
+            dayStr.append(year + "-" + "0" + month + "-" + day);
+        /* both day and month are less than 10 and expect a 0 to precede it */
+        } else if ( day < 10 && month < 10 ) {
+            dayStr.append(year + "-" + "0" + month + "-" + "0" + day);
+        } else {
+            dayStr.append(year + "-" + month + "-" + day);
+        }
+        DayOfWeek date = LocalDate.parse(dayStr.toString()).getDayOfWeek();
+        return date.toString().substring(0, 1).toUpperCase() + date.toString().substring(1).toLowerCase();
+    }
+}
