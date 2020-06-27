@@ -3501,3 +3501,69 @@ public class DayOfTheWeek {
         return date.toString().substring(0, 1).toUpperCase() + date.toString().substring(1).toLowerCase();
     }
 }
+
+/**
+ * Maximum Score 
+ *
+ * Given a string s of zeros and ones, return the maximum score after splitting the string 
+ * into two non-empty substrings(left substring and right substring)
+ *
+ * The score after splitting a string is the number of zeros in the left substring plus the
+ * number of ones in the right substring
+ *
+ * @author Wali Morris
+ * @since 06/26/2020
+ */
+
+import java.util.*;
+
+public class MaximumScore {
+    public static void main(String[] args) {
+        String input1 = "011101";
+        String input2 = "1111";
+        String input3 = "00111";
+        int output1 = maxScore(input1);
+        int output2 = maxScore(input2);
+        int output3 = maxScore(input3);
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+    
+    /* This method returns the maximum sum of the count of leftsubstring characters that equal '0' 
+     * and count of rightsubstring that equals 1. Two pointers are created, a left and right pointer.
+     * Left substring will always begin at 0 and end at right pointer. Right pointer will always 
+     * increment from 1+ to length of string s. These are the substrings. The occurrances of 0 and the
+     * occurrances of 1 are then summed from both substrings and this sum is added to the array list. 
+     */
+    public static int maxScore(String s) {                                 
+        /* holds all sums of left and right substring */
+        List<Integer> list = new ArrayList<>();
+        int left = 0, right = 1;
+        while ( right < s.length() ) {
+            String leftSub = s.substring(left, right);
+            int leftSum = 0;
+            // count '0' occurrances in left substring
+            for ( int i = 0; i < leftSub.length(); i++ ) {
+                if ( leftSub.charAt(i) == '0' ) {
+                    leftSum++;
+                }
+            }
+            String rightSub = s.substring(right, s.length());
+            int rightSum = 0;
+            // count '1' occurrances in right substring 
+            for ( int j = 0; j < rightSub.length(); j++ ) {
+                if ( rightSub.charAt(j) == '1' ) {
+                    rightSum++;
+                }
+            }
+            /* tally the sum of leftsub and right sub, add this sum to arraylist and  increment right and 
+             * right pointer */
+            int sum = leftSum + rightSum;
+            list.add(sum);
+            right++;
+        }
+        // returns the maximum sum in arraylist 
+        return Collections.max(list);
+    }
+}
