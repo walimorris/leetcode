@@ -3625,3 +3625,77 @@ public class FindDifference {
         return populatedMap; 
     } 
 }
+
+/**
+ * Path Crossing
+ *
+ * Given a string path, where path[i] = N,S,E, or W, each representing moving one unit 
+ * north, south, east, or west, respectively
+ *
+ * You start at the origin (0,0) on a 2D plane and walk on the path specified by path 
+ *
+ * Return True if the path crosses itself at any point, that is, if at any time you are
+ * on a location you've previously visited
+ *
+ * Return False otherwise 
+ *
+ * @author Wali Morris
+ * @since 06/27/2020
+ */
+
+import java.util.*;
+
+public class PathCrossing {
+    public static void main(String[] args) {
+        String input1 = "NES";
+        String input2 = "NESWW";
+        boolean output1 = isPathCrossing(input1);
+        boolean output2 = isPathCrossing(input2);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+    
+    public static boolean isPathCrossing(String path) {
+        /* Initializes x and y intercepts to (0,0) and adds this first coords
+         * to the mainList as the origin */
+        int x = 0;
+        int y = 0;
+        List<List<Integer>> mainList = new ArrayList<>();
+        List<Integer> origin = new ArrayList<>();
+        origin.add(x);
+        origin.add(y);
+        mainList.add(origin);
+        /* loops over the string path which in turn changes the coordinates of 
+         * the origin */
+        for ( int i = 0; i < path.length(); i++ ) {
+            if ( path.charAt(i) == 'N' ) {
+                /* path is north increment y vertical plane by 1 */
+                y++;
+            } else if ( path.charAt(i) == 'S' ) {
+                /* path is south decrement y vertical  plane by 1 */
+                y--;
+            } else if ( path.charAt(i) == 'E' ) {
+                /* path is east increment horizontal plane(right) by 1 */
+                x++;
+            } else {
+                /* path is west decrement horizontal plane(left) by 1 */
+                x--;
+            }
+            /* the subList consists of the (x,y) coordinates after running the 
+             * path. for each sublist x is in index 0 and y is in index 1 */
+            List<Integer> subList = new ArrayList<>();
+            subList.add(x);
+            subList.add(y);
+            /* if the mainList contains a nested list such as subList, return 
+             * true */
+            if ( mainList.contains(subList) ) {
+                return true;
+            /* else add the sublist to the mainlist */
+            } else {
+                mainList.add(subList);
+            }
+        }
+        /* The path never returns to origin or repeats the same path */
+        return false;
+    }
+}
