@@ -3699,3 +3699,56 @@ public class PathCrossing {
         return false;
     }
 }
+
+/**
+ * String Matching in an Array
+ *
+ * Given an array of string words, return all strings in words which is substring
+ * of another word in any order 
+ *
+ * String words[i] is substring of words[j], if can be obtained removing some characters
+ * to the left and/or right side of words[j]
+ *
+ * @author Wali Morris
+ * @since 06/28/2020
+ */
+
+import java.util.*;
+
+public class StringMatching {
+    public static void main(String[] args) {
+        String[] words1 = {"mass", "as", "hero", "superhero"};
+        String[] words2 = {"leetcode", "et", "code"};
+        String[] words3 = {"blue", "green", "bu"};
+        List<String> output1 = stringMatching(words1);
+        List<String> output2 = stringMatching(words2);
+        List<String> output3 = stringMatching(words3);
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+    
+    public static List<String> stringMatching(String[] words) {
+        List<String> wordsList = new ArrayList<>();
+        if ( words.length == 1 ) {
+            return wordsList;
+        }
+        /* Iterates array of words and initializes a variable of the current word. iterates array 
+         * words and checks if current word is a substring of any other word in the array. If the 
+         * current word is not the word being compared against it, if the second word contains a 
+         * substring of the current word, and wordsList does not already contain the current word 
+         * then current word is added to the array list.*/
+        for ( int i = 0; i < words.length; i++ ) {
+            String word = words[i];
+            for ( int j = 0; j < words.length; j++ ) {
+                String word2 = words[j];
+                if ( !word.equals(word2) && word2.contains(word) &&
+                                        !wordsList.contains(word)) {
+                    wordsList.add(word);
+                    break;
+                }
+            }
+        }
+        return wordsList;
+    }
+}
