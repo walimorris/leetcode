@@ -3864,3 +3864,80 @@ public class FirstUnique {
         return -1;
     }
 }   
+
+/**
+ * Best Time to Buy and Sell Stock 
+ *
+ * Say you have an array for which the ith element is the price of a given 
+ * stock on day i
+ *
+ * If you were only permitted to complete at most on transaction (by one and 
+ * sell one share of the stock), design an algorithm to find the maximum profit
+ *
+ * NOTE: You cannot sell a stock before you buy one
+ *
+ * @author Wali Morris 
+ * @since 07/03/2020
+ */
+
+import java.util.*;
+
+public class MaxProfit {
+    public static void main(String[] args) {
+        int[] input1 = {7, 1, 5, 3, 6, 4};
+        int[] input2 = {7, 6, 4, 3, 1};
+        int[] input3 = {4, 7, 2, 1};
+        int[] input4 = {3, 2, 6, 0, 3};
+        int output1 = maxProfit(input1);
+        int output2 = maxProfit(input2);
+        int output3 = maxProfit(input3);
+        int output4 = maxProfit(input4);
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+        System.out.println(output4);
+    }
+    
+    public static int maxProfit(int[] prices) {
+        if ( prices.length == 0 || prices.length == 1 ) {
+            return 0;
+        }
+        /* within the prices array, each price falls on a day represented by it's index. 
+         * A map is created to record the lowest price and its day, as well as the max 
+         * price and it's day. The profits list holds all profits made that contains a 
+         * day with min price and a day with max price that falls after the min price 
+         * day */
+        Map<String, Integer> minMaxPriceAndDay = new HashMap<>();
+        ArrayList<Integer> profits = new ArrayList<>();
+        minMaxPriceAndDay.put("min", 0); // starts min day and price at day 1 
+        minMaxPriceAndDay.put("max", 0); // starts max day and price at day 1
+        for ( int i = 1; i < prices.length; i++ ) {
+            int price = prices[i];
+            int day = i;
+            /* if a price is found to be less than the current minimum and this price is not last 
+             * the last day, minimum price becomes this day and max price becomes this day */
+            if ( prices[i] < prices[minMaxPriceAndDay.get("min")] && !(i == prices.length -1) ) {
+                minMaxPriceAndDay.put("min", day);
+                minMaxPriceAndDay.put("max", day);
+            }
+            /* if this price falls on a day greater than the min price day and the price is greater than 
+             * the current maximum price, this day becomes the day of the max price after min price day */
+            if ( day > minMaxPriceAndDay.get("min") && prices[i] > prices[minMaxPriceAndDay.get("max")] ) {
+                minMaxPriceAndDay.put("max", day);
+            }
+            /* if the max price day is not 0(no max price has been found) and max price day does not fall 
+             * on the same day as min price( we've found a min price and max price and the list and the trading 
+             * days is not yet over) calculate the profts from min price and max price and add it to profits 
+             * list */
+            if ( minMaxPriceAndDay.get("max") != 0 && minMaxPriceAndDay.get("max") != minMaxPriceAndDay.get("min") ) {
+                profits.add(prices[minMaxPriceAndDay.get("max")] - prices[minMaxPriceAndDay.get("min")]);
+            }
+        }
+        /* there have been no profits, return 0 */
+        if ( profits.isEmpty() ) {
+            return 0;
+        }
+        /* returns the maximum profit made */
+        return Collections.max(profits);
+    }
+}
