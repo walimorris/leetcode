@@ -3752,3 +3752,55 @@ public class StringMatching {
         return wordsList;
     }
 }
+
+/**
+ * Sum of Two Integers
+ *
+ * Calculate the sum of two integers a and b, but you are not allowed to use the operator + and - 
+ *
+ * @author Wali Morris 
+ * @since 07/02/2020
+ */
+
+import java.util.*;
+
+public class SumOfTwoIntegers {
+    public static void main(String[] args) {
+        int a1 = 1, b1 = 2;
+        int a2 = -2, b2 = 3;
+        int output1 = getSum(a1, b1);
+        int output2 = getSum(a2, b2);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+
+    public static int getSum(int a, int b) {
+        /* both a and b are 0 so return 0 */
+        if ( a == 0 && b == 0 ) {
+            return 0;
+        /* a is 0, so return b */
+        } else if ( a == 0 && b != 0 ) {
+            return b;
+        /* b is 0, so return a */
+        } else if ( a != 0 && b == 0 ) {
+            return a;
+        /* integer b is less than zero: in this case take away 1 from integer a every loop up until 
+         * start equals integer b */
+        } else if ( b < 0 ) {
+            int start = 0;
+            while ( start != b ) {
+                a--;
+                start--;
+            }
+        /* integer b is greater than zero: in this case add 1 to integer a every loop up until 
+         * start equals integer b */
+        } else {
+            int start = 0;
+            while ( start != b ) {
+                a++;
+                start++;
+            }
+        }
+        return a;
+    }
+}
