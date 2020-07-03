@@ -3804,3 +3804,63 @@ public class SumOfTwoIntegers {
         return a;
     }
 }
+
+/**
+ * First Unique Character in a String 
+ *
+ * Given a string, find the first non-repeating character in it and return its index; if 
+ * it doesn't exist, return -1
+ *
+ * @author Wali Morris
+ * @since 07/02/2020
+ */
+
+import java.util.*;
+
+public class FirstUnique {
+    public static void main(String[] args) {
+        String s1 = "leetcode";
+        String s2 = "loveleetcode";
+        int output1 = firstUniqueChar(s1);
+        int output2 = firstUniqueChar(s2);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+    
+    public static int firstUniqueChar(String s) {
+        /* return -1 for empty string */
+        if ( s.length() == 0 ) {
+            return -1;
+        } else if ( s.length() == 1 ) {
+        /* return index 0 for string of length 1, that char is unique */
+            return 0;
+        } else {
+            /* create a set to push characters from the string, if a character is already in the set this character 
+             * won't be added so this allows for the deletion of the character which would've been a duplicate in 
+             * the set. This character will be added to the banned characters list so if this character is seen again, 
+             * it has no chance of being added to the set again */
+            Set<Character> set = new HashSet<>();       
+            List<Character> banned = new ArrayList<>();         
+            for ( int i = 0; i < s.length(); i++ ) {
+                if ( set.contains(s.charAt(i)) ) { // set contains this character?
+                    set.remove(s.charAt(i)); // delete it from the set  
+                    banned.add(s.charAt(i)); // add it to the banned list
+                } else {
+                    if ( !banned.contains(s.charAt(i)) ) { // banned list does not contain this character
+                        set.add(s.charAt(i)); // add it to the set
+                    }
+                }
+            }           
+            /* iterates original string and examines the set which should now contain only unique characters. 
+             * The first character in the original string that is present in the unique set will be returned.
+             */
+            for (int j = 0; j < s.length(); j++ ) {
+                if ( set.contains(s.charAt(j)) ) {
+                    return j;   
+                }
+            }
+        }
+        /* no such unique characters */
+        return -1;
+    }
+}   
