@@ -3941,3 +3941,55 @@ public class MaxProfit {
         return Collections.max(profits);
     }
 }
+
+/**
+ * Write a program that outputs the string representation of numbers from 1 to n.
+ *
+ * For multiples of three it should output "Fizz" instead of the number and for the
+ * multiples of five output "Buzz". For numbers which are multiples of both three and
+ * five output "FizzBuzz".
+ *
+ * @author Wali Morris
+ * @since 07/25/2020
+ */
+
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        int input1 = 15;
+        int input2 = 25;
+        List<String> output1 = fizzBuzz(input1);
+        List<String> output2 = fizzBuzz(input2);
+        System.out.println(output1);
+        System.out.println(output2);
+    }
+
+    /**
+     * @param n : the last number in the sequence from 1 - n
+     * @return : An arrayList of type string which returns "Fizz" if x is a multiple of 3, "Buzz" 
+     * if x is a multiple of 5, "FizzBuzz" if x is a multiple of both 3 and 5. Returns the string 
+     * representation of x if the number is not a multiple of 3 or 5.
+     */
+    public static List<String> fizzBuzz(int n) {
+        int x = 1; // sequence begins at one
+        List<String> numbers = new ArrayList<>();
+        while ( x < n + 1 ) {
+            // adds Fizz to list if x is a multiple of 3
+            if (x % 3 == 0 && !(x % 5 == 0) ) {
+                numbers.add("Fizz"); 
+            // adds Buzz to list if x is a multiple of 5    
+            } else if (x % 5 == 0 && !(x % 3 == 0) ) {
+                numbers.add("Buzz");
+            // add FizzBuzz to list if x is a multiple of 3 and 5    
+            } else if (x % 5 == 0 && x % 3 == 0) {
+                numbers.add("FizzBuzz");
+            // x is not a multiple of 3 or 5    
+            } else {
+                numbers.add(Integer.toString(x));
+            }
+            x++;
+        }
+        return numbers;
+    }
+}
