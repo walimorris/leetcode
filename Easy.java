@@ -3975,16 +3975,12 @@ public class Main {
         int x = 1; // sequence begins at one
         List<String> numbers = new ArrayList<>();
         while ( x < n + 1 ) {
-            // adds Fizz to list if x is a multiple of 3
             if (x % 3 == 0 && !(x % 5 == 0) ) {
-                numbers.add("Fizz"); 
-            // adds Buzz to list if x is a multiple of 5    
+                numbers.add("Fizz");    
             } else if (x % 5 == 0 && !(x % 3 == 0) ) {
-                numbers.add("Buzz");
-            // add FizzBuzz to list if x is a multiple of 3 and 5    
+                numbers.add("Buzz");    
             } else if (x % 5 == 0 && x % 3 == 0) {
-                numbers.add("FizzBuzz");
-            // x is not a multiple of 3 or 5    
+                numbers.add("FizzBuzz");    
             } else {
                 numbers.add(Integer.toString(x));
             }
