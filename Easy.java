@@ -4042,3 +4042,125 @@ public class Main {
 
     }
 }
+
+/**
+ * Design HashMap
+ * @see MyHashMap.java below this main method. 
+ *
+ * Design a HashMap without using any built-in hash table libraries
+ *
+ * To be specific, your design should include these functions:
+ *
+ * put(key, value) : insert a (key, value) pair into the HashMap. If the value already exists in the HashMap,
+ * update the value.
+ *
+ * get(key) : Returns the value to which the specified key is mapped, or -1 if this map contains no mapping
+ * for the key.
+ *
+ * remove(key) : Remove the mapping for the value key if this map contains the mapping for the key.
+ *
+ * @author Wali Morris
+ * @since 07/26/2020
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        MyHashMap hashMap = new MyHashMap();
+        hashMap.put(1, 1);
+        hashMap.put(2, 2);
+        System.out.println(hashMap.get(1));
+        System.out.println(hashMap.get(3));
+        hashMap.put(2, 1);
+        System.out.println(hashMap.get(2));
+        hashMap.remove(2);
+        System.out.println(hashMap.get(2));
+    }
+}
+
+/**
+ * MyHashMap class that implements a HashMap data structure utilizing the ArrayList data structure as the underlying
+ * structure. Within the ArrayList is a nested list containing key/value pair.
+ *
+ * @author Wali Morris
+ * @since 07/27/2020
+ */
+
+import java.util.*;
+
+public class MyHashMap {
+    private List<List<Integer>> mainList;
+
+    /**
+     * MyHashMap uses a ArrayList data structure in the underlying HashMap structure. Initializes a nested ArrayList
+     * structure that nest a key and value pair as a single list.
+     */
+    public MyHashMap() {
+        this.mainList = new ArrayList<>();
+    }
+
+    /**
+     * @param key : integer to put into MyHashMap as key
+     * @param value : integer to put into MyHashMap as the key's value
+     */
+    public void put(int key, int value) {
+        /* If the outer list is empty, there's no need to check for nested key/value list pairs. Instead this method
+         * will insert a list containing key/value pair. If the list does contain inner key/value pairs then it's
+         * checked to ensure the key(index 0 of inner list) does not exist. If this key already exists, then it will
+         * be changed, if it does not exist then that key/value pair will be mapped.
+         */
+        if ( this.mainList.size() > 0 ) {
+            for ( int i = 0; i < this.mainList.size(); i++ ) {
+                List<Integer> current = this.mainList.get(i);
+                int mapKey = current.get(0);
+                if ( mapKey == key ) {
+                    this.mainList.remove(current);
+                }
+            }
+        }
+        /* Creates a new key/value pair mapping as a inner list of the outer main list. key is at index 0 and value
+         * is at index 1 of the inner list.
+         */
+        List<Integer> keyValue = new ArrayList<>();
+        keyValue.add(key);
+        keyValue.add(value);
+        this.mainList.add(keyValue);
+    }
+
+    /**
+     * @param key : the key to search for within the MyHashMap data structure
+     * @return : the value pertaining to the key, returns -1 if there is no such key
+     */
+    public int get(int key) {
+        int value = -1;
+        if ( this.mainList.size() > 0 ) {
+            for (int i = 0; i < this.mainList.size(); i++ ) {
+                List<Integer> current = this.mainList.get(i);
+                int mapKey = current.get(0);
+                if ( mapKey == key ) {
+                    value = (int) current.get(1);
+                }
+            }
+        }
+        return value;
+    }
+
+    /**
+     * @param key : removes key/value pair from MyhashMap data structure
+     */
+    public void remove(int key) {
+        /* First ensures that the outer(mainList) is not empty. If empty, does nothing. If the mainlist is not empty
+         * and contains key/value mappings, then iterate through each inner list(key/value mappings) and check the
+         * index 0 of each inner list, if key is found then deletes that list(key/value map).
+         */
+        if ( this.mainList.size() > 0 ) {
+            for ( int i = 0; i < this.mainList.size(); i++ ) {
+                List<Integer> current = this.mainList.get(i);
+                int mapKey = current.get(0);
+                if ( mapKey == key ) {
+                    this.mainList.remove(current);
+                }
+            }
+        }
+    }
+}
