@@ -3989,3 +3989,56 @@ public class Main {
         return numbers;
     }
 }
+
+/**
+ * Average Salary Excluding the Minimum and Maximum Salary
+ *
+ * Given an array of unique integers, salary, where salary[i] is the salary of the employee i.
+ * Return the average salary of employees excluding the minimum and maximum salary.
+ * 
+ * @author Wali Morris 
+ * @since 07/26/2020
+ */
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        int[] salary1 = {4000, 3000, 1000, 2000};
+        int[] salary2 = {1000, 2000, 3000};
+        int[] salary3 = {6000, 5000, 4000, 3000, 2000, 1000};
+        int[] salary4 = {8000, 9000, 2000, 3000, 6000, 1000};
+        double output1 = average(salary1);
+        double output2 = average(salary2);
+        double output3 = average(salary3);
+        double output4 = average(salary4);
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+        System.out.println(output4);
+    }
+
+    /**
+     * @param salary : The salaries of all employees
+     * @return : average of all salaries without max salary and min salary 
+     */
+    public static double average(int[] salary) {
+        
+        /* initializes min and max salary to the first salary in the list. Then iterates all salaries and
+         * compares; takes new max salary and new min salary from current, if that is the case. Every salary
+         * is added to the total. The final calculation returns a double of the total salary amount minus
+         * the max and min salary divided by the number of salaries - 2.
+         */
+        int maxSalary = salary[0];
+        int minSalary = salary[0];
+        int total = 0;
+        for ( int i = 0; i < salary.length; i++ ) {
+            maxSalary = Math.max(salary[i], maxSalary);
+            minSalary = Math.min(salary[i], minSalary);
+            total += salary[i];
+        }
+        return (double) (total - maxSalary - minSalary) / (salary.length - 2);
+
+    }
+}
