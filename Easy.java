@@ -4212,3 +4212,52 @@ public class Main {
         return -1;
     }
 }
+
+package com.morris.LeetcodeChallenge;
+
+import java.util.Iterator;
+
+/**
+ * Consecutive Characters
+ *
+ * Given a String s, the power of the String is the maximum length of a non-empty substring that contains
+ * only one unique character. Return the power of the String.
+ *
+ * @author Wali Morris
+ * @since 07/30/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int output1 = maxPower("leetcode");
+        int output2 = maxPower("abbcccddddeeeeedcba");
+        int output3 = maxPower("triplepillooooow");
+        int output4 = maxPower("hooraaaaaaaaaaay");
+        int output5 = maxPower("tourist");
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+        System.out.println(output4);
+        System.out.println(output5);
+    }
+
+    /* maxConsecutive variable tracks the maximum count of consecutive numbers seen, while the count variable is 
+     * dynamic and changes as different consecutive characters are seen; variable count tracks consecutive characters. 
+     * variable count begins at 1, and a loop begins to track each character. If characters are consecutive count is
+     * incremented until the character is no longer the same. Once a different character is seen, the current count 
+     * is than checked against the maximum consecutive characters seen. If count is larger, then max consecutive 
+     * becomes count. 
+     */
+    public static int maxPower(String s) {
+        int maxConsecutive = 1, count = 1;
+        for (int i = 0; i < s.length() - 1; i++) {
+            if (s.charAt(i + 1) == s.charAt(i)) {
+                count++;
+                maxConsecutive = count > maxConsecutive ? count : maxConsecutive;
+            } else {
+                count = 1;
+            }
+        }
+        return maxConsecutive;
+    }
+}
