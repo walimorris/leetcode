@@ -4164,3 +4164,51 @@ public class MyHashMap {
         }
     }
 }
+
+package com.morris.TwentyFive;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/**
+ * Element Appearing More Than 25% in Sorted Array
+ *
+ * Given an integer array sorted in non-decreasing order, there is exactly one integer in the array
+ * that occurs more than 25% of the time. Return that integer.
+ *
+ * @author Wali Morris
+ * @since 07/30/2020
+ */
+public class Main {
+
+    public static void main(String[] args) {
+        int[] input = {1, 2, 2, 6, 6, 6, 7, 10};
+        int output = findSpecialInteger(input);
+        System.out.println(output);
+    }
+
+    public static int findSpecialInteger(int[] arr) {
+        // returns the only integer in array for array of size 1
+        if ( arr.length == 1 ) {
+            return arr[0];
+        }
+        /* Maps integer in list to number of times it's been seen. If a integer appears more than 25% 
+         * of times in the array, returns that integer */ 
+        Map<Integer, Integer> nums = new HashMap<>();
+        for (int num : arr) {
+            /* if num has been seen, add number and number of times it has been seen to the map */ 
+            if (nums.containsKey(num)) {
+                nums.put(num, nums.get(num) + 1);
+                /* appears more than 25%? return this integer */ 
+                if ( (float) nums.get(num) / arr.length * 100 > 25.0 ) {
+                    return num;
+                }
+            } else {
+                /* has not been seen, add number and 1 (integer has only been seen once) */ 
+                nums.put(num, 1);
+            }
+
+        }
+        return -1;
+    }
+}
