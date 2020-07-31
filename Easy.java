@@ -4261,3 +4261,35 @@ public class Main {
         return maxConsecutive;
     }
 }
+
+package com.morris.LeetcodeChallenge;
+
+/**
+ * Max Consecutive Ones
+ *
+ * Given a binary array, find the maximum number of consecutive 1s in this array.
+ *
+ * @author Wali Morris
+ * @since 07/30/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+	    int[] input = {1, 1, 0, 1, 1, 1};
+	    int output = findMaxConsecutiveOnes(input);
+	    System.out.println(output);
+    }
+
+    public static int findMaxConsecutiveOnes(int[] nums) {
+        int maxConsec = 0, count = 0;
+        for ( int i = 0; i < nums.length; i++ ) {
+            if (nums[i] == 1) {
+                count++;
+                maxConsec = Math.max(count, maxConsec);
+            } else {
+                count = 0;
+            }
+        }
+        return maxConsec;
+    }
+}
