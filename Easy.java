@@ -4293,3 +4293,56 @@ public class Main {
         return maxConsec;
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Given a word, you need to judge whether the usage in it is right or not.
+ *
+ * We define the usage of capitals in a word to be right when one of the following cases holds:
+ * 1. All letters in this word are capital, like "USA"
+ * 2. All letters in this word are not capitals, like "leetcode"
+ * 3. Only the first letter in this word is capital, like "Google"
+ *
+ * Otherwise, we define that this word doesn't use capitals in a right way.
+ *
+ * August 2020 Leetcode Challenge 
+ * @author Wali Morris
+ * @since 08/01/2020
+ */
+public class Main {
+    public static void main(String[] args) {
+        String A = "USA";
+        String B = "FlaG";
+        String C = "Google";
+        String D = "FlaberGasted";
+        String E = "Onepac";
+        boolean outputA = detectCapitalUse(A);
+        boolean outputB = detectCapitalUse(B);
+        boolean outputC = detectCapitalUse(C);
+        boolean outputD = detectCapitalUse(D);
+        boolean outputE = detectCapitalUse(E);
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+        System.out.println(outputD);
+        System.out.println(outputE);
+    }
+
+    public static boolean detectCapitalUse(String word) {
+        /* Takes word and capitalizes the first letter and makes all other letters lowercase */
+        String firstLetterCapitalOnly = word.substring(0, 1) + word.substring(1).toLowerCase();
+        
+        /* Case 1: checks if word is all uppercase
+         * Case 2: checks if word is all lowercase
+         * Case 3: checks if word contains on first letter that's capitalized
+         * if none of these conditions are meet, method returns false
+         */
+        if (word.toUpperCase().equals(word) || word.toLowerCase().equals(word) ||
+                firstLetterCapitalOnly.equals(word) ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
