@@ -502,3 +502,61 @@ public class KthLargest {
         return nums[nums.length - k]; 
     } 
 }
+
+package com.morris.LeetcodeChallenge;
+
+import java.util.*;
+
+/**
+ * Top K Frequent Words
+ *
+ * Given a non-empty list of words, return the k most frequent elements.
+ *
+ * Your answer should be sorted by frequency from the highest to lowest. If two words have
+ * the same frequency, then the word with the lower alphabetical order comes first.
+ *
+ * @author Wali Morris
+ * @since 07/31/2020
+ */
+public class Main {
+    public static void main(String[] args) {
+        String[] A = {"i", "love", "leetcode", "i", "love", "coding"};
+        String[] B = {"the", "day", "is", "sunny", "the", "the", "the",
+                      "sunny", "is", "is"};
+        List<String> outputA = topKFrequent(A, 2);
+        List<String> outputB = topKFrequent(B, 4);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    public static List<String> topKFrequent(String[] words, int k) {
+        Map<String, Integer> wordMap = new TreeMap<>();
+        List<String> wordList = new ArrayList<>();
+        for ( String word : words ) {
+            if (wordMap.containsKey(word)) {
+                int count = wordMap.get(word) + 1;
+                wordMap.put(word, count);
+            } else {
+                wordMap.put(word, 1);
+            }
+        }
+        for ( int i = 0; i < k; i++ ) {
+            for ( String word : wordMap.keySet() ) {
+                int maxValue = Collections.max(wordMap.values());
+                if (wordMap.get(word) == maxValue && wordList.size() < k) {
+                    wordList.add(word);
+                }
+                if ( wordList.size() == k ) {
+                    break;
+                }
+            }
+            for ( String word : wordList ) {
+                wordMap.remove(word);
+            }
+            if ( wordList.size() == k ) {
+                break;
+            }
+        }
+        return wordList;
+    }
+}
