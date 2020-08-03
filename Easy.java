@@ -4346,3 +4346,235 @@ public class Main {
         }
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Design HashSet
+ *
+ * Design a HashSet without using any built-in hash table libraries.
+ * To be specific, your design should include these functions:
+ * A. add(value) : insert a value into the HashSet.
+ * B. contains(value) : Return whether the value exists in the hashSet or not.
+ * C. remove(value) : Remove a value in the HashSet. If teh value does not exist
+ * in the HashSet, do nothing.
+ *
+ * @author Wali Morris
+ * @since 08/02/2020
+ * August Leetcode Challenge
+ */
+
+/**
+ * The base structure for MyHashSet Object is an array. The size of the array must be recorded and closely 
+ * monitored to keep track of the elements within the set and to give the set a dynamic feeling of growing
+ * as users need to add elements. 
+ */
+public class MyHashSet {
+    int[] set;
+    int size;
+
+    /**
+     * MyHashSet begins as an array set to accept a maximum of ten elements. The variable size monitors the 
+     * number of elements within the set. Ofcourse, once MyHashSet is instantiated, we begin with zero elements. 
+     */
+    public MyHashSet() {
+        this.set = new int[10];
+        this.size = 0;
+    }
+
+    /**
+     * To add an element the user must provided the key to be added. Arrays are set on initiation so before added
+     * any element to the set, we ensure there is space enough for this set. If there is no space, the array is 
+     * expanded by ten more available spaces. The set is then examined to ensure the key is not already within the
+     * set; if the key is present adding to the set is ignored. If the key is not present, it is added. 
+     * @param key : element to add to set
+     */
+    public void add(int key) {
+        if ( this.size == this.set.length ) {
+            increaseSet();
+        }
+        if (!this.contains(key)) {
+            this.set[size] = key;
+            this.size++;
+        }
+    }
+
+    /**
+     * A private method used to dynamically increase the size of the base array used under the set. 
+     * Increases the set by plus ten available spaces. 
+     */
+    private void increaseSet() {
+        int[] temp = new int[this.size + 10];
+        for ( int i = 0; i < this.size; i++ ) {
+            temp[i] = this.set[i];
+        }
+        this.set = temp;
+    }
+
+    /**
+     * Removes the key provided if it exists within the set. If the key exists, this method iterates to 
+     * the index of the key and begins to move every key to the right of this index over to the left, 
+     * removing the original key and decreasing the size of the set by one. 
+     * @param key : the element to remove
+     */
+    public void remove(int key) {
+        int index;
+        for (int i = 0; i < this.size; i++) {
+            if (this.set[i] == key) {
+                index = i;
+                while (index < this.size-1) {
+                    this.set[index] = this.set[index + 1];
+                    index++;
+                }
+                this.size--;
+            }
+        }
+    }
+
+    /**
+     * Examines the set for the key provided
+     * @param key : the element to search for within the set
+     * @return : if the element exists return true, else false
+     */
+    public boolean contains(int key) {
+        for (int i = 0; i < this.size; i++) {
+            if ( this.set[i] == key) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public String toString() {
+        if ( this.size == 0 ) {
+            return "[]";
+        }
+        StringBuilder setStr = new StringBuilder();
+        setStr.append("[");
+        for ( int i = 0; i < this.size; i++ ) {
+            setStr.append(this.set[i]);
+            if (i == this.size - 1) {
+                setStr.append("]");
+            } else {
+                setStr.append(", ");
+            }
+        }
+        return setStr.toString();
+    }
+
+    /**
+     * size of the element comes from the actual number of elements in the set.
+     * @return : size of the set
+     */
+    public int getSize() {
+        return this.size;
+    }
+}
+
+package com.morris.augustchallenge;
+
+/**
+ * Design HashSet
+ *
+ * Design a HashSet without using any built-in hash table libraries.
+ * To be specific, your design should include these functions:
+ * A. add(value) : insert a value into the HashSet.
+ * B. contains(value) : Return whether the value exists in the hashSet or not.
+ * C. remove(value) : Remove a value in the HashSet. If teh value does not exist
+ * int the HashSet, do nothing.
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        MyHashSet set = new MyHashSet();
+        set.add(1);
+        System.out.println(set.contains(1));
+        System.out.println(set.toString());
+        set.add(1);
+        System.out.println(set.contains(1));
+        System.out.println(set.toString());
+        set.remove(1);
+        System.out.println(set.toString());
+        System.out.println(set.contains(1));
+        System.out.println("\n/// below is leetcode's test ///");
+        set.add(1);
+        set.add(2);
+        System.out.println(set.contains(1));
+        System.out.println(set.contains(3));
+        System.out.println(set.toString());
+        System.out.println(set.getSize());
+        set.add(2);
+        System.out.println(set.contains(2));
+        System.out.println(set.getSize());
+        System.out.println(set.toString());
+        set.remove(2);
+        System.out.println(set.contains(2));
+        System.out.println(set.getSize());
+        System.out.println(set.toString());
+
+        /* currently the MyHashSet data structure is working as planned with small numbers.
+         * My first implementation initialized an array as the base structure at size 10.
+         * I think if I tried to add more than 10 elements in MyHashSet structure the compiler
+         * will through an index out of bounds error so let's try it out.
+         *  */
+        System.out.println("\n/// Start of new tests ///");
+        MyHashSet set2 = new MyHashSet();
+        set2.add(11);
+        set2.add(12);
+        set2.add(5);
+        set2.add(17);
+        set2.add(23);
+        set2.add(106);
+        set2.add(233);
+        set2.add(1);
+        set2.add(99);
+        set2.add(33);
+        System.out.println(set2.getSize());
+        System.out.println(set2.toString());
+        // adding a duplicate just to check
+        set2.add(17);
+        System.out.println(set2.getSize()); // same size, duplicate wasn't added
+        System.out.println(set2.toString()); // prints same map
+        // remove element in middle of set
+        set2.remove(23);
+        // there was an out of bounds error, corrected by stopping loop before last element
+        // after correction, the remove method worked properly
+        System.out.println(set2.getSize());
+        System.out.println(set2.toString());
+
+        // now let's test our structure by adding more than 10 elements
+        set2.add(44);
+        set2.add(55);
+        set2.add(89);
+        set2.add(101);
+
+        /* as predicted, we received index out of bounds exception when adding these 4 new elements.
+         * Fix: In order to fix this, I've added a private method in the MyHashSet class called
+         * increaseSet(). When the set reaches the capacity of 10 elements, the set is then increased
+         * by 1 for every new element added. This allows the set to be a bit more dynamic and flexible
+         * as clients want to increase and decrease the size of the set. Here are some questions: once
+         * the array reaches capacity, should I increase it by more than 1? Let's say 10? The problems
+         * I see with this is there may be more memory used. The good thing I see is there will be less
+         * computation if a client wants to add many more elements. NOTE: I changed it to increase by 10
+         * once capacity is reached because I think it'll cause less resources on the backend by only
+         * incrementing one every time(under the hood we are creating a new temp array and adding all
+         * elements from the original into the temp, this is expensive). Let's see what our set looks like
+         * now.
+         */
+
+        System.out.println(set2.getSize());
+        System.out.println(set2.toString());
+
+        // let's add multiple duplicate elements to test that our set will not change
+        set.add(101);
+        set.add(1);
+        set.add(17);
+        set.add(12);
+        set.add(106);
+        System.out.println(set2.getSize());
+        System.out.println(set2.toString());
+        // great, no new elements were added and the properties(size) remained the same
+        // let's submit this to leetcode
+    }
+}
