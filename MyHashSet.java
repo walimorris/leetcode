@@ -25,7 +25,7 @@ public class MyHashSet {
     int size;
 
     /**
-     * MyHashSet begins as an array set to accept a maximum of ten elements. The variable size monitors the 
+     * MyHashSet begins as an array, set to accept a maximum of ten elements. The variable : size,  monitors the 
      * number of elements within the set. Ofcourse, once MyHashSet is instantiated, we begin with zero elements. 
      */
     public MyHashSet() {
@@ -34,10 +34,10 @@ public class MyHashSet {
     }
 
     /**
-     * To add an element the user must provided the key to be added. Arrays are set on initiation so before added
-     * any element to the set, we ensure there is space enough for this set. If there is no space, the array is 
+     * To add an element the user must provide the key to be added. Arrays are set on initiation so before adding
+     * any element to the set, we ensure there is space enough for this element. If there is no space, the array is 
      * expanded by ten more available spaces. The set is then examined to ensure the key is not already within the
-     * set; if the key is present adding to the set is ignored. If the key is not present, it is added. 
+     * set; if the key is present, adding to the set is ignored. If the key is not present, element is added. 
      * @param key : element to add to set
      */
     public void add(int key) {
@@ -52,7 +52,7 @@ public class MyHashSet {
 
     /**
      * A private method used to dynamically increase the size of the base array used under the set. 
-     * Increases the set by plus ten available spaces. 
+     * Increases the set by ten available spaces. 
      */
     private void increaseSet() {
         int[] temp = new int[this.size + 10];
