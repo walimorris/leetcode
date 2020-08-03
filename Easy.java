@@ -4578,3 +4578,60 @@ public class Main {
         // let's submit this to leetcode
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ *  Valid Palindrome
+ *
+ *  Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring
+ *  cases. For the purpose of this problem, we define empty strings as valid palindrome.
+ *
+ * @author Wali Morris
+ * @since 08/03/2020
+ * August Leetcode Challenge
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        String A = "A man, a plan, a canal: Panama";
+        String B = "race a car";
+        String C = "0P";
+        boolean outputA = isPalindrome(A);
+        boolean outputB = isPalindrome(B);
+        boolean outputC = isPalindrome(C);
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+    }
+
+    /**
+     * After ensuring String s is not empty and contains more than one character, convert s to lowercase.
+     * Two Lists are created, one list will contain all alphanumeric characters from the original order of
+     * s and the other List will contain all alphanumeric characters from the reverse order of original s.
+     * These list are then compared for equality.
+     * @param s : The examined String
+     * @return : If Lists contain alphanumeric characters in the same order return true, else returns false.
+     */
+    public static boolean isPalindrome(String s) {
+        if (s.length() == 0 || s.length() == 1) {
+            return true;
+        }
+        String s2 = s.toLowerCase();
+        List<Character> forward = new ArrayList<>(), backward = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            char charFromForward = s2.charAt(i), charFromBackward = s2.charAt(s2.length() - i - 1);
+            boolean isValidForward = Character.isLetterOrDigit(charFromForward);
+            boolean isValidBackward = Character.isLetterOrDigit(charFromBackward);
+            if ( isValidForward )
+                forward.add(charFromForward);
+            if ( isValidBackward )
+                backward.add(charFromBackward);
+        }
+        return forward.equals(backward);
+    }
+}
