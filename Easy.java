@@ -4635,3 +4635,52 @@ public class Main {
         return forward.equals(backward);
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.*;
+
+/**
+ * Find all Duplicates in an Array
+ *
+ * Given an array of integers 1 <= a[i] <= n (n = size of array), some elements appear twice and others
+ * appear once. Find all elements that appear twice in this array. 
+ * 
+ * @author Wali Morris
+ * @since 08/06/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int[] A = {4, 3, 2, 7, 8, 2, 3, 1};
+        List<Integer> outputA = findDuplicates(A);
+        System.out.println(outputA);
+    }
+
+    /**
+     * Notes: adding the size of both the arraylist and hashset as nums.length decreased time complexity by 10%.
+     * I think this is because although both collections are dynamic, they do have a capacity and once that
+     * capacity is reached, more space must be added to the each. This implementation also increased memory
+     * usage.
+     *
+     * Algorithm: Algorithm is not so great, for one it needs to iterate every element in Array(nums) so time
+     * complexity is O(n) and large arrays would just take too much time. How are some ways I can lower the
+     * cost? During each iteration, the size of the set is recorded and n is added to the set. If the set
+     * remains the same size that means n was a duplicate and therefore n is added to the List that'll be
+     * returned.
+     * @param nums : Array of numbers
+     * @return : duplicates of the Array
+     */
+    public static List<Integer> findDuplicates(int[] nums) {
+        List<Integer> numsList = new ArrayList<>(nums.length);
+        Set<Integer> bigSet = new HashSet<>(nums.length);
+        for (int n : nums) {
+            int bigSetOriginalSize = bigSet.size();
+            bigSet.add(n);
+            if ( bigSet.size() == bigSetOriginalSize ) {
+                numsList.add(n);
+            }
+        }
+        return numsList;
+    }
+}
