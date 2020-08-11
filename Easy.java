@@ -4684,3 +4684,65 @@ public class Main {
         return numsList;
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Student Attendance Record I
+ *
+ * You are given a string representing an attendance record for a student. The record only contains
+ * the following three characters:
+ * 'A': Absent
+ * 'L': Late
+ * 'P': Present
+ *
+ * A student could be awarded if his/her attendance record doesn't contain more than one 'A' or more
+ * than two continuous 'L'.
+ *
+ * You need to return whether the student could be rewarded according to his attendance record.
+ *
+ * @author Wali Morris
+ * @since 08/12/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        String A = "PPALLP";
+        String B = "PPALLL";
+        boolean outputA = checkRecord(A);
+        boolean outputB = checkRecord(B);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    public static boolean checkRecord(String s) {
+        int absentCount = 0;
+        int consecutiveLate = 0;
+        for ( int i = 0; i < s.length(); i++ ) {
+            /* Character is 'A' therefore being late is not consecutive so consecutive lates can 
+             * be reset to 0, but 'A': absent counts should be incremented. If more than one absent
+             * count, return false because student does not warrant a reward. 
+             */
+            if (s.charAt(i) == 'A') {
+                absentCount++;
+                consecutiveLate = 0;
+                if (absentCount > 1) {
+                    return false;
+                }
+                /* If character is 'L' increment count, if late count has not been reset and more than 
+                 * two consecutive late counts have been counted, return false: student does not warrant 
+                 * any rewards. 
+                 */
+            } else if ( s.charAt(i) == 'L' ) {
+                consecutiveLate++;
+                if (consecutiveLate > 2) {
+                    return false;
+                }
+                /* Student was present, reset consecutive late count and continue. */ 
+            } else {
+                consecutiveLate = 0;
+            }
+        }
+        return true;
+    }
+}
