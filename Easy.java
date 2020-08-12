@@ -4792,3 +4792,24 @@ public class Main {
         return false;
     }
 }
+
+/**
+ * Count Odd Numbers in an interval Range 
+ * 
+ * Given two non-negative integers low and high. return the count of odd numbers between low and high(inclusive). 
+ * 
+ * Solution : we know we can subtract high - low and receive the count of integers between these two variables. 
+ * We also know that atleast half of those numbers between high - low will be odd(including low and high if they
+ * are odd numbers). In this case we can subtract high from low, divide by 2 and add 1 if high is odd. If high 
+ * is even: we can subtract high from low, add one to this difference to account for whole numbers and divide by 
+ * two. 
+ * 
+ * @author Wali Morris
+ * @since 08/12/2020
+ */ 
+
+public int countOdds(int low, int high) { 
+    int solution = high % 2 != 0 ? (high-low)/2+1 : (high-low+1)/2; 
+        return solution;  
+    }
+}
