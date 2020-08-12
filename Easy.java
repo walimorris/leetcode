@@ -4746,3 +4746,49 @@ public class Main {
         return true;
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Contains Duplicate 
+ * 
+ * Given an array of integers, find if the array contains any duplicates. Your function should 
+ * return true if any value appears at least twice in the array, and it should return false if 
+ * every element is distinct. 
+ * 
+ * @author Wali Morris
+ * @since 08/12/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+	    int[] A = {1, 2, 3, 1};
+	    int[] B = {1, 2, 3, 4};
+	    int[] C = {1, 1, 1, 3, 3, 4, 3, 2, 4, 2};
+	    boolean outputA = containsDuplicate(A);
+        boolean outputB = containsDuplicate(B);
+        boolean outputC = containsDuplicate(C);
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+    }
+
+    public static boolean containsDuplicate(int[] nums) {
+        Set<Integer> duplicates = new HashSet<>();
+        for ( int i = 0; i < nums.length; i++ ) {
+            /* record size of set before adding new element */ 
+            int preSize = duplicates.size();
+            duplicates.add(nums[i]);
+            /* If set remains the same size this means the last element was not added, 
+             * which indicates a duplicate. Return true. 
+             */
+            if (duplicates.size() == preSize) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
