@@ -560,3 +560,62 @@ public class Main {
         return wordList;
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Replace Words
+ *
+ * In English, we have a concept called root, which can be followed by some other words to form another word -
+ * let's call this word successor. For example, the root an, followed by other, which can form another word 
+ * another. Now, given a dictionary consisting of many roots and a sentence. You need to replace all the  
+ * successor in the sentence with the root forming it. If a successor has many roots can form it, replace 
+ * it with a root with the shortest length. You need to output the sentence after the replacement.
+ *
+ * @author Wali Morris
+ * @since 08/12/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> dict = new ArrayList<>();
+        dict.add("cat");
+        dict.add("bat");
+        dict.add("rat");
+        String sentence = "the cattle was ratted by the battery";
+        String output = replaceWords(dict, sentence);
+        System.out.println(output);
+    }
+
+    public static String replaceWords(List<String> dict, String sentence) {
+        StringBuilder newSentence = new StringBuilder();
+        String[] splitSentence = sentence.split(" ");
+        /* Iterates each word in the sentence and initializes rootReplacement as the full word */ 
+        for ( int i = 0; i < splitSentence.length; i++ ) {
+            String rootReplacement = splitSentence[i];
+            /* Iterates the dictionary and finds the word that's the root of rootReplacement, if not such
+             * word exists, the original word in the sentence will be appended to the new sentence. Else 
+             * the shortest root found in the dictionary will be replaced and appended in place of the 
+             * original word in the sentence. 
+             */
+            for (int j = 0; j < dict.size(); j++) {
+                String root = dict.get(j);
+                if (rootReplacement.startsWith(root) && root.length() < rootReplacement.length() ) {
+                    rootReplacement = root;
+                }
+            }
+            /* if not the last word in the sentence append a space between words. */ 
+            if (!(i == splitSentence.length - 1)) {
+                newSentence.append(rootReplacement).append(" ");
+            } else {
+                /* If last word in sentence, do not append space at the end. */ 
+                newSentence.append(rootReplacement);
+            }
+        }
+        return newSentence.toString();
+    }
+}
