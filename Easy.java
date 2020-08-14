@@ -4813,3 +4813,64 @@ public int countOdds(int low, int high) {
         return solution;  
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.HashSet;
+import java.util.Set;
+
+/**
+ * Contains Duplicates II
+ *
+ * Given an array of integers and an integer k, find out whether there are two distinct indices i and j in the
+ * array such that nums[i] = nums[j] and the absolute difference between i and j is at most k.
+ *
+ * @author Wali Morris
+ * @since 08/14/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int[] nums1 = {1, 2, 3, 1};
+        int k1 = 3;
+        int[] nums2 = {1, 0, 1, 1};
+        int k2 = 1;
+        int[] nums3 = {1, 2, 3, 1, 2, 3};
+        int k3 = 2;
+        boolean outputA = containsNearbyDuplicate(nums1, k1);
+        boolean outputB = containsNearbyDuplicate(nums2, k2);
+        boolean outputC = containsNearbyDuplicate(nums3, k3);
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+    }
+
+    /**
+     * checkForDuplicatesSet is created and every iteration element nums[i] is added to set; this is fast since adding is
+     * constant time. The current element and size of checkForDuplicatesSet is recorded. When adding the current element
+     * to the set; if the set remains the same size this means we have a duplicate at nums[i]. At this point we should
+     * check if the duplicate is in the range of nums[i] - nums[k] so we check k elements that have come before nums[i].
+     * @param nums : The array being checked for duplicates
+     * @param k : The range, less than current nums[i], which the duplicate should be found
+     * @return : If a duplicate of nums[i] is found within range k, return true, else continue and possibly return false.
+     */
+    public static boolean containsNearbyDuplicate(int[] nums, int k) {
+        Set<Integer> checkForDuplicatesSet = new HashSet<>();
+        for (int i = 0; i < nums.length; i++) {
+            int preSize = checkForDuplicatesSet.size();
+            int currentNum = nums[i];
+            checkForDuplicatesSet.add(currentNum);
+            if (checkForDuplicatesSet.size() == preSize) {
+                int dupK = k, reverse = i - 1;
+                while ( dupK > 0) {
+                    if ( nums[reverse] == currentNum) {
+                        return true;
+                    }
+                    dupK--;
+                    reverse--;
+                }
+            }
+        }
+        return false;
+    }
+}
