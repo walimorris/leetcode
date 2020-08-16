@@ -4874,3 +4874,47 @@ public class Main {
         return false;
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Check if N and its Double Exist
+ *
+ * Given an array arr of integers, check if there exists two integers N and M such that N is the
+ * double of M ( i.e. N = 2 * M ).
+ *
+ * @author Wali Morris
+ * @since 08/16/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int[] A = {10, 2, 5, 3};
+        int[] B = {7, 1, 14, 11};
+        int[] C = {-2, 0, 10, -19, 4, 6, -8};
+        boolean outputA = checkIfExist(A);
+        boolean outputB = checkIfExist(B);
+        boolean outputC = checkIfExist(C);
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+    }
+
+    /**
+     * Begin at index 0 in array and iterate until last element in array; this is n.
+     * Nested loop begins at index 0 until last element in array iteration; this is m.
+     * if element n and m are not the same index, if m equals n * 2; returns true.
+     * @param arr : an array of integer elements 
+     * @return : true or false
+     */
+    public static boolean checkIfExist(int[] arr) {
+        for (int n = 0; n < arr.length; n++) {
+            for (int m = 0; m < arr.length; m++) {
+                if ( m != n && arr[m] == arr[n] * 2 ) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+}
