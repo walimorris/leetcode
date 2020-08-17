@@ -684,3 +684,59 @@ public class Main {
         return frequencyString.toString();
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.*;
+
+/**
+ * Single Number III
+ *
+ * Given an array of numbers nums, in which exactly two elements appear only once and all the other
+ * elements appear exactly twice. Find the two elements that only appear once.
+ *
+ * @author Wali Morris
+ * @since 08/17/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int[] A = {1, 2, 1, 3, 2, 5};
+        int[] outputA = singleNumber(A);
+        System.out.println(Arrays.toString(outputA));
+    }
+
+    public static int[] singleNumber(int[] nums) {
+        /* Creates a map structure that stores an integer key and its count, if count is larger than 
+         * 1 then value becomes 0 
+         */
+        Map<Integer, Integer> numbersAndCount = new HashMap<>();
+        int[] array = new int[5];
+        for (int n : nums) {
+            if (numbersAndCount.containsKey(n) ) {
+                numbersAndCount.put(n, 0);
+            } else {
+                numbersAndCount.put(n, 1);
+            }
+        }
+        /* The final array original has a size of 5, though the array is dynamic. If the size becomes 
+         * larger than the current index, the size of the array is increased by 10. Integers with a 
+         * value of 1 are placed at the index. 
+         */
+        int index = 0;
+        for ( int key : numbersAndCount.keySet() ) {
+            // increase array by 10
+            if (index == array.length) {
+                array = Arrays.copyOf(array, array.length + 10);
+            }
+            if (numbersAndCount.get(key) == 1) {
+                array[index] = key;
+                index++;
+            }
+        }
+        /* if the index is equal to the length of the array, return the array. Else, the array is reconstructed 
+         * to a size equal to the index.
+         */
+        return index == array.length ? array : Arrays.copyOf(array, index);
+    }
+}
