@@ -663,11 +663,11 @@ public class Main {
                 map.put(key, 1);
             }
         }
-        StringBuilder frequencyString = new StringBuilder();
         /* gets the max value in the map and iterates the map keyset to find the character with the 
          * greatest value. This character is appended to the StringBuilder for the number of times 
          * it appears in the string. The max value is decremented and process continued. 
          */
+        StringBuilder frequencyString = new StringBuilder();
         int maxValue = Collections.max(map.values());
         while (maxValue > 0) {
             for (char key : map.keySet()) {
