@@ -619,3 +619,68 @@ public class Main {
         return newSentence.toString();
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.*;
+
+/**
+ * Sort Characters By Frequency
+ *
+ * Given a string, sort it in decreasing order based on the frequency of characters.
+ * NOTE: This algorithm is slow. It'd be better to process the cases as the values are
+ * found. 
+ *
+ * @author Wali Morris
+ * @since 08/17/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        String A = "tree";
+        String B = "cccaaa";
+        String C = "Aabb";
+        String outputA = frequencySort(A);
+        String outputB = frequencySort(B);
+        String outputC = frequencySort(C);
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+    }
+
+    public static String frequencySort(String s) {
+        if ( s.isEmpty() ) {
+            return "";
+        } 
+        /* creates a map of characters and its count */ 
+        Map<Character, Integer> map = new HashMap<>();
+        for (int i = 0; i < s.length(); i++) {
+            char key = s.charAt(i);
+            if (map.containsKey(key)) {
+                int value = map.get(key) + 1;
+                map.put(key, value);
+            } else {
+                map.put(key, 1);
+            }
+        }
+        StringBuilder frequencyString = new StringBuilder();
+        /* gets the max value in the map and iterates the map keyset to find the character with the 
+         * greatest value. This character is appended to the StringBuilder for the number of times 
+         * it appears in the string. The max value is decremented and process continued. 
+         */
+        int maxValue = Collections.max(map.values());
+        while (maxValue > 0) {
+            for (char key : map.keySet()) {
+                if (map.get(key) == maxValue) {
+                    int j = 0;
+                    while (j < maxValue) {
+                        frequencyString.append(key);
+                        j++;
+                    }
+                }
+            }
+            maxValue--;
+        }
+        return frequencyString.toString();
+    }
+}
