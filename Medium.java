@@ -740,3 +740,39 @@ public class Main {
         return index == array.length ? array : Arrays.copyOf(array, index);
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Single Element in a Sorted Array 
+ * 
+ * You are given a sorted array consisting of only integers where every element appears exactly twice, except for one 
+ * element which appears exactly once. Find this single element that appears only once. 
+ */
+
+
+public class Main {
+    public static void main(String[] args) {
+        int[] A = {1, 1, 2, 3, 3, 4, 4, 8, 8};
+        int[] B = {3, 3, 7, 7, 10, 11, 11};
+        int outputA = singleNonDuplicate(A);
+        int outputB = singleNonDuplicate(B);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    public static int singleNonDuplicate(int[] nums) {
+        /* starts at last element and checks next. This is viable because we are guaranteed one
+         * single digit while all others are duplicates, therefore we know the array must be odd.
+         */
+        for ( int i = nums.length - 1; i > 0; i-=2 ) {
+            // if next is not equal to current, return current as single digit
+            if ( nums[i - 1] != nums[i]) {
+                return nums[i];
+            }
+        }
+        /* returns first element in array as this element is guaranteed to be the only single 
+         * digit as all other digits until this point must be duplicates */
+        return nums[0];
+    }
+}
