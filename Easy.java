@@ -4918,3 +4918,79 @@ public class Main {
         return false;
     }
 }
+
+package com.morris.augustchallenge;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * Goat Latin
+ *
+ * A sentence S is given, composed of words seperated by space. Each word consists of lowercase and uppercase letters
+ * only. We would like to convert the sentence to "Goat Latin" ( made up language similar to Pig Latin). The rules :
+ *
+ * 1. If a word begins with a vowel (a, e, i, o, u), append "ma" to the end of the word.
+ * 2. If a word begins with a consonant (not a vowel), remove the first letter and append it to the end, then add "ma".
+ * 3. Add one letter 'a' to the end of each word per its word index in the sentence, starting with 1.
+ *
+ * Return the final sentence representing the conversion from S to Goat Latin.
+ *
+ * @author Wali Morris
+ * @since 08/19/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        String A = "I speak Goat Latin";
+        String B = "The quick brown fox jumped over the lazy dog";
+        String outputA = toGoatLatin(A);
+        String outputB = toGoatLatin(B);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    public static String toGoatLatin(String s) {
+        /* Splits string s into an array(stream) of words, initializes a empty StringBuilder object to translate the
+         * sentence into Goat Latin. Establishes the list of vowels
+         */
+        String[] wordStream = s.split(" ");
+        StringBuilder goatLatin = new StringBuilder();
+        List<Character> vowels = Arrays.asList('a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U');
+        int i = 0;
+        while ( i < wordStream.length ) {
+            String word = wordStream[i];
+            char firstCharacterOfWord = wordStream[i].charAt(0);
+            /* checks if the current words first letter is a vowel. If so applies the first rule of Goat Latin.
+             * Appends word and "ma", and extra 'a' characters for its index number. Lastly appends str to new
+             * Goat Latin sentence translation.
+             */
+            if ( vowels.contains(firstCharacterOfWord) ) {
+                StringBuilder str = new StringBuilder();
+                str.append(word);
+                str.append("ma");
+                for ( int j = 0; j < i + 1; j++ ) {
+                    str.append('a');
+                }
+                goatLatin.append(str);
+            } else {
+                /* applies rule two if the current word's first letter is not a vowel. Appends translated Goat Latin
+                 * to new translated sentence.
+                 */
+                StringBuilder str = new StringBuilder();
+                str.append(word.substring(1));
+                str.append(firstCharacterOfWord);
+                str.append("ma");
+                for ( int j = 0; j < i + 1; j++ ) {
+                    str.append('a');
+                }
+                goatLatin.append(str);
+            }
+            i++; // increments to next word
+            if ( i != wordStream.length ) { // only append space to sentence if not last word. 
+                goatLatin.append(" ");
+            }
+        }
+        return goatLatin.toString();
+    }
+}
