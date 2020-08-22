@@ -5079,9 +5079,9 @@ class Solution {
         /* ignores trailing spaces in last word in string. The intent is to take the 
          * last word and only count characters that are letters. */ 
         int last = s.length() - 1; 
-        if ( s.charAt(last) == ' ') { 
-            while (s.charAt(last) == ' ') { 
-                if (last == 0) { 
+        if ( s.charAt(last) == ' ' ) { 
+            while ( s.charAt(last) == ' ' ) { 
+                if ( last == 0 ) { 
                     return 0; 
                 }
                 last--; 
@@ -5091,7 +5091,7 @@ class Solution {
          * Once the next word is seen, break and return the length of last word */ 
         StringBuilder str = new StringBuilder();
         while ( s.charAt(last) != ' ' ) {
-            if (s.charAt(last) != ' ') { 
+            if ( s.charAt(last) != ' ' ) { 
                 str.append(s.charAt(last)); 
                 if ( last == 0 ) { 
                     break; 
