@@ -5008,53 +5008,51 @@ public class Main {
  * @since 08/21/2020
  */
  
- class Solution {
+class Solution {
     public int[] sortArrayByParity(int[] A) {
         if ( A.length == 0 || A.length == 1 ) { 
             return A; 
         }
         int fPtr = 0, bPtr = A.length - 1; 
         do {
-            // both are even
-            if ( A[fPtr] % 2 == 0 && A[bPtr] % 2 == 0 ) {
+            if ( A[fPtr] % 2 == 0 && A[bPtr] % 2 == 0 ) { // both even 
                 while ( A[fPtr] % 2 == 0 ) { // search for odd number
                     if ( bPtr == fPtr ) { 
                         return A;
                     }
                     fPtr++; // move right
                 } 
-                // odd number found
-                int temp = A[fPtr]; // hold odd number 
-                A[fPtr] = A[bPtr]; // swap odd to even
-                A[bPtr] = temp; // swap even to odd
+                // makes a swap of back and front pointer once odd element is found  
+                swap(A, fPtr, bPtr);   
             
-            // both are odd    
-            } else if ( A[fPtr] % 2 != 0 && A[bPtr] % 2 != 0 ) { 
+	    } else if ( A[fPtr] % 2 != 0 && A[bPtr] % 2 != 0 ) { // both odd
                 while ( A[bPtr] % 2 != 0 ) { // search for even number
                     if ( bPtr == fPtr ) { 
                         return A; 
                     }
                     bPtr--; // move left
                 }
-                // even number found
-                int temp = A[bPtr]; // hold even  
-                A[bPtr] = A[fPtr]; // swap even to odd
-                A[fPtr] = temp; // swap odd to even 
+		// makes a swap of back and front pointer once even element is found 
+                swap(A, fPtr, bPtr);  
             
             // front odd, back even
             } else { 
                 if ( A[fPtr] % 2 != 0 && A[bPtr] % 2 == 0 ) { // simply swap
-                    int temp = A[fPtr]; // hold odd
-                    A[fPtr] = A[bPtr]; // swap odd to even 
-                    A[bPtr] = temp; // swap even to odd; 
+                    swap(A, fPtr, bPtr);  
                 }
             }
-
             fPtr++; 
             bPtr--; 
         
-        } while ( fPtr < bPtr ); 
-        
+        } while ( fPtr < bPtr );  
         return A; 
     } 
+    
+    // swaps two elements in an array 
+    public static int[] swap(int[] A, int fPtr, int bPtr) { 
+        int temp = A[fPtr]; 
+        A[fPtr] = A[bPtr]; 
+        A[bPtr] = temp;
+        return A; 
+    }
 }
