@@ -5090,15 +5090,12 @@ class Solution {
         /* Builds a string containing only the letters of the last word in string. 
          * Once the next word is seen, break and return the length of last word */ 
         StringBuilder str = new StringBuilder();
-        while ( s.charAt(last) != ' ' ) {
-            if ( s.charAt(last) != ' ' ) { 
-                str.append(s.charAt(last)); 
-                if ( last == 0 ) { 
-                    break; 
-                }
-                last--; 
+        while ( s.charAt(last) != ' ' ) { 
+            str.append(s.charAt(last)); 
+            if ( last == 0 ) { 
+                break; 
             }
-            
+            last--; 
         } 
         return str.toString().length(); 
     } 
