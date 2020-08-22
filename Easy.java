@@ -5056,3 +5056,50 @@ class Solution {
         return A; 
     }
 }
+
+/**
+ * Length of Last Word 
+ * 
+ * Given a String s consists of upper/lower-case alphabets and empty space characters ' , return the length of last word
+ * (last word means the last appearing word if we loop from left to right) in the string. If the last word does not exist
+ * return 0. 
+ *
+ * NOTE: This is my second time attempting this problem, the first time my algorithm was very slow only beating 30% of 
+ * leetcode submissions. This solution's time complexity is fast, beating 100% of leetcode submissions.
+ *
+ * @author Wali Morris
+ * @since 08/22/2020
+ */ 
+
+class Solution {
+    public int lengthOfLastWord(String s) {
+        if ( s.length() == 0 ) { 
+            return 0; 
+        }  
+        /* ignores trailing spaces in last word in string. The intent is to take the 
+         * last word and only count characters that are letters. */ 
+        int last = s.length() - 1; 
+        if ( s.charAt(last) == ' ') { 
+            while (s.charAt(last) == ' ') { 
+                if (last == 0) { 
+                    return 0; 
+                }
+                last--; 
+            }
+        }
+        /* Builds a string containing only the letters of the last word in string. 
+         * Once the next word is seen, break and return the length of last word */ 
+        StringBuilder str = new StringBuilder();
+        while ( s.charAt(last) != ' ' ) {
+            if (s.charAt(last) != ' ') { 
+                str.append(s.charAt(last)); 
+                if ( last == 0 ) { 
+                    break; 
+                }
+                last--; 
+            }
+            
+        } 
+        return str.toString().length(); 
+    } 
+} 
