@@ -4994,3 +4994,67 @@ public class Main {
         return goatLatin.toString();
     }
 }
+
+/**
+ * Sort Array By Parity 
+ * 
+ * Given an Array A of non-negative integers, return an array consisting of all the even elements of A, followed by all 
+ * the odd elements of A. You may return any answer array that satusfies this condition. 
+ * 
+ * NOTE: On leetcode this solution beats 99.96% of submissions according to speed of algorithm and uses less memory than 
+ * 91% of submissions. It seems this solution is a bit more complex than it should be and in need of refactoring. 
+ * 
+ * @author Wali Morris 
+ * @since 08/21/2020
+ */
+ 
+ class Solution {
+    public int[] sortArrayByParity(int[] A) {
+        if ( A.length == 0 || A.length == 1 ) { 
+            return A; 
+        }
+        int fPtr = 0, bPtr = A.length - 1; 
+        do {
+            // both are even
+            if ( A[fPtr] % 2 == 0 && A[bPtr] % 2 == 0 ) {
+                while ( A[fPtr] % 2 == 0 ) { // search for odd number
+                    if ( bPtr == fPtr ) { 
+                        return A;
+                    }
+                    fPtr++; // move right
+                } 
+                // odd number found
+                int temp = A[fPtr]; // hold odd number 
+                A[fPtr] = A[bPtr]; // swap odd to even
+                A[bPtr] = temp; // swap even to odd
+            
+            // both are odd    
+            } else if ( A[fPtr] % 2 != 0 && A[bPtr] % 2 != 0 ) { 
+                while ( A[bPtr] % 2 != 0 ) { // search for even number
+                    if ( bPtr == fPtr ) { 
+                        return A; 
+                    }
+                    bPtr--; // move left
+                }
+                // even number found
+                int temp = A[bPtr]; // hold even  
+                A[bPtr] = A[fPtr]; // swap even to odd
+                A[fPtr] = temp; // swap odd to even 
+            
+            // front odd, back even
+            } else { 
+                if ( A[fPtr] % 2 != 0 && A[bPtr] % 2 == 0 ) { // simply swap
+                    int temp = A[fPtr]; // hold odd
+                    A[fPtr] = A[bPtr]; // swap odd to even 
+                    A[bPtr] = temp; // swap even to odd; 
+                }
+            }
+
+            fPtr++; 
+            bPtr--; 
+        
+        } while ( fPtr < bPtr ); 
+        
+        return A; 
+    } 
+}
