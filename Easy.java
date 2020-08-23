@@ -5100,3 +5100,47 @@ class Solution {
         return str.toString().length(); 
     } 
 } 
+
+package com.morris.augustchallenge;
+
+/**
+ * Longest Continuous Increasing Subsequence
+ *
+ * Given an unsorted array of integers, find the length of longest continuous increasing subsequence (subarray).
+ *
+ * @author Wali Morris
+ *
+ */
+
+public class Main {
+    public static void main(String[] args) {
+	    int[] A = {1, 3, 5, 4, 7};
+	    int[] B = {2, 2, 2, 2, 2};
+	    int outputA = findLengthOfLCIS(A);
+        int outputB = findLengthOfLCIS(B);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    public static int findLengthOfLCIS(int[] nums) {
+        /* Return arrays of length 0 or 1 as is */ 
+        if ( nums.length < 2 ) {
+            return nums.length;
+        }
+        int count = 1, maxCount = 0;
+        for ( int i = 0; i < nums.length - 1; i++ ) {
+            /* increment count as long as the next number is greater */ 
+            if ( nums[i + 1] > nums[i] ) {
+                count++;
+            } else {
+                /* continuous stream has been broken, if count is greater than maxCount then 
+                 * maxCount becomes current count. Else keep the current maxCount. */ 
+                 */
+                maxCount = Math.max(count, maxCount);
+                count = 1;
+            }
+        }
+        /* returns the greater of count and maxCount */ 
+        return Math.max(count, maxCount);
+    }
+}
