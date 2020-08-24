@@ -5177,3 +5177,42 @@ public class Main {
         return new String(result);
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Three Consecutive Odds
+ *
+ * Given an integer array arr, return true if there are three consecutive odd numbers in the
+ * array. Otherwise, return false.
+ * 
+ * @author Wali Morris
+ * @since 08/24/2020
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+	    int[] A = {2, 4, 6, 1, 3, 5};
+	    boolean output = threeConsecutiveOdds(A);
+	    System.out.println(output);
+    }
+
+    public static boolean threeConsecutiveOdds(int[] arr) {
+        if ( arr.length < 3 ) {
+            return false; // return false for any array less than three
+        }
+        int count = 0;
+        for ( int j : arr ) {
+            if ( j % 2 != 0 ) { // element odd, add to count
+                count++;
+                if ( count == 3 ) { // count = 3, return true
+                    return true;
+                }
+            } else { // element is even, reset count
+                count = 0;
+            }
+        }
+        return false; // condition not met
+    }
+}
