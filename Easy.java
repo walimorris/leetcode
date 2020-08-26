@@ -5216,3 +5216,59 @@ public class Main {
         return false; // condition not met
     }
 }
+
+package com.morris.augustchallenge;
+
+/**
+ * Maximum Number of Balloons
+ * 
+ * Given a String text, you want to use the characters of text to form as many instances of the word "balloon" as 
+ * possible. You can use each character in text at most once. Return the maximum number of instances that can be 
+ * formed. 
+ * 
+ * @author Wali Morris
+ * @since 08/25/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+	    String A = "nlaebolko";
+	    String B = "loonbalxballpoon";
+	    String C = "leetcode";
+	    int outputA = maxNumberOfBalloons(A);
+	    int outputB = maxNumberOfBalloons(B);
+	    int outputC = maxNumberOfBalloons(C);
+	    System.out.println(outputA);
+	    System.out.println(outputB);
+	    System.out.println(outputC);
+    }
+
+    public static int maxNumberOfBalloons(String text) {
+        int b = 0, a = 0, l = 0, o = 0, n = 0;
+        int count = 0;
+
+        /* runs through length of text and tallies every character, once if condition has been meet, increment count
+         * and subtract 1 from each letter count in balloon( but 2 for 'o' and 'l').
+         */
+        for ( int i = 0; i < text.length(); i++ ) {
+            char character = text.charAt(i);
+            switch ( character ) {
+                case 'b': b++; break;
+                case 'a': a++; break;
+                case 'l': l++; break;
+                case 'o': o++; break;
+                case 'n': n++;break;
+            }
+            // Must be another way I can do this, this conditional statement slows down the process significantly enough.
+            if ( b >= 1 && a >= 1 && l >= 2 && o >= 2 && n >= 1 ) {
+                count++;
+                b--;
+                a--;
+                l-=2;
+                o-=2;
+                n--;
+            }
+        }
+        return count;
+    }
+}
