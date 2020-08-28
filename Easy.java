@@ -5301,3 +5301,59 @@ class Solution {
         return fizzyBuzzList; 
     }
 }
+
+/**
+ * Thousand Separator 
+ * 
+ * Given an integer n, add a dot (".") as the thousands separator and return it in string format. 
+ * Note: There are two solutions here. The first solution utilizes a StringBuilder to build the 
+ * string and then reverse it. The second solution utilizes the substring method, which is much 
+ * slower. I'm recording the solution because it'll be cool to utilize the substring method and 
+ * produce an optimal solution. 
+ * 
+ * @author Wali Morris 
+ * @since 08/30/2020
+ */ 
+
+class Solution1 {
+    public String thousandSeparator(int n) {
+        String nStr = String.valueOf(n); 
+        if ( nStr.length() < 4 ) {                      // returns String n if digits less than 4  
+            return nStr; 
+        }
+        int range = nStr.length() -1, count = 0;        // record length of number, initialize count 
+        StringBuilder str = new StringBuilder();        // new StringBuilder object 
+        while ( range >= 0 ) {                          // while first character hasn't been reached
+            if ( count == 3 ) {                         // starting from the last digit in nStr
+                str.append(".");                        // if count equals 3 append a dot 
+                count = 0;                              // reset count to 0
+            } else {                                    // count is not 3  
+                str.append(nStr.charAt(range));         // append character at nStr[range]
+                count++;                                // increment count  
+                range--;                                // move to next digit to the left in nStr
+            } 
+        } 
+        return str.reverse().toString();                // return reversed built string 
+    } 
+}
+
+// This is the substring solution which is not optimized and much slower than the StringBuilder solution, but was 
+// my first solution and another way to do it. Thought I'd share and record the substring solution. It'd be cool if 
+// there's a way to make the substring solution optimal. 
+
+class Solution2 {
+    public String thousandSeparator(int n) {    
+        String nStr = String.valueOf(n); 
+        if ( nStr < 4 ) { 
+            return nStr;                                 // returns digit with length < 4
+        }                                                // starting from the last digit 
+        int nLength = nStr.length();                     // record digit length 
+        while ( nLength > 3 ) {                          // while length > 3
+            String beg = nStr.substring(0, nLength - 3); // substring beginning, excluding end
+            String end = nStr.substring(nLength - 3);    // substring end, rest of nStr
+            nStr = beg + "." + end;                      // concatenate beg and end while adding a "."
+            nLength -= 3;                                // move three characters to the left 
+        } 
+        return nStr;                                     // returns the string with dots
+    }
+}
