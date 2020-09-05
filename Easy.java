@@ -5135,7 +5135,6 @@ public class Main {
             } else {
                 /* continuous stream has been broken, if count is greater than maxCount then 
                  * maxCount becomes current count. Else keep the current maxCount. */ 
-                 */
                 maxCount = Math.max(count, maxCount);
                 count = 1;
             }
