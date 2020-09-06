@@ -5392,10 +5392,10 @@ public class ReverseVowels2 {
                 s2.setCharAt(ptr2, temp);
                 ptr1++;                                                                                                    // go to next character to right 
                 ptr2--;                                                                                                    // go to next character to left
-            } else if ( vowels.indexOf(s2.charAt(ptr1)) != -1 && vowels.indexOf(s2.charAt(ptr2)) == -1 )  {
-                                                                                                                           // do not flip but move ptr2 left to next character
-            } else if ( vowels.indexOf(s2.charAt(ptr1)) == -1 && vowels.indexOf(s2.charAt(ptr2)) != -1 ) {
-                ptr1++;                                                                                                    // do not flip but move ptr1 right to next character
+            } else if ( vowels.indexOf(s2.charAt(ptr1)) != -1 && vowels.indexOf(s2.charAt(ptr2)) == -1 )  {                // do not flip but move ptr2 left to next character
+                ptr2++;                      
+            } else if ( vowels.indexOf(s2.charAt(ptr1)) == -1 && vowels.indexOf(s2.charAt(ptr2)) != -1 ) {                 // do not flip but move ptr1 right to next character
+                ptr1++;                                                                                 
             } else {                                                                                                       // both characters are not vowels continue
                 ptr1++;
                 ptr2--;
