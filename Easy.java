@@ -5356,3 +5356,51 @@ class Solution2 {
         return nStr;                                     // returns the string with dots
     }
 }
+
+import java.util.*;
+
+/**
+ * Reverse Vowels of a String
+ *
+ * Write a method that takes a string as input and reverse only the vowels of a string.
+ *
+ * @author Wali Morris
+ * @since 09/06/2020
+ */
+
+public class ReverseVowels2 {
+    public static void main(String[] args) {
+        String A = "hello";
+        String B = "leetcode";
+        String outputA = reverseVowels(A);
+        String outputB = reverseVowels(B);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    public static String reverseVowels(String s) {
+        if ( s.length() == 0 || s.length() == 1 ) {
+            return s;
+        }
+        StringBuilder s2 = new StringBuilder(s);
+        String vowels = "aeiouAEIOU";
+        int ptr1 = 0, ptr2 = s2.toString().length() - 1;                                                                   // begin pointers at opposite ends of string s to begin reading for vowels 
+	while ( ptr1 <= ptr2 ) {
+            if ( vowels.indexOf(s2.toString().charAt(ptr1)) != -1  && vowels.indexOf(s2.toString().charAt(ptr2)) != -1 ) { // both pointers are pointing at a vowel, flip the vowels to the other
+                char temp = s2.toString().charAt(ptr1);                                                                    // initialize a temporary character to hold the first character at pointer 1
+                s2.setCharAt(ptr1, s2.toString().charAt(ptr2));
+                s2.setCharAt(ptr2, temp);
+                ptr1++;                                                                                                    // go to next character to right 
+                ptr2--;                                                                                                    // go to next character to left
+            } else if ( vowels.indexOf(s2.charAt(ptr1)) != -1 && vowels.indexOf(s2.charAt(ptr2)) == -1 )  {
+                                                                                                                           // do not flip but move ptr2 left to next character
+            } else if ( vowels.indexOf(s2.charAt(ptr1)) == -1 && vowels.indexOf(s2.charAt(ptr2)) != -1 ) {
+                ptr1++;                                                                                                    // do not flip but move ptr1 right to next character
+            } else {                                                                                                       // both characters are not vowels continue
+                ptr1++;
+                ptr2--;
+            }
+        }
+        return s2.toString();
+    }
+}
