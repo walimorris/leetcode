@@ -776,3 +776,34 @@ public class Main {
         return nums[0];
     }
 }
+
+/**
+ * Maximum XOR of Two Numbers in an Array
+ *
+ * Given a non-empty array of numbers, find the maximum result of ai XOR aj, 
+ * where 0 <= i, j < n.
+ *
+ * @author Wali Morris
+ * @since 09/16/2020
+ */
+
+import java.util.*;
+
+public class MaximumXor {
+    public static void main(String[] args) {
+        int[] A = {3, 10, 5, 25, 2, 8};
+        int output = findMaximumXOR(A);
+        System.out.println(output);
+    }
+
+    public static int findMaximumXOR(int[] nums) {
+        int maxXOR = nums[0] ^ nums[0];                         // initializes max xor to first num | first num
+        for ( int i = 0; i < nums.length; i++ ) {               // i equals first num in list
+            for ( int j = i; j < nums.length; j++ ) {           // nested j to evaluate every i ^ j
+                int xor = nums[i] ^ nums[j];                    // evaluates i ^ j to become current xor
+                maxXOR = Math.max(maxXOR, xor);                 // maxXOR becomes max of original max and current eval of xor
+            }
+        }
+        return maxXOR;                                          // returns max xor seen in the list 
+    }
+}
