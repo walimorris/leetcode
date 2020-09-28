@@ -5431,3 +5431,56 @@ class Solution {
         return maxProfit;                                          // return max profit 
     } 
 } 
+
+package com.morris.leetcode;
+
+import java.util.Arrays;
+
+/**
+ * Remove Duplicates From Sorted Array - In Place
+ *
+ * Given a sorted array nums, remove the duplicates in-place such that each element
+ * appears only once and returns the new length.
+ *
+ * Do not allocate extra space for another array, you must do this by modifying the
+ * input array in-place with O(1) extra memory.
+ *
+ * @author Wali Morris
+ *
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int[] A = {1, 1, 2};
+        int[] B = {0, 0, 1, 1, 1, 2, 2, 3, 3, 4};
+        int outputA = removeDuplicates(A);
+        int outputB = removeDuplicates(B);
+        System.out.println(outputA);
+        System.out.println(outputB);
+    }
+
+    /* Note: It does not matter the elements in the array after the new length has been
+     * found as long as the non-duplicate numbers are moved to their proper place in the
+     * array.. ie print the new array and it should contain no duplicates and be sorted
+     * up until the new length.
+     */
+    public static int removeDuplicates(int[] nums) {
+        /* If nums is length 0 or length 1 return the length. No way there's a duplicate. */
+        if ( nums.length < 2 ) {
+            return nums.length;
+        }
+        /* record current element, current index, and count which begins at one because any
+         * duplicate of current element will not be counted.
+         */
+        int current = nums[0], old = 0, count = 1;
+        for ( int i = 1; i < nums.length; i++ ) {
+            if ( nums[i] != current ) {       // element is not a duplicate of current element
+                current = nums[i];            // element becomes current
+                nums[old + 1] = nums[i];      // move new current element one index right of old current
+                old++;                        // go to index of new current
+                count += 1;                   // increment count
+            }
+        }
+        return count;
+    }
+}
