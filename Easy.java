@@ -5484,3 +5484,54 @@ public class Main {
         return count;
     }
 }
+
+package com.morris.leetcode;
+
+/**
+ * BRUTE FORCE SOLUTION:
+ *
+ * Determine weather an Integer is a palindrome. An Integer is a palindrome when
+ * it reads the same backwards as forwards.
+ * 
+ * @author Wali Morris
+ * @since 10/09/2020
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        int A = 121;
+        int B = -121;
+        int C = 10;
+        int D = -10;
+
+        boolean outputA = isPalindrome(A);
+        boolean outputB = isPalindrome(B);
+        boolean outputC = isPalindrome(C);
+        boolean outputD = isPalindrome(D);
+
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+        System.out.println(outputD);
+    }
+
+    /**
+     * Determines if a integer is a palindrome, that is, it reads backwards the
+     * same as forwards. Parses Integer to String and builds a string in reverse
+     * using {@link StringBuilder} and compares original value to new StringBuilder.
+     *
+     * @param x the integer to read.
+     * @return boolean
+     */
+    public static boolean isPalindrome(int x) {
+        if ( x < 0 ) {
+            return false;
+        }
+        StringBuilder nStr = new StringBuilder(Integer.toString(x));
+        try {
+            return Integer.parseInt(nStr.reverse().toString()) == x;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+}
