@@ -5535,3 +5535,89 @@ public class Main {
         }
     }
 }
+
+package com.morris.leetcode;
+
+/**
+ * Design Parking System
+ *
+ * Design a parking system for a parking lot. The parking lot has three kinds of parking spaces:
+ * big, medium, and small, with a fixed number of slots for each size.
+ *
+ * Implement the Parking System Class:
+ *
+ * - ParkingSystem(int big, int medium, int small) initializes object of the ParkingSystem class.
+ * the number of slots for each parking space are given as part of the constructor.
+ *
+ * - bool addCar(int carType) Checks whether there is a parking space of carType for the car that
+ * wants to get into the parking lot. carType can be of three kinds: big, medium, small which are
+ * represented by 1, 2, 3 respectively. A car can only park in a parking space of its carType. If
+ * there is no space available, return false, else park the car in that size space and return true.
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        ParkingSystem parkingSystem = new ParkingSystem(1, 1, 0);
+        System.out.println(parkingSystem.addCar(1));
+        System.out.println(parkingSystem.addCar(2));
+        System.out.println(parkingSystem.addCar(3));
+        System.out.println(parkingSystem.addCar(1));
+    }
+}
+
+package com.morris.leetcode;
+
+public class ParkingSystem {
+    private int big;
+    private int medium;
+    private int small;
+
+    public ParkingSystem(int big, int medium, int small) {
+        this.big = big;
+        this.medium = medium;
+        this.small = small;
+    }
+
+    public boolean addCar(int carType) {
+        switch (carType) {
+            case 1:
+                if (this.big == 0) {
+                    return false;
+                } else {
+                    decrementBig();
+                }
+                break;
+
+            case 2:
+                if (this.medium == 0) {
+                    return false;
+                } else {
+                    decrementMedium();
+                }
+                break;
+
+            default:
+                if (this.small == 0) {
+                    return false;
+                } else {
+                    decrementSmall();
+                }
+                break;
+        }
+        return true;
+
+    }
+    private void decrementBig() {
+        this.big = this.big - 1;
+    }
+
+    private void decrementMedium() {
+        this.medium = this.medium - 1;
+    }
+
+    private void decrementSmall() {
+        this.small = this.small - 1;
+    }
+}
