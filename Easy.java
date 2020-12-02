@@ -5621,3 +5621,35 @@ public class ParkingSystem {
         this.small = this.small - 1;
     }
 }
+
+package com.morris.leetcode;
+
+import java.util.Arrays;
+
+/**
+ * You are given an m x n integer grid accounts where accounts[i][j] is the amount 
+ * of money of the ith customer has in the jth bank. Return the wealth that the 
+ * richest customer has. 
+ * 
+ * A customer's wealth is the amount of money they have in their bank accounts. The 
+ * richest customer is the customer that has the maximum wealth. 
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+public class Main {
+    public static void main(String[] args) {
+        int[][] A = {{1, 2, 3}, {3, 2, 1}};
+        int output = maxWealth(A);
+        System.out.println(output);
+    }
+
+    public static int maxWealth(int[][] accounts) {
+        // Stream the arrays
+        return Arrays.stream(accounts)
+                // for every array in the array, get the sum
+                .mapToInt(account -> Arrays.stream(account).sum())
+                // get max of all sums
+                .max()
+                .getAsInt();
+    }
+}
