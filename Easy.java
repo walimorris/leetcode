@@ -5653,3 +5653,51 @@ public class Main {
                 .getAsInt();
     }
 }
+
+package com.morris.leetcode;
+
+/**
+ * You own a Goal Parser that can interpret a string command. The command consists of an 
+ * alphabet of "G", "()", and/or "(al)" in some order. The Goal Parser will interpret "G"
+ * as the string "G", "()" as the string "o", and "(al)" as the string "al". The interpreted 
+ * strings are then concatenated in the original order. 
+ * 
+ * Given the string command, return the Goal Parser's interpretation of command. 
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        String command1 = "G()(al)";
+        String command2 = "G()()()()(al)";
+        String command3 = "(al)G(al)()()G";
+
+        String output1 = interpret(command1);
+        String output2 = interpret(command2);
+        String output3 = interpret(command3);
+
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+
+    public static String interpret(String command) {
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < command.length(); i++ ) {
+            if (command.charAt(i) == 'G') {
+                output.append(command.charAt(i));
+            } else if (command.startsWith("()", i)) {
+                output.append("o");
+                i++;
+            } else {
+                if (command.startsWith("(al)", i)) {
+                    output.append("al");
+                    i += 3;
+                }
+            }
+        }
+        return output.toString();
+    }
+}
