@@ -5701,3 +5701,34 @@ public class Main {
         return output.toString();
     }
 }
+
+package com.morris.leetcode;
+
+/**
+ * Given an integer n and an integer start. Define an array nums where 
+ * nums[i] = start + 2 * 1 (0-indexed) and n == nums.length. 
+ * 
+ * Return the bitwise XOR of all elements of nums. 
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        int n1 = 5, start1 = 0;
+        int output1 = xorOperation(n1, start1);
+        System.out.println(output1);
+    }
+
+    public static int xorOperation(int n, int start) {
+        int[] array = new int[n];
+        array[0] = start;
+        for ( int i = 1; i < n; i++ ) {
+            start += 2;
+            array[i] = start;
+            array[0] = array[0] ^ array[i];
+        }
+        return array[0];
+    }
+}
