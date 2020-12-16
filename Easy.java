@@ -5732,3 +5732,40 @@ public class Main {
         return array[0];
     }
 }
+
+package com.morris.kata;
+
+import java.util.Arrays;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String A = "abc";
+        String B = "abcdef";
+
+        System.out.println(Arrays.toString(solution(A)));
+        System.out.println(Arrays.toString(solution(B)));
+    }
+
+    public static String[] solution(String s) {
+        if (s.length() == 0) {
+            return new String[0];
+        }
+        String[] output = s.length() % 2 == 0 ? new String[s.length() / 2] : new String[s.length() / 2 + 1];
+        int j = 0;
+        for (int i = 0; i < output.length; i++) {
+            String a = String.valueOf(s.charAt(j));
+            if (j == s.length() - 1) {
+                String b = "_";
+                String str = a + b;
+                output[i] = str;
+            } else {
+                String b = String.valueOf(s.charAt(j + 1));
+                String str = a + b;
+                output[i] = str;
+                j+=2;
+            }
+        }
+        return output;
+    }
+}
