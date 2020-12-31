@@ -5769,3 +5769,53 @@ public class Main {
         return output;
     }
 }
+
+package com.morris.leetcode;
+
+/**
+ * You are given a string allowed consisting of distinct characters and an array of strings
+ * 'words'. A String is consistent if all characters in the string appear in the string
+ * 'allowed'.
+ *
+ * Return the number of consistent strings in the array words.
+ *
+ * @author Wali
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        String allowed1 = "ab";
+        String[] words1 = {"ad", "bd", "aaab", "baa", "badab"};
+
+        String allowed2 = "abc";
+        String[] words2 = {"a", "b", "c", "ab", "ac", "bc", "abc"};
+
+        String allowed3 = "cad";
+        String[] words3 = {"cc", "acd", "b", "bac", "bad", "ac", "d"};
+
+        int output1 = countConsistentString(allowed1, words1);
+        int output2 = countConsistentString(allowed2, words2);
+        int output3 = countConsistentString(allowed3, words3);
+
+        System.out.println("Allowed1: " + output1);
+        System.out.println("Allowed2: " + output2);
+        System.out.println("Allowed3: " + output3);
+    }
+
+    public static int countConsistentString(String allowed, String[] words) {
+        int consistentStrings = 0;
+        for (String word : words) {
+            boolean inconsistentLetterFound = false;
+            for (int j = 0; j < word.length(); j++) {
+                if (!(allowed.contains(String.valueOf(word.charAt(j))))) {
+                    inconsistentLetterFound = true;
+                    break;
+                }
+            }
+            if (!inconsistentLetterFound) {
+                consistentStrings++;
+            }
+        }
+        return consistentStrings;
+    }
+}
