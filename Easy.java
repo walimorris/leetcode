@@ -5819,3 +5819,63 @@ public class Main {
         return consistentStrings;
     }
 }
+
+package com.morris.leetcode;
+
+import java.util.Arrays;
+import java.util.List;
+
+/**
+ * You are given a string s of even length. Split this String into two halves of equal 
+ * lengths, and let a be the first half and b be the second half. Two strings are alike 
+ * if they have the same number of vowels. Return true if a and b are alike. otherwise
+ * return false. 
+ * 
+ * @author Wali Morris 
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        String A = "book";
+        String B = "textbook";
+        String C = "MerryChristmas";
+        String D = "AbCdEfGh";
+
+        boolean outputA = halvesAreAlike(A);
+        boolean outputB = halvesAreAlike(B);
+        boolean outputC = halvesAreAlike(C);
+        boolean outputD = halvesAreAlike(D);
+
+        System.out.println(outputA);
+        System.out.println(outputB);
+        System.out.println(outputC);
+        System.out.println(outputD);
+    }
+
+    public static boolean halvesAreAlike(String s) {
+        List<Character> vowels = Arrays.asList('a', 'e', 'i', 'o', 'u');
+        String a = s.substring(0, s.length() / 2);
+        String b = s.substring(s.length() / 2);
+        int aVowels = 0;
+        int bVowels = 0;
+        for ( int i = 0; i < a.length(); i++ ) {
+            boolean stopSearchA = false;
+            boolean stopSearchB = false;
+            for (Character vowel : vowels) {
+                if (String.valueOf(a.charAt(i)).equalsIgnoreCase(String.valueOf(vowel)) && !stopSearchA) {
+                    aVowels = aVowels + 1;
+                    stopSearchA = true;
+                }
+                if (String.valueOf(b.charAt(i)).equalsIgnoreCase(String.valueOf(vowel)) && !stopSearchB) {
+                    bVowels = bVowels + 1;
+                    stopSearchB = true;
+                }
+                if (stopSearchA && stopSearchB) {
+                    break;
+                }
+            }
+        }
+        return aVowels == bVowels;
+    }
+}
