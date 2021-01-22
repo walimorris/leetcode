@@ -5879,3 +5879,102 @@ public class Main {
         return aVowels == bVowels;
     }
 }
+
+package com.morris.leetcode;
+
+
+/**
+ * The school cafeteria offers circular and square sandwiches at lunch break, referred
+ * to by numbers 0 and 1 respectively. All students stand in a queue. Each student
+ * either prefers square or circular sandwiches.
+ *
+ * The number of sandwiches in the cafeteria is equal to the number of students. The
+ * sandwiches are placed in a stack. At each step:
+ *
+ *     If the student at the front of the queue prefers the sandwich on the top stack
+ *     they will take it and leave the queue.
+ *
+ *     Otherwise, they will leave it and go to the queue's end.
+ *
+ * This continues until none of the queue students want to take the top sandwich and
+ * are thus unable to eat.
+ *
+ * You are given two integer arrays students and sandwiches where sandwiches[i] is the
+ * type of the ith sandwich in the stack (i = 0 is the top of the stack) and students[i]
+ * is the preference of the jth student in the initial queue (j = 0 is the front of the
+ * queue).
+ *
+ * Return the number of students who are unable to eat.
+ *
+ * @author Wali Morris
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        int[] studentsA = {1, 1, 0, 0};
+        int[] sandwichesA = {0, 1, 0, 1};
+
+        int[] studentsB = {1, 1, 1, 0, 0, 1};
+        int[] sandwichesB = {1, 0, 0, 0, 1, 1};
+
+        int outputA = countStudents(studentsA, sandwichesA);
+        int outputB = countStudents(studentsB, sandwichesB);
+
+        System.out.println("Students A: " + outputA);
+        System.out.println("Students B: " + outputB);
+
+    }
+
+    /**
+     * Receives array of student's preference and array of available sandwiches. If the student
+     * who is currently at the front matches with the sandwich available, both variables are
+     * discarded and arrays are resized. Otherwise the student array is rotated. If a full
+     * rotation of students occur and there is no match, return the number of students remaining
+     * in line.
+     * @param students : array of students and there preference 0 for circular, 1 for square
+     * @param sandwiches : array of sandwiches
+     * @return number of students who will not eat
+     */
+    public static int countStudents(int[] students, int[] sandwiches) {
+        int i = 0;
+        while ( i < students.length ) {
+            if (students[0] == sandwiches[0]) {
+                students = resizeArray(students);
+                sandwiches = resizeArray(sandwiches);
+                i = 0;
+            } else {
+                rotateStudents(students);
+                i++;
+                if (i == students.length) {
+                    return students.length;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * Resizes an array by subtracting the first element.
+     * @param array : array to be resized
+     * @return resized array
+     */
+    private static int[] resizeArray(int[] array) {
+        int[] newArray = new int[array.length - 1];
+        if (newArray.length >= 0) System.arraycopy(array, 1, newArray,
+                0, newArray.length);
+        return newArray;
+    }
+
+    /**
+     * rotates an array once to the right.
+     * @param array : array to be rotated
+     */
+    private static void rotateStudents(int[] array) {
+        int temp = array[0], i;
+        for ( i = 0; i < array.length - 1; i++ ) {
+            array[i] = array[i + 1];
+        }
+        array[i] = temp;
+    }
+}
