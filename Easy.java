@@ -5978,35 +5978,3 @@ public class Main {
         array[i] = temp;
     }
 }
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-final String regex = "\\D";
-final String string = "/*\n"
-	 + " * ***********************************************************************\n"
-	 + " * BOUNTEOUS CONFIDENTIAL\n"
-	 + " * ___________________\n"
-	 + " *\n"
-	 + " * Copyright 2019 Bounteous\n"
-	 + " * All Rights Reserved.\n"
-	 + " *\n"
-	 + " * NOTICE:  All information contained herein is, and remains the property\n"
-	 + " * of Bounteous and its suppliers, if any. The intellectual and\n"
-	 + " * technical concepts contained herein are proprietary to Bounteous\n"
-	 + " * and its suppliers and are protected by trade secret or copyright law.\n"
-	 + " * Dissemination of this information or reproduction of this material\n"
-	 + " * is strictly forbidden unless prior written permission is obtained\n"
-	 + " * from Bounteous.\n"
-	 + " * ***********************************************************************\n"
-	 + " */";
-
-final Pattern pattern = Pattern.compile(regex);
-final Matcher matcher = pattern.matcher(string);
-
-while (matcher.find()) {
-    System.out.println("Full match: " + matcher.group(0));
-    for (int i = 1; i <= matcher.groupCount(); i++) {
-        System.out.println("Group " + i + ": " + matcher.group(i));
-    }
-}
