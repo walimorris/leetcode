@@ -4,7 +4,7 @@
  * 0 if product is 0 and 1 if sign is postive.
  * @param nums : array
  * @returns {number}
- * @author <walimmorris@gmail.com>
+ * @author Wali Morris<walimmorris@gmail.com>
  */
 let arraySign = function (nums) {
     let count = 1;
@@ -20,4 +20,39 @@ let arraySign = function (nums) {
     } else {
         return 1;
     }
+}
+
+/**
+ * You are given an array items, where each items[i] = [type, color, name]
+ * describes the type, color and name of the ith item. You are also given 
+ * a rule represented by two strings, ruleKey and ruleValue. The ith item 
+ * is said to match the rule if one of the following is true: 
+ *     
+ *     `ruleKey === "type" && ruleValue === type(i)`
+ *     `ruleKey === "color" && ruleValue === color(i)`
+ *     `ruleKey === "name" && ruleValue === name(i)`
+ * 
+ * Return the number of items that match the given rule.    
+ * @param items
+ * @param ruleKey
+ * @param ruleValue
+ * @returns {number}
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+let countMatches = function(items, ruleKey, ruleValue) {
+    let match = 0;
+    for (let i = 0; i < items.length; i += 1) {
+        for (let j = 0; j < items[i].length; j += 1) {
+            if (j === 0 && ruleKey === "type") {
+                match = items[i][j] === ruleValue ? match += 1 : match;
+            } else if (j === 1 && ruleKey === "color") {
+                match = items[i][j] === ruleValue ? match += 1 : match;
+            } else {
+                if (j === 2 && ruleKey === "name") {
+                    match = items[i][j] === ruleValue ? match += 1 : match;
+                }
+            }
+        }
+    }
+    return match;
 }
