@@ -77,3 +77,33 @@ const checkIfPanagram = function (sentence) {
     }
     return false;
 }
+
+/**
+ * You are given an integer array nums. The unique elements of an 
+ * array are the elements that appear exactly once in the array. 
+ * Return the sum of all the unique elements of nums.
+ * @param nums
+ * @returns {number}
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+const sumOfUnique = function (nums) {
+    let map = new Map();
+    let sum = 0;
+
+    // iterate each number
+    nums.forEach(function(element) {
+        if (map.has(element)) {
+            // element is present, increase value
+            map.set(element, map.get(element) + 1);
+            // only subtract element from sum if it's been seen twice
+            if (map.get(element) === 2) {
+                sum -= element;
+            }
+            // else set element key -> value and add to sum
+        } else {
+            map.set(element, 1);
+            sum += element;
+        }
+    });
+    return sum;
+}
