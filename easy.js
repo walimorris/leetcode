@@ -56,3 +56,24 @@ let countMatches = function(items, ruleKey, ruleValue) {
     }
     return match;
 }
+
+/**
+ * A Panagram is a sentence where every letter of the English Alphabet appears 
+ * at least once. Given a string `sentence` containing only lowercase English 
+ * letters, return true if `sentence` is a panagram, or false otherwise.
+ * @param sentence
+ * @returns {boolean}
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+const checkIfPanagram = function (sentence) {
+    let set = new Set();
+    for (let i = 0; i < sentence.length; i += 1) {
+        set.add(sentence.charAt(i));
+
+        // 26 unique english letters have been found
+        if (set.size === 26) {
+            return true;
+        }
+    }
+    return false;
+}
