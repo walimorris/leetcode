@@ -107,3 +107,28 @@ const sumOfUnique = function (nums) {
     });
     return sum;
 }
+
+/**
+ * A sentence is a list of words that are separated by a single space
+ * with no leading or trailing spaces. Each of the words consists of
+ * only uppercase and lowercase English letters(no punctuation). You
+ * are given a sentence s and an integer k. You want to truncate s
+ * such that it contains only the first k words. Return s after
+ * truncating it.
+ * @param s : sentence
+ * @param k : integer
+ * @returns {string} truncated sentence
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+const truncateSentence = function(s, k) {
+    const array = s.split(' ');
+    let sentence = '';
+    for (let i = 0; i < k; i++) {
+        if (i !== k - 1) {
+            sentence += array[i] + ' ';
+        } else {
+            sentence += array[i];
+        }
+    }
+    return sentence;
+}
