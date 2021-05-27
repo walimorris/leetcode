@@ -5978,3 +5978,32 @@ public class Main {
         array[i] = temp;
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        String[] A = {"anagram", "nagaram"};
+        String[] B = {"rat", "car"};
+
+        boolean outputA = isAnagram(A[0], A[1]);
+        boolean outputB = isAnagram(B[0], B[1]);
+
+        System.out.println("A is anagram: " + outputA);
+        System.out.println("B is anagram: " + outputB);
+    }
+
+    /**
+     * Takes two string and determines if they are anagrams by creating each into its
+     * own character array, sorting each character array and testing for equality. 
+     * @param s String
+     * @param t String
+     * @return boolean
+     * @author Wali Morris<walimmorris@gmail.com>
+     */
+    public static boolean isAnagram(String s, String t) {
+        char[] sArray = s.toCharArray();
+        char[] tArray = t.toCharArray();
+        Arrays.sort(sArray);
+        Arrays.sort(tArray);
+        return Arrays.equals(sArray, tArray);
+    }
+}
