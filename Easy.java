@@ -6007,3 +6007,51 @@ public class Main {
         return Arrays.equals(sArray, tArray);
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        String p = "Bob hit a ball, the hit BALL flew far " +
+                "after it was hit.";
+        String[] b = {"hit"};
+        String output = mostCommonWord(p, b);
+        System.out.println("Most common word: " + output);
+    }
+
+    /**
+     * Replaces all special characters, extra spaces, converts uppercase to lowercase before splitting
+     * paragraph into a String[] array of words. Each word in then mapped to its count, ignoring banned
+     * words. The max count and its value is recorded as the recorded word map is built.
+     * @param paragraph String
+     * @param banned list of banned words
+     * @return most common word
+     * @author Wali Morris<walimmorris@gmail.com>
+     */
+    public static String mostCommonWord(String paragraph, String[] banned) {
+        String[] pArr = paragraph.replaceAll("[^a-zA-Z]", " ").replaceAll("  ", " ")
+            .toLowerCase().split(" ");
+        List<String> bannedArray = Arrays.asList(banned);
+
+        Map<String, Integer> wordMap = new HashMap<>();
+        int max = 0;
+        String mostCommon = "";
+        for (String s : pArr) {
+            if (!bannedArray.contains(s)) {
+                if (wordMap.containsKey(s)) {
+                    int count = wordMap.get(s);
+                    wordMap.put(s, count + 1);
+                    if (count + 1 > max) {
+                        max = count + 1;
+                        mostCommon = s;
+                    }
+                } else {
+                    wordMap.put(s, 1);
+                    if (1 > max) {
+                        max = 1;
+                        mostCommon = s;
+                    }
+                }
+            }
+        }
+        return mostCommon;
+    }
+}
