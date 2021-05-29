@@ -6079,6 +6079,12 @@ public class Main {
      */
     public static int[] distributeCandies(int candies, int num_people) {
         int[] array = new int[num_people];
+
+        // Handle no candies to distribute
+        if (candies == 0) {
+            return array;
+        }
+        
         int count = 1;
         while(candies > 0) {
             for (int i = 0; i < array.length; i++) {
@@ -6088,6 +6094,7 @@ public class Main {
                 } else {
                     array[i] += candies;
                     candies = 0;
+                    break; // no more candies to distribute
                 }
                 count++;
             }
