@@ -6055,3 +6055,43 @@ public class Main {
         return mostCommon;
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        int c = 7;
+        int n = 4;
+        int[] output = distributeCandies(c, n);
+        System.out.println(Arrays.toString(output));
+    }
+
+    /**
+     * Distributes candy by starting with total candy to distribute and 1 as the current amount
+     * to be distributed. Every new index - representing a person receiving candy - gets the
+     * number of candies represented by count, which is then incremented. If count can accommodate
+     * giving the next person the new *count number of candies, then we continue incrementing the
+     * count as we distribute candies to each person. If the current amount of candies can not
+     * accommodate the current person receiving candies AND the next person, we give the remaining
+     * *count of candies to the current person receiving candies.
+     * @param candies int The number of candies we have to distribute.
+     * @param num_people int[] The number of people receiving candies.
+     * @return int[] Array representing the number of candies each person received.
+     * @author Wali Morris<walimmorris@gmail.com>
+     */
+    public static int[] distributeCandies(int candies, int num_people) {
+        int[] array = new int[num_people];
+        int count = 1;
+        while(candies > 0) {
+            for (int i = 0; i < array.length; i++) {
+                if (candies > count) {
+                    array[i] += count;
+                    candies -= count;
+                } else {
+                    array[i] += candies;
+                    candies = 0;
+                }
+                count++;
+            }
+        }
+        return array;
+    }
+}
