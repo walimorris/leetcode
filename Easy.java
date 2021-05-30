@@ -6102,3 +6102,58 @@ public class Main {
         return array;
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        String word1 = "aaa";
+        String word2 = "a";
+        String target = "aaaa";
+
+        boolean output = isSumEqual(word1, word2, target);
+        System.out.println(output);
+    }
+
+    /**
+     * Checks if the sum of firstWord and secondWord equal targetWord.
+     * @param firstWord String
+     * @param secondWord String
+     * @param targetWord String 
+     * @return boolean
+     */
+    public static boolean isSumEqual(String firstWord, String secondWord, String targetWord) {
+        int first = findInt(firstWord);
+        int second = findInt(secondWord);
+        int target = findInt(targetWord);
+        return first + second == target;
+    }
+
+    /**
+     * Creates a HashMap, with character key mapped to integer value.
+     * Takes a word and breaks it into a character array and builds a 
+     * {@link StringBuilder} of the words integer values.
+     * @param word String
+     * @return int 
+     * @author Wali Morris<walimmorris@gmail.com>
+     */
+    public static int findInt(String word) {
+        Map<Character, Integer> numberMap = new HashMap<>();
+        numberMap.put('a', 0);
+        numberMap.put('b', 1);
+        numberMap.put('c', 2);
+        numberMap.put('d', 3);
+        numberMap.put('e', 4);
+        numberMap.put('f', 5);
+        numberMap.put('g', 6);
+        numberMap.put('h', 7);
+        numberMap.put('i', 8);
+        numberMap.put('j', 9);
+
+        StringBuilder sb = new StringBuilder();
+        for (char c : word.toCharArray()) {
+            if (numberMap.containsKey(c)) {
+                sb.append(numberMap.get(c));
+            }
+        }
+        return Integer.parseInt(sb.toString());
+    }
+}
