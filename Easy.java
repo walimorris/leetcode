@@ -6158,7 +6158,22 @@ public class Main {
     }
 }
 
-/**
+public class Main {
+    public static void main(String[] args) {
+        String[] input1 = {"hello", "Alaska", "Dad", "Peace"};
+        String[] input2 = {"omk"};
+        String[] input3 = {"adsdf", "sfd"};
+
+        String[] output1 = findWords(input1);
+        String[] output2 = findWords(input2);
+        String[] output3 = findWords(input3);
+
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+        System.out.println(Arrays.toString(output3));
+    }
+
+    /**
      * Builds a Keyboard object that contains 3 rows of character keys. Given an
      * String[] array of words. This method determines if each word can be typed
      * on a single keyboard row. If a word can, it's added to a list containing
@@ -6174,11 +6189,6 @@ public class Main {
         // holds the words
         ArrayList<String> goodWords = new ArrayList<>();
 
-        // holds keyboard rows
-        String row1 = k.get(1);
-        String row2 = k.get(2);
-        String row3 = k.get(3);
-
         /**
          * Loop through each word, find the containing row the first character of the current
          * word begins, start at that row and loop through all the characters. Adds the word
@@ -6186,7 +6196,7 @@ public class Main {
          * current word.
          */
         for (String s : words) {
-            int containingRow = whichRow(row1, row2, row3, s);
+            int containingRow = whichRow(k.get(1), k.get(2), k.get(3), s);
             String comparingRow = k.get(containingRow);
             boolean containsAll = true;
             for (char c : s.toLowerCase().toCharArray()) {
