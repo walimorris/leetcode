@@ -6157,3 +6157,85 @@ public class Main {
         return Integer.parseInt(sb.toString());
     }
 }
+
+/**
+     * Builds a Keyboard object that contains 3 rows of character keys. Given an
+     * String[] array of words. This method determines if each word can be typed
+     * on a single keyboard row. If a word can, it's added to a list containing
+     * all good words(words that can be typed on one keyboard row).
+     * @param words String[] array of words
+     * @return String[]
+     */
+    public static String[] findWords(String[] words) {
+        // build keyboard
+        Keyboard keyboard = new Keyboard();
+        Map<Integer, String> k = keyboard.buildKeyboard();
+
+        // holds the words
+        ArrayList<String> goodWords = new ArrayList<>();
+
+        // holds keyboard rows
+        String row1 = k.get(1);
+        String row2 = k.get(2);
+        String row3 = k.get(3);
+
+        /**
+         * Loop through each word, find the containing row the first character of the current
+         * word begins, start at that row and loop through all the characters. Adds the word
+         * to {@link ArrayList} goodWords if the initial row contains all the letters in the
+         * current word.
+         */
+        for (String s : words) {
+            int containingRow = whichRow(row1, row2, row3, s);
+            String comparingRow = k.get(containingRow);
+            boolean containsAll = true;
+            for (char c : s.toLowerCase().toCharArray()) {
+                if (!comparingRow.contains(String.valueOf(c))) {
+                    containsAll = false;
+                    break;
+                }
+            }
+            if(containsAll) {
+                goodWords.add(s);
+            }
+        }
+        String[] arr = new String[goodWords.size()];
+        arr = goodWords.toArray(arr);
+        return arr;
+    }
+
+    /**
+     * Finds which row(1, 2, 3) the first character of the word begins.
+     * @param r1 keyboard row1
+     * @param r2 keyboard row2
+     * @param r3 keyboard row3
+     * @param w word
+     * @return int
+     */
+    private static int whichRow(String r1, String r2, String r3, String w) {
+        String c = String.valueOf(w.toLowerCase().charAt(0));
+        if (r1.contains(c)) {
+            return 1;
+        } else if(r2.contains(c)) {
+            return 2;
+        } else {
+            return 3;
+        }
+    }
+
+    /**
+     * Inner class to build keyboard object.
+     */
+    static class Keyboard {
+        private final Map<Integer, String> keyboard = new HashMap<>();
+
+        public Keyboard() {}
+
+        public Map<Integer, String> buildKeyboard() {
+            keyboard.put(1, "qwertyuiop");
+            keyboard.put(2, "asdfghjkl");
+            keyboard.put(3, "zxcvbnm");
+            return keyboard;
+        }
+    }
+}
