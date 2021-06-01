@@ -6249,3 +6249,79 @@ public class Main {
         }
     }
 }
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String input1 = "leEeetcode";
+        String input2 = "abBAcC";
+        String input3 = "s";
+
+        String output1 = makeGood(input1);
+        String output2 = makeGood(input2);
+        String output3 = makeGood(input3);
+
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+
+    /**
+     * Removes all instance of patterns that match, for example (aA or Ee), and returns the
+     * original string without these patterns.
+     * @param s {@link String}
+     * @return String
+     */
+    public static String makeGood(String s) {
+        // return string that contains all lowercase
+        if (isLowercase(s)) {
+            return s;
+        }
+
+        // Pattern to match case with lowercase and uppercase or vice verse(ex: aA | Aa)
+        Pattern caseOnePattern = Pattern.compile("^[a-z]+[A-Z]$");
+        Pattern caseTwoPattern = Pattern.compile("^[A-Z]+[a-z]$");
+
+        int start = 0;
+        while (start < s.length() - 1) {
+            String substring = s.substring(start, start+2);
+
+            // if characters are different, ex: not aA but aE, continue
+            if (String.valueOf(substring.charAt(0)).equalsIgnoreCase(String
+                    .valueOf(substring.charAt(1)))) {
+                start++;
+                continue;
+            }
+
+            // Match the patterns to substring
+            Matcher matchCaseOne = caseOnePattern.matcher(substring);
+            Matcher matchCaseTwo = caseTwoPattern.matcher(substring);
+
+            // found a match
+            if (matchCaseOne.find() || matchCaseTwo.find()) {
+                s = s.replace(substring, "");
+                if (isLowercase(s)) {
+                    return s;
+                }
+                // begin at beginning to cleanup missed patterns
+                start = 0;
+            } else {
+                // no match is found go to next
+                start++;
+            }
+        }
+        return s;
+    }
+
+    /**
+     * Determines if {@link String} is lowercase.
+     * @param s {@link String}
+     * @return boolean
+     */
+    public static boolean isLowercase(String s) {
+        return s.toLowerCase().equals(s);
+    }
+}
