@@ -6325,3 +6325,99 @@ public class Main {
         return s.toLowerCase().equals(s);
     }
 }
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class Main {
+    public static void main(String[] args) {
+        String[] input1 = {"cat", "bt", "hat", "tree"};
+        String chars1 = "atach";
+
+        String[] input2 = {"hello", "world", "leetcode"};
+        String chars2 = "welldonehoneyr";
+
+        String[] input3 = {"dyiclysmffuhibgfvapygkorkqllqlvokosagyelotobicwcmebnpznjbirzrzsrtzjxhsfpiwyfhzyonmuabtlwin","ndqeyhhcquplmznwslewjzuyfgklssvkqxmqjpwhrshycmvrb","ulrrbpspyudncdlbkxkrqpivfftrggemkpyjl","boygirdlggnh","xmqohbyqwagkjzpyawsydmdaattthmuvjbzwpyopyafphx","nulvimegcsiwvhwuiyednoxpugfeimnnyeoczuzxgxbqjvegcxeqnjbwnbvowastqhojepisusvsidhqmszbrnynkyop","hiefuovybkpgzygprmndrkyspoiyapdwkxebgsmodhzpx","juldqdzeskpffaoqcyyxiqqowsalqumddcufhouhrskozhlmobiwzxnhdkidr","lnnvsdcrvzfmrvurucrzlfyigcycffpiuoo","oxgaskztzroxuntiwlfyufddl","tfspedteabxatkaypitjfkhkkigdwdkctqbczcugripkgcyfezpuklfqfcsccboarbfbjfrkxp","qnagrpfzlyrouolqquytwnwnsqnmuzphne","eeilfdaookieawrrbvtnqfzcricvhpiv","sisvsjzyrbdsjcwwygdnxcjhzhsxhpceqz","yhouqhjevqxtecomahbwoptzlkyvjexhzcbccusbjjdgcfzlkoqwiwue","hwxxighzvceaplsycajkhynkhzkwkouszwaiuzqcleyflqrxgjsvlegvupzqijbornbfwpefhxekgpuvgiyeudhncv","cpwcjwgbcquirnsazumgjjcltitmeyfaudbnbqhflvecjsupjmgwfbjo","teyygdmmyadppuopvqdodaczob","qaeowuwqsqffvibrtxnjnzvzuuonrkwpysyxvkijemmpdmtnqxwekbpfzs","qqxpxpmemkldghbmbyxpkwgkaykaerhmwwjonrhcsubchs"};
+        String chars3 = "usdruypficfbpfbivlrhutcgvyjenlxzeovdyjtgvvfdjzcmikjraspdfp";
+
+        int output1 = countCharacters(input1, chars1);
+        int output2 = countCharacters(input2, chars2);
+        int output3 = countCharacters(input3, chars3);
+
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+
+    public static int countCharacters(String[] words, String chars) {
+        // Build Map
+        Map<String, Integer> patternMap = buildPatternMap(chars);
+
+        /* Build Regex Pattern - Remove duplicate chars, add | pipe to regex 
+           and clean pattern. */
+        Set<Character> removeDuplicates = new HashSet<>();
+        for (char c : chars.toCharArray()) {
+            removeDuplicates.add(c);
+        }
+        StringBuilder rp = new StringBuilder();
+        for (char c: removeDuplicates) {
+            rp.append(c).append("|");
+        }
+        String regexPattern = rp.toString();
+        regexPattern = rp.substring(0, regexPattern.length() - 1);
+
+        // compile regex pattern and initialize sum to keep track of good words count
+        Pattern pattern = Pattern.compile(regexPattern);
+        int sum = 0;
+
+        for (String word : words) {
+            Map<String, Integer> patterns = new HashMap<>(patternMap);
+            boolean isMatch = false;
+            for (char c : word.toCharArray()) {
+                Matcher match = pattern.matcher(String.valueOf(c));
+                if (match.find()) {
+                    boolean canTake = patterns.get(String.valueOf(c)) > 0;
+                    if (canTake) {
+                        // remove number of characters available to take
+                        patterns.put(String.valueOf(c), patterns.get(String.valueOf(c)) - 1);
+                        isMatch = true;
+                    } else {
+                        // character no longer available to apply to word, can't build word - go to next
+                        isMatch = false;
+                        break;
+                    }
+                    // no match, break and go to next
+                } else {
+                    isMatch = false;
+                    break;
+                }
+            }
+            // found match - add good word length to sum
+            if (isMatch) {
+                sum += word.length();
+            }
+        }
+        return sum;
+    }
+
+    /**
+     * Builds a map structure that keeps track of a strings character count.
+     * @param chars String
+     * @return {@link Map}
+     */
+    public static Map<String, Integer> buildPatternMap(String chars) {
+        Map<String, Integer> patternMap = new HashMap<>();
+        for (char c : chars.toCharArray()) {
+            if (patternMap.containsKey(String.valueOf(c))) {
+                patternMap.put(String.valueOf(c), patternMap.get(String.valueOf(c)) + 1);
+            } else {
+                patternMap.put(String.valueOf(c), 1);
+            }
+        }
+        return patternMap;
+    }
+}
