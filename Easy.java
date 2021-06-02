@@ -6421,3 +6421,40 @@ public class Main {
         return patternMap;
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        int[] input1 = {2, 7, 11, 15};
+        int input1co = 9;
+
+        int[] input2 = {2, 3, 4};
+        int input2co = 6;
+
+        int[] input3 = {-1, 0};
+        int input3co = -1;
+
+        int[] output1 = twoSum(input1, input1co);
+        int[] output2 = twoSum(input2, input2co);
+        int[] output3 = twoSum(input3, input3co);
+
+        System.out.println(Arrays.toString(output1));
+        System.out.println(Arrays.toString(output2));
+        System.out.println(Arrays.toString(output3));
+    }
+
+    public static int[] twoSum(int[] numbers, int target) {
+        int[] answer = new int[2];
+
+        for (int i = 0; i < numbers.length; i++) {
+            int n = numbers[i];
+            for (int j = i + 1; j < numbers.length; j++) {
+                if (n + numbers[j] == target) {
+                    answer[0] = i + 1;
+                    answer[1] = j + 1;
+		    break;
+                }
+            }
+        }
+        return answer;
+    }
+}
