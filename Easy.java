@@ -6458,3 +6458,89 @@ public class Main {
         return answer;
     }
 }
+
+public class Main {
+    public static void main(String[] args) {
+        String input1 = "III";
+        String input2 = "IV";
+        String input3 = "IX";
+        String input4 = "LVIII";
+        String input5 = "MCMXCIV";
+
+        System.out.println(romanToInt(input1));
+        System.out.println(romanToInt(input2));
+        System.out.println(romanToInt(input3));
+        System.out.println(romanToInt(input4));
+        System.out.println(romanToInt(input5));
+    }
+
+    /**
+     * Returns the integer value given a sequence of RomanNumerals.
+     *
+     * Take into consideration:
+     *          This solution speed is greatly reduced by instantiating the inner
+     *          class RomanNumeralMap within this function. This solution becomes
+     *          quicker by building the map structure within this function. Generally
+     *          speaking, regarding objects and in larger applications, creating the
+     *          RomanNumeralMap object would be less expensive when it needs to be used
+     *          multiple time. In that case, you'd only need to create such an object
+     *          once and reuse it through out application life-time. For example:
+     *          instantiating the RomanNumeralMap in Main and passing it as a parameter
+     *          to this function. In this case this solution would be much faster as there's
+     *          no need to build the map within the function or instantiating it at the
+     *          beginning.
+     *
+     * @param s {@link String} of RomanNumerals
+     * @return int
+     */
+    public static int romanToInt(String s) {
+
+        // Build Roman Numeral Map Structure.
+        RomanNumeralMap map = new RomanNumeralMap();
+        HashMap<Character, Integer> romanNumeralMap = map.buildRomanNumeralMap();
+
+        int sum = romanNumeralMap.get(s.charAt(s.length() - 1));
+        int previous = sum;
+        for (int i = s.length() - 2; i >= 0; i--) {
+
+            int num = romanNumeralMap.get(s.charAt(i));
+
+            if (num == 1 && previous == 5 || num == 1 && previous == 10) {
+                sum -= num;
+            } else if (num == 10 && previous == 50 || num == 10 && previous == 100) {
+                sum -= num;
+            } else if (num == 100 && previous == 500 || num == 100 && previous == 1000) {
+                sum -= num;
+            } else {
+                sum += num;
+            }
+            previous = num;
+        }
+        return sum;
+    }
+
+    /**
+     * RomanNumeralMap is a structure which holds each RomanNumeral and its
+     * associated value.
+     */
+    public static class RomanNumeralMap {
+        private final HashMap<Character, Integer> map = new HashMap<>();
+
+        public RomanNumeralMap() {
+            map.put('I', 1);
+            map.put('V', 5);
+            map.put('X', 10);
+            map.put('L', 50);
+            map.put('C', 100);
+            map.put('D', 500);
+            map.put('M', 1000);
+        }
+
+        /**
+         * @return RomanNumeralMap
+         */
+        public HashMap<Character, Integer> buildRomanNumeralMap() {
+            return map;
+        }
+    }
+}
