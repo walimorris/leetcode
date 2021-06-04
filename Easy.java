@@ -6544,3 +6544,124 @@ public class Main {
         }
     }
 }
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * Given a string licensePlate and an array of strings words, find the shortest completing word in words.
+ * A completing word is a word that contains all the letters in licensePLate. ignore numbers and spaces 
+ * in licensePlate, and treat letters as case insensitive. If a letter appears more than once in licensePlate,
+ * then it must appear in the word the same number of times or 
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+public class Main {
+    public static void main(String[] args) {
+        String input1 = "1s3 PSt";
+        String[] words1 = {"step", "steps", "stepple"};
+        String output1 = shortestCompletingWord(input1, words1);
+        System.out.println(output1);
+
+        String input2 = "1s3 456";
+        String[] words2 = {"looks", "pest", "stew", "show"};
+        String output2 = shortestCompletingWord(input2, words2);
+        System.out.println(output2);
+
+        String input3 = "Ah71752";
+        String[] words3 = {"suggest", "letter", "of", "husband", "easy", "education", "drug", "prevent", "writer", "old"};
+        String output3 = shortestCompletingWord(input3, words3);
+        System.out.println(output3);
+
+        String input4 = "OgEu755";
+        String[] words4 = {"enough","these","play","wide","wonder","box","arrive","money","tax","thus"};
+        String output4 = shortestCompletingWord(input4, words4);
+        System.out.println(output4);
+
+        String input5 = "iMSlpe4";
+        String[] words5 = {"claim","consumer","student","camera","public","never","wonder","simple","thought","use"};
+        String output5 = shortestCompletingWord(input5, words5);
+        System.out.println(output5);
+
+        String input6 = "tr28607";
+        String[] words6 = {"present", "fall", "make", "change", "everything", "performance", "owner", "beat", "name", "serve"};
+        String output6 = shortestCompletingWord(input6, words6);
+        System.out.println(output6);
+    }
+
+    public static String shortestCompletingWord(String licensePlate, String[] words) {
+
+        // handles empty licensePlate or empty words
+        if (licensePlate.length() < 1 || words.length < 1) {
+            return "";
+        }
+
+        // parse characters in license plate to lowercase and removing space
+        char[] characters = licensePlate
+                .toLowerCase()
+                .replace(" ", "")
+                .toCharArray();
+
+        // Handles license plate that contains all digits
+        if (characters.length < 1) {
+            return "";
+        }
+
+        // Pattern for digit
+        Pattern digitPattern = Pattern.compile("[0-9]");
+
+        // Map holding characters
+        HashMap<Character, Integer> characterMap = new HashMap<>();
+
+        // Remove digits and build characters available Map
+        for (char c : characters) {
+            Matcher matcher = digitPattern.matcher(String.valueOf(c));
+            if (!matcher.find()) {
+                if (characterMap.containsKey(c)) {
+                    characterMap.put(c, characterMap.get(c) + 1);
+                } else {
+                    characterMap.put(c, 1);
+                }
+            }
+        }
+        System.out.println("Created Map: " + characterMap);
+
+        ArrayList<String> containingWords = new ArrayList<>();
+
+        // Check each words contains all letters
+        for (String word : words) {
+            HashMap<Character, Integer> map = new HashMap<>(characterMap);
+            for (char c : word.toCharArray()) {
+                if (!map.isEmpty()) {
+                    if (map.containsKey(c)) {
+                        map.put(c, map.get(c) - 1);
+                        // remove character to check
+                        if (map.get(c) == 0) {
+                            map.remove(c);
+                        }
+                    }
+                }
+            }
+
+            /**
+             * If all characters in map have been used and the map is empty add the
+             * current word to containingWords list, else the map contains a word
+             * and if the current word is shorter replace thee two words. This also
+             * satisfies ties since words are checked in the order presented in words
+             * array.
+             */
+            if (map.isEmpty()) {
+                if (containingWords.size() < 1) {
+                    containingWords.add(word);
+                } else {
+                    if (containingWords.get(0).length() > word.length()) {
+                        containingWords.set(0, word);
+                    }
+                }
+            }
+        }
+        return containingWords.get(0);
+    }
+}
