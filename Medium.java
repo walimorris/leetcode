@@ -1,18 +1,3 @@
-/** 
- * Please NOTE: Some of the solutions I've completed on Leetcode have implemented various algorithms. For instance, rather 
- * than just calling foo.sort(), I'll implement some sorting algorithm to work throughout the whole solution. This might be 
- * based on, say, a certain sorting algorithm that I know at that time and I view that as practice. I understand I'll take 
- * hits in areas on Leetcode that are evaluated, like time complexity, but I'm okay with that for now as long as I'm improving
- * while also asking myself questions like, "What sort method would be best here and why is this one so slow" and "why is this
- * solution so terrible!" All jokes aside, I understand that it would be easier, quicker, and arguably more productive to just
- * call an operation but my goal with leetcode boils down to improving my problem solving skills, algorithm and data 
- * structure implementation, as well as understanding when and where to use the right algorithms and data structures. Most 
- * importantly, my goal is to see improvement as I complete solutions. So, solutions completed 3 months from today should be 
- * better than solutions completed today. 
- * 
- * @author Wali Morris
- */
-
 /**
  * Implement the class ProductOfNumbers that supports two methods: 
  * 
