@@ -807,3 +807,147 @@ public class MaximumXor {
         return maxXOR;                                          // returns max xor seen in the list 
     }
 }
+
+package com.leetcode;
+
+/**
+ * Your are given two non-empty linked lists representing two non-negative integers.
+ * The digits are stored in reverse order, and each of their nodes contains a single
+ * digit. Add the two numbers and return the sum as a linked list.
+ *
+ * You may assume the two numbers do not contain any leading zero, except the number
+ * 0 itself.
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+public class Main {
+
+    public static void main(String[] args) {
+        ListNode node1 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9)))))));
+        ListNode node2 = new ListNode(9, new ListNode(9, new ListNode(9, new ListNode(9))));
+
+        ListNode outputNode = addTwoNumbers(node1, node2);
+        while (outputNode != null) {
+            System.out.println(outputNode.val);
+            outputNode = outputNode.next;
+        }
+    }
+
+    /**
+     * Implementation uses the loop and a half pattern in order to set up the values and
+     * variables needed to solve this problem. Based on the constraints, we know the max
+     * sum for both values at a certain position in both nodes can only be, maximum, 18.
+     * In this case, we must ensure we carry the 1 and if this carry exists at the end of
+     * the node with maximum value, we must create a node to record this carry - which can 
+     * only be maximum value of 1. We use a copy of master node to point to the head of 
+     * master.
+     * 
+     * @param l1 ListNode
+     * @param l2 ListNode
+     * @return ListNode
+     */
+    public static ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode current1 = l1;
+        ListNode current2 = l2;
+        ListNode master;
+        
+        // initialize carry, record sum of current node values
+        int carry = 0, sum = current1.val + current2.val;
+
+        // If sum is greater than or equal to 10, record the 
+        // second digit as node value and carry the one - 
+        // else record node value as sum
+        if (sum >= 10) {
+            master = new ListNode(sum % 10);
+            carry = sum / 10;
+        } else {
+            master = new ListNode(sum);
+        }
+        
+        // record head of master 
+        ListNode masterCopy = master;
+
+        // Prep flags to gain next values
+        boolean flag1 = current1.next != null;
+        boolean flag2 = current2.next != null;
+
+        // current1 and current2 node values
+        int current1val, current2val;
+
+        // find the large list node
+        ListNode largest = findLargest(current1, current2);
+        largest = largest.next; // match with largest current
+
+        // go to next if not null
+        current1 = flag1 ? current1.next : current1;
+        current2 = flag2 ? current2.next : current2;
+
+        while( largest != null ) {
+
+            // get current node values
+            current1val = flag1 ? current1.val : 0;
+            current2val = flag2 ? current2.val : 0;
+
+            // get sum based on flags and take away the carry once used
+            sum = current1val + current2val + carry;
+            carry = 0; 
+
+            // add node to master and go to next
+            if (sum >= 10) {
+                master.next = new ListNode(sum % 10);
+                carry = sum / 10;
+            } else {
+                master.next = new ListNode(sum);
+            }
+            master = master.next;
+
+            // get new flags
+            flag1 = current1.next != null;
+            flag2 = current2.next != null;
+
+            // determine which list goes to next node
+            current1 = flag1 ? current1.next : current1;
+            current2 = flag2 ? current2.next : current2;
+
+            // go to next - determines the duration of loop
+            largest = largest.next;
+        }
+
+        // record any extra carries
+        if (carry > 0) {
+            master.next = new ListNode(carry);
+        }
+        return masterCopy;
+    }
+
+    /**
+     * Finds the largest ListNode
+     * @param l1 ListNode
+     * @param l2 ListNode
+     * @return ListNode
+     */
+    public static ListNode findLargest(ListNode l1, ListNode l2) {
+        int l1count = count(l1);
+        int l2count = count(l2);
+
+        if (l1count > l2count) {
+            return l1;
+        }
+        return l2;
+    }
+
+    /**
+     * Counts the number of nodes in a {@link ListNode}
+     * @param ln ListNode
+     * @return int
+     */
+    public static int count(ListNode ln) {
+        int c = 0;
+        while (ln != null) {
+            c++;
+            ln = ln.next;
+        }
+        return c;
+    }
+}
