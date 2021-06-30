@@ -6721,3 +6721,64 @@ public class Main {
         return true;
     }
 }
+
+package com.leetcode;
+
+/**
+ * Design a stack that supports push, pop, top, and retrieving the minimum element.
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ *    
+ *     Improvements: implement map structure as a field to hold minimum value for each element in 
+ *     the stack. This way, if the current minimum is popped, we can search for the current top 
+ *     element's minimum value. Doesn't need to be a stack, but some structure to hold each 
+ *     element's minimum value. Would speed up the algorithm by a bunch.
+ */
+public class MinStack {
+    private final int[] array;
+    private int top;
+    private int min;
+
+    public MinStack() {
+        this.array = new int[30000];
+        this.top = -1;
+        this.min = 0;
+    }
+
+    public void push(int val) {
+        this.array[++this.top] = val;
+        // if first element, assign actaul min 
+        if (this.top == 0) {
+           this.min = this.array[0];
+           // determine if element being pushed is smaller than min
+        } else {
+            this.min = Math.min(this.min, val);
+        }
+    }
+
+    public void pop() {
+        // element being popped is current min
+        if (this.array[this.top] == min) {
+            this.top--;
+            // if elements are left in stack
+            if (this.top != -1) {
+                int newMin = this.array[this.top];
+                // find the smallest element
+                for (int i = 0; i < this.top; i++) {
+                    newMin = Math.min(this.array[i], newMin);
+                }
+                this.min = newMin;
+            }
+        } else {
+            this.top--;
+        }
+    }
+
+    public int top() {
+        return this.array[top];
+    }
+
+    public int getMin() {
+        return this.min;
+    }
+}
