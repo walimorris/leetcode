@@ -6782,3 +6782,84 @@ public class MinStack {
         return this.min;
     }
 }
+
+package com.leetcode;
+
+import java.util.Stack;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/**
+ * You are keeping score for a baseball game with strange rules. The game consists of several
+ * rounds, where the scores of past rounds may affect future rounds' scores. At the beginning
+ * of the game, you start with an empty record. You are given a list of strings ops, where
+ * ops[i] is the ith operation you must apply to the record and is on of the following:
+ *
+ *     1. An integer x - Record a new score of x.
+ *
+ *     2. "+" - Record a new score that is the sum of the previous two
+ *     scores. It is guaranteed there will always be two previous scores.
+ *
+ *     3. "D" - Record a new score that is double the previous score. it
+ *     is guaranteed there will always be a previous score.
+ *
+ *     4. "C - Invalidate the previous score, removing it from the record.
+ *     It is guaranteed there will always be a previous score.
+ *
+ * Return the sum of all the scores on the record.
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+public class Main {
+
+    public static void main(String[] args) {
+        String[] ops1 = {"5", "2", "C", "D", "+"};
+        String[] ops2 = {"5", "-2", "4", "C", "D", "9", "+", "+"};
+        String[] ops3 = {"1"};
+
+        int output1 = calPoints(ops1);
+        int output2 = calPoints(ops2);
+        int output3 = calPoints(ops3);
+        
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+
+    public static int calPoints(String[] ops) {
+        int score = 0;
+        Stack<Integer> stack = new Stack<>();
+
+        // Set up regex patterns for matching digit
+        String digit = "^.?[0-9]+$";
+        Pattern digitpattern = Pattern.compile(digit);
+
+        for (String op : ops) {
+            Matcher matcher = digitpattern.matcher(op);
+
+            // digit - push int
+            if (matcher.matches()) {
+                stack.push(Integer.parseInt(op));
+                score += stack.peek();
+
+            } else if (op.equals("+")) {
+                int sumPreviousTwo = 0;
+                int temp = stack.peek();
+                sumPreviousTwo += temp;
+                stack.pop();
+                sumPreviousTwo += stack.peek();
+                stack.push(temp);
+                stack.push(sumPreviousTwo);
+                score += stack.peek();
+
+            } else if (op.equals("D")) {
+                stack.push(2 * stack.peek());
+                score += stack.peek();
+            } else {
+                score -= stack.peek();
+                stack.pop();
+            }
+        }
+        return score;
+    }
+}
