@@ -5,7 +5,7 @@
  * movies with an odd numbered ID and a description that is not "boring". Order the result by rating.
  */ 
  
- Select id, movie, description, rating from cinema where id % 2 != 0 AND description != "boring" Order by rating DESC;
+ SELECT id, movie, description, rating FROM cinema WHERE id % 2 != 0 AND description != "boring" ORDER BY rating DESC;
 
 /* Big Countries 
  * 
@@ -13,4 +13,11 @@
  * 25 million. Write a SQL solution to output big countries' name, population and area. 
  */ 
  
- Select name, area, population from World Where area > 3000000 || population > 25000000;
+ SELECT name, area, population FROM World WHERE area > 3000000 || population > 25000000;
+ 
+ /*Recyclable and Low Fat Products
+  * 
+  * Write a SQL query to find the ids of products that are both low fat and recyclable
+  */
+  
+  SELECT product_d FROM Products WHERE low-fats='Y' AND recyclable='Y';
