@@ -6863,3 +6863,23 @@ public class Main {
         return score;
     }
 }
+
+package com.leetcode;
+
+public class Main {
+
+    public static void main(String[] args) {
+        String i1 = "leetcodeisacommunityforcoders";
+        String i2 = "aeiou";
+
+        String o1 = removeVowels(i1);
+        String o2 = removeVowels(i2);
+
+        System.out.println(o1);
+        System.out.println(o2);
+    }
+
+    public static String removeVowels(String s) {
+        return s.replaceAll("[aeiou]", "");
+    }
+}
