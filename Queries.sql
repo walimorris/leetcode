@@ -15,9 +15,18 @@
  
  SELECT name, area, population FROM World WHERE area > 3000000 || population > 25000000;
  
- /*Recyclable and Low Fat Products
+ /* Recyclable and Low Fat Products
   * 
   * Write a SQL query to find the ids of products that are both low fat and recyclable
   */
   
-  SELECT product_d FROM Products WHERE low-fats='Y' AND recyclable='Y';
+ SELECT product_d FROM Products WHERE low-fats='Y' AND recyclable='Y';
+ 
+ /* Invalid Tweets
+  * 
+  * Write a SQL query ti find the IDs of the invalid tweets. The tweet is invalid if the number 
+  * of characters used in the content of the tweet is strictly greater than 15. Return the result
+  * in any order.
+  */
+  
+  SELECT tweet_id FROM Tweets WHERE LENGTH(content) > 15; 
