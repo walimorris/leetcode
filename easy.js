@@ -158,3 +158,32 @@ let mergeAlternately = function(word1, word2) {
     }
     return mergedString;
 }
+
+/**
+ * Given an array of integers nums and an integer target, return indices of 
+ * the two numbers such that they add up to target. 
+ * 
+ * You may assume that each input would have exactly one solution, and you 
+ * may not use the same element twice.
+ * 
+ * You can return the answer in any order 
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
+var twoSum = function (nums, target) {
+    for (let i = 0; i < nums.length; i++) {
+        let n1 = nums[i];
+        for (let j = i + 1; j < nums.length; j++) {
+            let n2 = nums[j];
+            if (n1 + n2 === target) {
+                return [i, j];
+            }
+        }
+    }
+};
