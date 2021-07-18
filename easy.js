@@ -187,3 +187,33 @@ var twoSum = function (nums, target) {
         }
     }
 };
+
+/**
+ * Given a signed 32-bit integer x, return x with its digits reversed. If
+ * reversing x causes the value to go outside the signed 32-bit integer
+ * range, then return 0.
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+/**
+ * @param {number} x
+ * @return {number}
+ */
+var reverse = function(x) {
+    const y = x.toString();
+    let reverse = '';
+
+    reverse = x < 0 ? reverse += '-' : reverse;
+    for (let i = y.length - 1; i >= 0; i--) {
+        if (y[i] === '-') {
+            break;
+        }
+        reverse += y[i]; 
+    }
+    if (parseInt(reverse) < (2 ** 31) - 1 && parseInt(reverse) > -(2 ** 31)) {
+        return reverse;
+    }
+    
+    return 0; 
+}
