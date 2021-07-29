@@ -6883,3 +6883,65 @@ public class Main {
         return s.replaceAll("[aeiou]", "");
     }
 }
+
+package com.leetcode;
+
+import java.util.HashMap;
+import java.util.HashSet;
+
+/**
+ * Given two strings s and t, determine if they are isomorphic.
+ *
+ * Two strings s and t are isomorphic if the characters in s can be replaced to get t. 
+ * All occurrences of a character must be replaced with another character while preserving
+ * the order of characters. No two characters may map to the same character, but a character
+ * may map to itself.
+ * 
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        String input1s = "egg", input1t = "add";
+        String input2s = "foo", input2t = "bar";
+        String input3s = "paper", input3t = "title";
+
+        boolean output1 = isIsomorphic(input1s, input1t);
+        boolean output2 = isIsomorphic(input2s, input2t);
+        boolean output3 = isIsomorphic(input3s, input3t);
+
+        System.out.println(output1);
+        System.out.println(output2);
+        System.out.println(output3);
+    }
+
+    public static boolean isIsomorphic(String s, String t) {
+        // non-isomorphic since characters in string can not be equally mapped
+        if (s.length() != t.length()) {
+            return false;
+        }
+        // record character map from string s to string t and record mapped values
+        HashMap<Character, Character> isoMap = new HashMap<>();
+        HashSet<Character> usedIsoMapCharacterValues = new HashSet<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (isoMap.containsKey(s.charAt(i))) {
+                char c = isoMap.get(s.charAt(i));
+
+                // s string key has been found but doesn't map string t's value
+                if (c != t.charAt(i)) {
+                    return false;
+                }
+            } else {
+                // no s string key found, record character values set size and add t value
+                isoMap.put(s.charAt(i), t.charAt(i));
+                int size = usedIsoMapCharacterValues.size();
+                usedIsoMapCharacterValues.add(t.charAt(i));
+                // t value has already been mapped to different key in isomorphic map
+                if (usedIsoMapCharacterValues.size() == size) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
