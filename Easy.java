@@ -6945,3 +6945,51 @@ public class Main {
         return true;
     }
 }
+
+package com.interview;
+
+public class Main {
+
+    public static void main(String[] args) {
+        rootDigit(2344);
+        rootDigit(8);
+        rootDigit(15);
+        rootDigit(Integer.MAX_VALUE);
+    }
+
+    /**
+     * Today I failed a simple root digit problem in an interview. I feel extremely disappointed
+     * in myself because I've done this before many times and different variations, the company
+     * and interviewer was awesome, and I completely turned into a choke artist. An opportunity
+     * like this one doesn't come by often. Rather than lement on this attempt, I'll review and
+     * record the solution - which just so happened to be simple - after the fact... So here's
+     * to taking this L.
+     *
+     * Finding the root digit is quick and painless, right now at least. You'll use two main
+     * operators:
+     *
+     * 1. modulus - which reports the remainder of two positive numbers x modulo y such as
+     * 399 % 10 = 9.
+     *
+     * We then use addition to sum each remainder - the digit we want, in the given ones place.
+     *
+     * 2. division - which will be used to divide the current value num by 10 in order to reduce
+     * num such that 399 / 10 = 39.
+     *
+     * Our objective is to sum each digit of the given integer n, such that 125 = (1 + 2 + 5) = 8.
+     * Simple enough right?
+     *
+     * @author Wali Morris<walimmorris@gmail.com>
+     * @param num
+     * @return
+     */
+    public static void rootDigit(int num) {
+        int constNum = num;
+        int sum = 0;
+        while (num > 0) {
+            sum += num % 10;
+            num = num / 10;
+        }
+        System.out.println("root digit of " + constNum + " = " + sum);
+    }
+}
