@@ -6993,3 +6993,47 @@ public class Main {
         System.out.println("root digit of " + constNum + " = " + sum);
     }
 }
+
+package com.leetcode;
+
+/**
+ * Return the index of the first occurrence of needle in haystack, or -1 if needle
+ * is not part of haystack.
+ *
+ * @author Wali Morris<walimmorris@gmail.com>
+ */
+
+public class Main {
+    public static void main(String[] args) {
+        String[] input1 = { "hello", "ll" };
+        String[] input2 = { "aaaaa", "bba" };
+        String[] input3 = { "", "" };
+        String[] input4 = {"saboageyouorsabotageme", "bot"};
+        String[] input5 = {"a", "a"};
+
+        System.out.println("output1 = " + strStr(input1[0], input1[1]));
+        System.out.println("output2 = " + strStr(input2[0], input2[1]));
+        System.out.println("output3 = " + strStr(input3[0], input3[1]));
+        System.out.println("output4 = " + strStr(input4[0], input4[1]));
+        System.out.println("output5 = " + strStr(input5[0], input5[1]));
+    }
+
+    public static int strStr(String haystack, String needle) {
+        if (needle.isEmpty()) {
+            return 0;
+        }
+        int currentIndex = 0;
+        while (currentIndex < haystack.length()) {
+            if (haystack.charAt(currentIndex) == needle.charAt(0)) {
+                if (haystack.length() - currentIndex >= needle.length()) {
+                    String sub = haystack.substring(currentIndex, currentIndex + (needle.length()));
+                    if (sub.equals(needle)) {
+                        return currentIndex;
+                    }
+                }
+            }
+            currentIndex++;
+        }
+        return -1;
+    }
+}
