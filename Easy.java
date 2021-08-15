@@ -7030,6 +7030,9 @@ public class Main {
                     if (sub.equals(needle)) {
                         return currentIndex;
                     }
+                } else {
+                    // length of needle is greater than haystack, return -1
+                    return -1;
                 }
             }
             currentIndex++;
