@@ -7040,3 +7040,92 @@ public class Main {
         return -1;
     }
 }
+
+/**
+ * Design a data structure that accepts a stream of integers and checks if it has a pair
+ * of integers that sum up to a particular value.
+ */
+public class TwoSum {
+
+    private int[] arr;
+    private int size;
+
+    public TwoSum() {
+        size = 0;
+        arr = new int[size];
+    }
+
+    /**
+     * Add number to array.
+     *
+     * @param number int to add
+     */
+    public void add(int number) {
+        size = size + 1;
+        copyArrayPlusOne(size, number);
+    }
+
+    /**
+     * Sort the current array and add two pointers; one pointing to front of array and the other
+     * at the end of the array. If the two current indexes at which the pointers are pointing
+     * equal the value of target then return true. If the current value is greater than the
+     * target value then decrement the back-end pointer, else increment the front-end pointer.
+     * At some point the target value will be found and return true or the pointers will collide
+     * and return false;
+     *
+     * @param value target value to find
+     * @return boolean
+     */
+    public boolean find(int value) {
+        int[] tempArr = arr;
+        Arrays.sort(tempArr);
+        int ptr1 = 0;
+        int ptr2 = tempArr.length - 1;
+
+        if (tempArr.length > 0) {
+            while (ptr1 != ptr2) {
+                int currentValue = tempArr[ptr1] + tempArr[ptr2];
+                if (currentValue == value) {
+                    return true;
+                }
+                if (currentValue > value) {
+                    ptr2 = ptr2 - 1;
+                } else {
+                    ptr1 = ptr1 + 1;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Get String representation of array.
+     *
+     * @return {@link String}
+     */
+    public String getArray() {
+        return Arrays.toString(arr);
+    }
+
+    /**
+     * Get size of array.
+     *
+     * @return int
+     */
+    public int getSize() {
+        return this.size;
+    }
+
+    /**
+     * Copies the array, increments size and adds new number.
+     *
+     * @param size size of array
+     * @param number int which is being added to array
+     */
+    private void copyArrayPlusOne(int size, int number) {
+        int[] arrayCopy = new int[size];
+        arrayCopy[size - 1] = number;
+        System.arraycopy(arr, 0, arrayCopy, 0, arr.length);
+        arr = arrayCopy;
+    }
+}
