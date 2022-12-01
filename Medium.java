@@ -935,4 +935,34 @@ public class Main {
         }
         return c;
     }
+    
+    /**
+     * Given a string, find the length of the longest substring without repeating characters.
+     *
+     * @param s {@link String}
+     * @return int
+     */
+    public static int lengthOfLongestSubstring(String s) {
+        if (s.length() <= 1) {
+            return s.length();
+        }
+        String currentLongestSubString = String.valueOf(s.charAt(0));
+        for (int i = 0; i < s.length(); i++) {
+            int j = i;
+            StringBuilder temp = new StringBuilder();
+            while (j < s.length()) {
+                if (temp.toString().contains(String.valueOf(s.charAt(j)))) {
+                    break;
+                } else {
+                    temp.append(s.charAt(j));
+                    j++;
+                }
+            }
+            if (temp.toString().length() > currentLongestSubString.length()) {
+                currentLongestSubString = temp.toString();
+                temp.setLength(0);
+            }
+        }
+        return currentLongestSubString.length();
+    }
 }
