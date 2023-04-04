@@ -48,3 +48,16 @@
    WHERE 
        e.salary > (SELECT salary FROM Employee WHERE id = e.managerId);
    
+ /*
+  * Write an SQL query to report all customers who never order anything.
+  */
+   SELECT
+       c.name AS 'Customers'
+   FROM 
+       Customers AS c
+   LEFT JOIN 
+       Orders AS o
+   ON
+       c.id = o.customerId
+   WHERE 
+       o.customerId IS NULL;
