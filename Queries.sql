@@ -4,20 +4,20 @@
  * out a poster indicatng the movies' ratings and descriptions. Please write a SQL query to output
  * movies with an odd numbered ID and a description that is not "boring". Order the result by rating.
  */ 
- SELECT id, movie, description, rating FROM cinema WHERE id % 2 != 0 AND description != "boring" ORDER BY rating DESC;
+  SELECT id, movie, description, rating FROM cinema WHERE id % 2 != 0 AND description != "boring" ORDER BY rating DESC;
 
 /* Big Countries 
  * 
  * A country is big if it has an area of bigger than 3 million square km or a population of more than 
  * 25 million. Write a SQL solution to output big countries' name, population and area. 
  */ 
- SELECT name, area, population FROM World WHERE area > 3000000 || population > 25000000;
+  SELECT name, area, population FROM World WHERE area > 3000000 || population > 25000000;
  
  /* Recyclable and Low Fat Products
   * 
   * Write a SQL query to find the ids of products that are both low fat and recyclable
   */
- SELECT product_d FROM Products WHERE low-fats='Y' AND recyclable='Y';
+  SELECT product_d FROM Products WHERE low-fats='Y' AND recyclable='Y';
  
  /* Invalid Tweets
   * 
@@ -25,12 +25,12 @@
   * of characters used in the content of the tweet is strictly greater than 15. Return the result
   * in any order.
   */
- SELECT tweet_id FROM Tweets WHERE LENGTH(content) > 15; 
+  SELECT tweet_id FROM Tweets WHERE LENGTH(content) > 15; 
  
  /*
   * Write an SQL query to report all the duplicate emails. Note that it's guaranteed that the email field is not NULL.
   */ 
- SELECT email AS 'Email' FROM Person GROUP BY email HAVING COUNT(email) > 1;
+  SELECT email AS 'Email' FROM Person GROUP BY email HAVING COUNT(email) > 1;
  
  /*
   * Write a SQL query to report the first name, last name, city and state of each person in the Person table. If the address
