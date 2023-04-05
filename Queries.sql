@@ -61,3 +61,19 @@
        c.id = o.customerId
    WHERE 
        o.customerId IS NULL;
+       
+ /*
+  * Write an SQL query to report the name and bonus amount of each employee with a bonus less than 1000.
+  */
+   SELECT 
+       e.name, 
+       b.bonus
+   FROM 
+       Employee AS e
+   LEFT JOIN 
+       Bonus AS b
+   ON
+       e.empId = b.empdId
+   WHERE 
+       b.bonus < 1000 || b.bonus IS NULL;
+     
