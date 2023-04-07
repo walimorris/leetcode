@@ -194,3 +194,16 @@ GROUP BY
     player_id
 ORDER BY
     event_date;
+    
+/*
+ * Write an SQL query to show the unique ID of each user, If a user does not have a unique ID replace just show null.
+ */
+  SELECT 
+    eu.unique_id, 
+    e.name 
+FROM 
+    EmployeeUNI AS eu
+RIGHT JOIN
+    Employees AS e
+ON 
+    eu.id = e.id
