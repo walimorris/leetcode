@@ -965,4 +965,56 @@ public class Main {
         }
         return currentLongestSubString.length();
     }
+
+    /**
+     * Given an array of strings strs, group all anagrams together into sublists.
+     * You may return the output in any order.
+     */
+    public static List<List<String>> groupAnagrams(String[] strs) {
+        Map<String, List<String>> mapping = new HashMap<>();
+        List<List<String>> result = new ArrayList<>();
+        for (String str : strs) {
+            String sortedStr = sortString(str);
+            if (mapping.containsKey(sortedStr)) {
+                mapping.get(sortedStr).add(str);
+            } else {
+                List<String> strList = new ArrayList<>();
+                strList.add(str);
+                mapping.put(sortedStr, strList);
+            }
+        }
+        mapping.forEach((key, value) -> result.add(value));
+        return result;
+    }
+
+    private String sortString(String s) {
+        char[] arr = s.toCharArray();
+        Arrays.sort(arr);
+        return new String(arr);
+    }
+
+    /**
+     * Given an integer array nums and an integer k, return the k most frequent elements within the array.
+     */
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> mappings = new HashMap<>();
+        for (int num : nums) {
+            if (mappings.containsKey(num)) {
+                int value = mappings.get(num);
+                mappings.put(num, value + 1);
+            } else {
+                mappings.put(num, 1);
+            }
+        }
+        List<Map.Entry<Integer, Integer>> list = new ArrayList<>(mappings.entrySet());
+        list.sort(Map.Entry.<Integer, Integer>comparingByValue().reversed());
+        List<Integer> sortedKeys = new ArrayList<>();
+        for (Map.Entry<Integer, Integer> entry : list) {
+            sortedKeys.add(Integer.parseInt(String.valueOf(entry.getKey())));
+        }
+        return sortedKeys.stream()
+                .mapToInt(key -> Integer.parseInt(String.valueOf(key)))
+                .limit(k)
+                .toArray();
+    }
 }
