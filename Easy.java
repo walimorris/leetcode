@@ -7128,4 +7128,30 @@ public class TwoSum {
         System.arraycopy(arr, 0, arrayCopy, 0, arr.length);
         arr = arrayCopy;
     }
+
+	/**
+     * Given a string s, return true if it is a palindrome, otherwise return false.
+     *
+     * A palindrome is a string that reads the same forward and backward. It is also
+     * case-insensitive and ignores all non-alphanumeric characters.
+     *
+     * @param s {@link String}
+     *
+     * @return boolean
+     */
+    public static boolean isPalindrome(String s) {
+        String str = s.replaceAll("[^a-zA-Z0-9]", "");
+        int pointerFront = 0;
+        int pointerBack = str.length() - 1;
+        while (pointerFront <= pointerBack) {
+            String currentFront = str.charAt(pointerFront) + "";
+            String currentBack =  str.charAt(pointerBack) + "";
+            if (!currentFront.equalsIgnoreCase(currentBack)) {
+                return false;
+            }
+            pointerFront++;
+            pointerBack--;
+        }
+        return true;
+    }
 }
