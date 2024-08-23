@@ -1048,4 +1048,18 @@ public class Main {
         }
         return longest;
     }
+
+    public static int[] twoSum2(int[] numbers, int target) {
+        // int : index
+        Map<Integer, Integer> cache = new HashMap<>();
+        for (int i = 0; i < numbers.length; i++) {
+            if (cache.containsKey(target - numbers[i]) && i + 1 > cache.get(target - numbers[i])) {
+                return new int[]{cache.get(target - numbers[i]), i + 1};
+            } else {
+                cache.put(numbers[i], i + 1);
+                System.out.println(cache);
+            }
+        }
+        return new int[]{};
+    }
 }
