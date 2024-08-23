@@ -1017,4 +1017,35 @@ public class Main {
                 .limit(k)
                 .toArray();
     }
+
+    /**
+     * Given an array of integers nums, return the length of the longest consecutive 
+     * sequence of elements.
+     *
+     * A consecutive sequence is a sequence of elements in which each element is exactly
+     * 1 greater than the previous element.
+     * 
+     * @param nums int[]
+     *             
+     * @return int
+     */
+    public static int longestConsecutive(int[] nums) {
+        HashSet<Integer> set = new HashSet<>();
+        Arrays.stream(nums).forEach(set::add);
+
+        int longest = 0;
+        for (int num : nums) {
+            // its beginning of sequence
+            if (!set.contains(num - 1)) {
+                int currentLongest = 0;
+                int current = num;
+                while (set.contains(current)) {
+                    currentLongest++;
+                    current++;
+                }
+                longest = Math.max(longest, currentLongest);
+            }
+        }
+        return longest;
+    }
 }
