@@ -7154,4 +7154,52 @@ public class TwoSum {
         }
         return true;
     }
+
+	/**
+     * Definition for singly-linked list.
+     * class ListNode {
+     *     int val;
+     *     ListNode next;
+     *     ListNode(int x) {
+     *         val = x;
+     *         next = null;
+     *     }
+     * }
+     */
+    public static boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null) {
+            return false;
+        }
+        Set<ListNode> cache = new HashSet<>();
+        cache.add(head);
+        while (head.next != null) {
+            head = head.next;
+            if (cache.contains(head)) {
+                System.out.println(head.val);
+                return true;
+            }
+            cache.add(head);
+        }
+        return false;
+    }
+
+    /**
+     * Floyd's Tortoise and Hare implementation of hasCycle.
+     *
+     * @param head {@link ListNode}
+     *
+     * @return boolean
+     */
+    public static boolean hasCycle2(ListNode head) {
+        ListNode fast = head;
+        ListNode slow = head;
+        while (fast != null && fast.next != null) {
+            fast = fast.next.next;
+            slow = slow.next;
+            if (slow == fast) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
