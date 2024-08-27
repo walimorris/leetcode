@@ -7202,4 +7202,40 @@ public class TwoSum {
         }
         return false;
     }
+
+    /**
+     * Given a string s containing just the characters '(', ')', '{', '}', '[' and ']', 
+     * determine if the input string is valid.
+     * <br><br>
+     * An input string is valid if:
+     *<br><br>
+     * Open brackets must be closed by the same type of brackets.
+     * Open brackets must be closed in the correct order.
+     * Every close bracket has a corresponding open bracket of the same type.
+     * 
+     * @param s {@link String}
+     * 
+     * @return boolean
+     */
+    public static boolean isValid(String s) {
+        Stack<Character> stack = new Stack<>();
+        Map<Character, Character> cache = new HashMap<>();
+        cache.put('}', '{');
+        cache.put(')', '(');
+        cache.put(']', '[');
+
+        for (char c : s.toCharArray()) {
+            if (cache.containsKey(c)) {
+                char open = cache.get(c);
+                if (!stack.isEmpty() && stack.peek() == open) {
+                    stack.pop();
+                } else {
+                    return false;
+                }
+            } else {
+                stack.push(c);
+            }
+        }
+        return stack.isEmpty();
+    }
 }
