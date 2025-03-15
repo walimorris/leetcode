@@ -1062,4 +1062,43 @@ public class Main {
         }
         return new int[]{};
     }
+
+    /**
+     * You are given the root node of a binary search tree (BST) and a value to insert into the tree.
+     * Return the root node of the BST after the insertion. It is guaranteed that the new value does 
+     * not exist in the original BST.
+     * <p>
+     * Notice that there may exist multiple valid ways for the insertion, as long as the tree remains
+     * a BST after insertion. You can return any of them.
+     * 
+     * @param root {@link TreeNode}
+     * @param val insert value
+     *            
+     * @return {@link TreeNode}
+     */
+    public static TreeNode insertIntoBST(TreeNode root, int val) {
+        if (root == null) {
+            return new TreeNode(val);
+        }
+        TreeNode current = root;
+        TreeNode parent;
+        while (current != null) {
+            if (val < current.val) {
+                parent = current;
+                current = current.left;
+                if (current == null) {
+                    parent.left = new TreeNode(val);
+                    break;
+                }
+            } else {
+                parent = current;
+                current = current.right;
+                if (current == null) {
+                    parent.right = new TreeNode(val);
+                    break;
+                }
+            }
+        }
+        return root;
+    }
 }
