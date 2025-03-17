@@ -1,2 +1,2 @@
 # Leetcode
-Leetcode: Java
+Leetcode: Java / SQL
