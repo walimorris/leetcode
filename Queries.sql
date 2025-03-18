@@ -207,3 +207,45 @@ RIGHT JOIN
     Employees AS e
 ON 
     eu.id = e.id
+
+/*
+ * Write a solution to find the ids of products that are both low fat and recyclable.
+ */ 
+SELECT product_id
+FROM Products
+WHERE low_fats = 'Y' AND recyclable = 'Y';
+
+/*
+ * Write a solution to find managers with at least five direct reports.
+ */ 
+SELECT m.name AS name
+FROM Employee e
+JOIN Employee m ON e.managerId = m.id
+GROUP BY m.id, m.name
+HAVING COUNT(e.id) >= 5;
+
+/* 
+ * Write a solution to find the average selling price for each product.
+ * average_price should be rounded to 2 decimal places. If a product does
+ * not have any sold units, its average selling price is assumed to be 0.
+ */
+SELECT p.product_id, 
+  ROUND(IFNULL(SUM(p.price * u.units) / NULLIF(SUM(u.units), 0), 0), 2) AS average_price
+FROM Prices p
+LEFT JOIN UnitsSold u
+ON p.product_id = u.product_id
+AND u.purchase_date BETWEEN p.start_date AND p.end_date
+GROUP BY p.product_id;
+
+/* 
+ * Write a solution to find the number of times each student attended each exam.
+ * Return the result table ordered by student_id and subject_name.
+ */
+SELECT s.student_id, s.student_name, sub.subject_name, 
+       COUNT(e.subject_name) AS attended_exams
+FROM Students s
+CROSS JOIN Subjects sub
+LEFT JOIN Examinations e 
+ON s.student_id = e.student_id AND sub.subject_name = e.subject_name
+GROUP BY s.student_id, s.student_name, sub.subject_name
+ORDER BY s.student_id, sub.subject_name;
