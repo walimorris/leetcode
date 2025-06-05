@@ -1102,3 +1102,37 @@ public class Main {
         return root;
     }
 }
+
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+public class LRUCache {
+    private final int capacity;
+    private final LinkedHashMap<Integer, Integer> cache;
+
+    public LRUCache(int capacity) {
+        this.capacity = capacity;
+        this.cache = new LinkedHashMap<>(capacity, 1.0f, true) {
+            @Override
+            protected boolean removeEldestEntry(Map.Entry<Integer, Integer> eldest) {
+                return size() > capacity;
+            }
+        };
+    }
+
+    public int get(int key) {
+        Integer result = this.cache.get(key);
+        if (result == null) {
+            return -1;
+        }
+        return result;
+    }
+
+    public void put(int key, int value) {
+        this.cache.put(key, value);
+    }
+
+    public int getCapacity() {
+        return this.capacity;
+    }
+}
