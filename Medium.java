@@ -9,7 +9,7 @@
  *    at least k numbers. 
  *
  * At any time, the product of any contiguous sequence of numbers will fit 
- * into a 32-bit integer without overflowing. 
+ * into a 32-bit integer without overflowing.
  * 
  * ProductOfNumbers object will be instantiated and called as such : 
  * ProductOfNumbers obj = new ProductOfNumbers(); 
@@ -17,7 +17,7 @@
  * int param_2 = obj.getProduct(k); 
  *
  * @author Wali Morris <walimmorris@gmail.com>
- */
+FF */
 
 class ProductOfNumbers {
     private int[] elements; // array structure to hold values 
@@ -964,6 +964,35 @@ public class Main {
             }
         }
         return currentLongestSubString.length();
+    }
+
+    public static int lengthOfLongestSubstringWithHash(String s) {
+        int max = 0;
+        int leader = 0;
+        int follower = 0;
+
+        HashSet<Character> hash = new HashSet<>();
+        while (follower != s.length()) {
+            // if leader has reached end of string
+            if (leader == s.length()) {
+                max = Math.max(leader - follower, max);
+                follower++;
+                leader = follower;
+                hash.clear();
+                continue;
+            }
+            // if hash contains the current character
+            if (hash.contains(s.charAt(leader))) {
+                max = Math.max(leader - follower, max);
+                follower++;
+                leader = follower;
+                hash.clear();
+            } else {
+                hash.add(s.charAt(leader));
+                leader++;
+            }
+        }
+        return max;
     }
 
     /**
